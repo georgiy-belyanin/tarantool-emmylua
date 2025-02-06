@@ -7,7 +7,6 @@ Using it you may find out how to configure your IDE for developing Tarantool app
 
 1. Install [emmylua-analyzer-rust LSP](https://github.com/CppCXY/emmylua-analyzer-rust).
 2. Configure your text editor to use it.
-
 If you're using NeoVim, put this in your Lua configuration:
 ```lua
 vim.lsp.start({
@@ -15,6 +14,7 @@ vim.lsp.start({
   root_dir = vim.fn.getcwd(),
 })
 ```
+If you're using VSCode, install an extension [https://marketplace.visualstudio.com/items?itemName=tangzx.emmylua](https://marketplace.visualstudio.com/items?itemName=tangzx.emmylua).
 3. Clone the annotations repository
 ```bash
 git clone https://github.com/georgiy-belyanin/tarantool-emmylua
@@ -32,8 +32,6 @@ git clone https://github.com/georgiy-belyanin/tarantool-emmylua
   }
 }
 ```
-
-If you're using VSCode, install an extension [https://marketplace.visualstudio.com/items?itemName=tangzx.emmylua](https://marketplace.visualstudio.com/items?itemName=tangzx.emmylua).
 
 ## Contributing
 
