@@ -15,6 +15,7 @@ vim.lsp.start({
 })
 ```
 If you're using VSCode, install an extension [https://marketplace.visualstudio.com/items?itemName=tangzx.emmylua](https://marketplace.visualstudio.com/items?itemName=tangzx.emmylua).
+
 3. Clone the annotations repository
 ```bash
 git clone https://github.com/georgiy-belyanin/tarantool-emmylua
