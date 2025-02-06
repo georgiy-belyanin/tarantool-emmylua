@@ -27,7 +27,7 @@ git clone https://github.com/georgiy-belyanin/tarantool-emmylua
   },
   "workspace": {
     "library": [
-      <path to the cloned repository>/Library"
+      "<path to the cloned repository>/Library"
     ]
   }
 }
