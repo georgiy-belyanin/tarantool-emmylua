@@ -549,4 +549,15 @@ function box.watch(key, func) end
 ---@return box.watcher
 function box.watch_once(key, func) end
 
+---@alias box.update_operation
+---| '+' # Addition. Values must be numeric, e.g. unsigned or decimal.
+---| '-' # Subtraction. Values must be numeric.
+---| '&' # Bitwise AND. Values must be unsigned numeric.
+---| '|' # Bitwise OR. Values must be unsigned numeric.
+---| '^' # Bitwise XOR. Values must be unsigned numeric.
+---| ':' # String splice.
+---| '!' # Insertion of a new field.
+---| '#' # Deletion.
+---| '=' # Assignment.
+
 return box
