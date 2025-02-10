@@ -37,7 +37,7 @@ git clone https://github.com/georgiy-belyanin/tarantool-emmylua
 ## Usage
 
 You may annotate your spaces by defining a project-specific language server definition file with similar generic type annotations.
-```
+```lua
 ---@meta
 
 --Define the types used within the space.
