@@ -34,6 +34,23 @@ git clone https://github.com/georgiy-belyanin/tarantool-emmylua
 }
 ```
 
+## Usage
+
+You may annotate your spaces by defining a project-specific language server definition file with similar generic type annotations.
+```
+---@meta
+
+--Define the types used within the space.
+
+---@alias deposit_tuple [number, string, number]
+---@alias deposit { id: number, owner: string, amount: number }
+
+--Define the space type itself.
+
+---@type box.space<deposit_tuple, deposit>
+box.space.deposits = {}
+```
+
 ## Contributing
 
 If you have suggestions, ideas, etc. on the Language Server or annotations themselves feel free to leave issues, pull requests and discussions.
