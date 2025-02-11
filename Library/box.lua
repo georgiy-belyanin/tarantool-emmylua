@@ -305,6 +305,8 @@ box.index = {
     BITS_ALL_NOT_SET = 9,
     OVERLAPS = 10,
     NEIGHBOR = 11,
+    NP = 12,
+    PP = 13,
 }
 
 ---Execute a function, provided it has not been executed before.

@@ -225,9 +225,10 @@ function dostring(lua_chunk_string, ...) end
 ---@return string
 function package.search(name) end
 
-box.NULL
-
 ---Sets root for require.
 ---
 ---@param path ?string
 function package.setsearchroot(path) end
+
+---@type any
+_TARANTOOL = {}
