@@ -146,8 +146,8 @@ For more information on using LSP refer to the [project's documentation](https:/
         + [x] `backup`
         + [x] `cfg`
         + [x] `ctl` (partial)
-        + [x] `error` (partial)
-        + [ ] `index`
+        + [x] `error`
+        + [x] `index` (partial)
         + [x] `info`
         + [x] `schema` (partial, `user`/`role` is missing)
         + [x] `session`
