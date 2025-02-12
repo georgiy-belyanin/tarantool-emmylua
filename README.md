@@ -151,7 +151,7 @@ For more information on using LSP refer to the [project's documentation](https:/
         + [x] `info`
         + [x] `schema` (partial, `user`/`role` is missing)
         + [x] `session`
-        + [x] `slab` (partial)
+        + [x] `slab`
         + [x] `space` (partial)
         + [x] `stat` (partial)
         + [x] `tuple`
