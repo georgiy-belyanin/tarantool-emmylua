@@ -46,7 +46,7 @@ For more information on configuring LSP refer to the [project's documentation](h
 
 After installing text-editor-specific IDE provides documentation and completion for the most popular Tarantool functions. For instance, pressing `K` in NeoVim having a Tarantool call under the cursor displays a documentation and information on the arguments and return types. This is a piece of the documentation for `fiber.new()`.
 
-```
+```markdown
 Create a fiber but do not start it.
 
 The created fiber starts after the fiber creator (that is, the job that is calling `fiber.new()`) yields. The initial fiber state is ready.
@@ -150,7 +150,7 @@ For more information on using LSP refer to the [project's documentation](https:/
         + [ ] `index`
         + [x] `info`
         + [ ] `schema`
-        + [ ] `session`
+        + [x] `session`
         + [x] `slab` (partial)
         + [x] `space` (partial)
         + [x] `stat` (partial)
