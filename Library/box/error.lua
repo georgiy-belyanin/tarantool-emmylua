@@ -1,11 +1,14 @@
 ---@meta
 
 ---@class box.error: ffi.cdata*
----@field type string (usually ClientError)
----@field base_type string (usually ClientError)
----@field code number number of error
----@field prev? box.error previous error
----@field message any message of error given during `box.error.new`
+---@field type string The error type (usually ClientError).
+---@field base_type string The base type (usually ClientError).
+---@field code number Number of error.
+---@field prev? box.error *Since 2.4.1* The previous error for the current one.
+---@field message any The error message.
+---@field reason string *Since 2.10.0* Returns the `box.info.ro_reason` value at the moment of throwing the `box.error.READONLY` error.
+---@field errno? number If the error is a system error (for example, a socket or file IO failure), a C standard error number.
+---@field state? string For the box.error.READONLY error, returns the current state of a replica set node in regards to leader election (see [`box.info.election.state`](lua://box.info.election.state)).
 local box_error_object = {}
 
 ---# Builtin `box.error` submodule.
@@ -51,24 +54,82 @@ function box.error(code, errtext, ...) end
 ---@field custom_type string? present if custom ErrorType was passed
 ---@field trace box.error.trace[]? backtrace
 
+---Get error details that may include an error code, type, message, and trace.
+---
 ---@return box.error.table
 function box_error_object:unpack() end
 
----Raises error
+---Raise the current error.
 function box_error_object:raise() end
 
----Instances new box.error.
+---Create an error object with the specified parameters.
 ---
----@param code number number of a pre-defined error
----@param errtxt string part of the message which will accompany the error
----@return box.error
-function box.error.new(code, errtxt, ...) end
-
----Instances new box.error.
+---**Examples:**
+---
+--- ```lua
+--- local custom_error = box.error.new({ code = 500,
+---                                      reason = 'Internal server error' })
+---
+--- box.error(custom_error)
+--- --[[
+--- ---
+--- - error: Internal server error
+--- ...
+--- --]]
+--- ```
+---
+--- ```lua
+--- local custom_error = box.error.new({ code = 500,
+---                                      reason = 'Internal server error',
+---                                      type = 'CustomInternalError' })
+---
+--- box.error(custom_error)
+--- --[[
+--- ---
+--- - error: Internal server error
+--- ...
+--- --]]
+--- ```
+---
+--- ```lua
+--- local custom_error = box.error.new('CustomInternalError', 'Internal server error')
+---
+--- box.error(custom_error)
+--- --[[
+--- ---
+--- - error: Internal server error
+--- ...
+--- --]]
+--- ```
+---
+--- ```lua
+--- local custom_error = box.error.new(box.error.NO_SUCH_USER, 'John')
+---
+--- box.error(custom_error)
+--- --[[
+--- ---
+--- - error: User 'John' is not found
+--- ...
+--- --]]
+--- ```
+---
+--- ```lua
+--- local custom_error = box.error.new(box.error.CREATE_SPACE, 'my_space', 'the space already exists')
+---
+--- box.error(custom_error)
+--- --[[
+--- ---
+--- - error: 'Failed to create space ''my_space'': the space already exists'
+--- ...
+--- --]]
+--- ```
 ---
 ---@param err { reason: string, code: number?, type: string? } custom error
 ---@return box.error
+---@overload fun(code: number, errtxt: string): box.error
+---@overload fun(type: string, reason: string, ...): box.error
 function box.error.new(err) end
 
 ---@return box.error
 function box.error.last() end
+
