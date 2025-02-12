@@ -119,7 +119,7 @@ function space_methods:count(key, iterator) end
 
 ---@class box.space.field_format
 ---@field name? string value may be any string, provided that two fields do not have the same name
----@field type? "any" | "unsigned" | "string" | "integer" | "number" | "varbinary" | "boolean" | "double" | "decimal" | "uuid" | "array" | "map" | "scalar" value may be any of allowed types
+---@field type? tuple_type_name value may be any of allowed types
 ---@field is_nullable? boolean
 
 ---@alias box.space.format box.space.field_format[]
@@ -144,7 +144,6 @@ function space_methods:count(key, iterator) end
 ---**Example:**
 ---
 --- ```tarantoolsession
----
 --- tarantool> box.space.tester:delete(1)
 --- ---
 --- - [1, 'My first tuple']
@@ -159,7 +158,7 @@ function space_methods:count(key, iterator) end
 --- ...
 --- ```
 ---
----For more usage scenarios and typical errors see [example: using data operations](doc://box_space-operations-detailed-examples) further in this section.
+---For more usage scenarios and typical errors see [example: using data operations](doc://box_space-operations-detailed-examples).
 ---
 ---@param key box.tuple<T, U> | tuple_type[] | scalar
 ---@return box.tuple<T, U> | nil tuple the deleted tuple
@@ -451,7 +450,7 @@ function space_methods:run_triggers(flag) end
 ---
 ---@param key box.tuple<T, U> | tuple_type[] | scalar
 ---@param options? box.space.select_options
----@return box.tuple<T, U> list the tuples whose primary-key fields are equal to the fields of the passed key. If the number of passed fields is less than the number of fields in the primary key, then only the passed fields are compared, so select{1,2} will match a tuple whose primary key is {1,2,3}.
+---@return box.tuple<T, U>[] list the list of tuples
 function space_methods:select(key, options) end
 
 ---Deletes all tuples.
@@ -579,12 +578,12 @@ function space_methods:truncate() end
 ---The seventh argument is `'!!'`, because `'!!'` is to be added at this position.
 ---Therefore, after this update, `field[1]` = `999`, `field[2]` = `'X!!Z'`.
 ---
----For more usage scenarios and typical errors see [example: using data operations](doc://box_space-operations-detailed-examples) further in this section.
+---For more usage scenarios and typical errors see [example: using data operations](doc://box_space-operations-detailed-examples).
 ---
----Since Tarantool 2.3 a tuple can also be updated via [JSON paths](lua://json.paths).
+---*Since 2.3* a tuple can also be updated via [JSON paths](lua://json.paths).
 ---
 ---@param key box.tuple<T, U> | tuple_type[] | scalar
----@param update_operations { [1]: box.update_operation, [2]: number|string, [3]: tuple_type }[]
+---@param update_operations [box.update_operation, number|string, tuple_type][]
 ---@return box.tuple<T, U> | nil tuple the updated tuple if it was found
 function space_methods:update(key, update_operations) end
 
@@ -615,10 +614,10 @@ function space_methods:update(key, update_operations) end
 --- box.space.tester:upsert({12,'c'}, {{'=', 3, 'a'}, {'=', 4, 'b'}})
 --- ```
 ---
----For more usage scenarios and typical errors see [example: using data operations](doc://box_space-operations-detailed-examples) further in this section.
+---For more usage scenarios and typical errors see [example: using data operations](doc://box_space-operations-detailed-examples).
 ---
 ---@param tuple box.tuple<T, U> | tuple_type[]
----@param update_operations { [1]: box.update_operation, [2]: number|string, [3]: tuple_type }[]
+---@param update_operations [box.update_operation, number|string, tuple_type][]
 function space_methods:upsert(tuple, update_operations) end
 
 ---Convert a map to a tuple instance or to a table.
@@ -628,6 +627,7 @@ function space_methods:upsert(tuple, update_operations) end
 ---The field names and the value types must match names and types stated previously for the space, via [`box.space.format`](lua://box.space.format).
 ---
 ---**Possible errors:**
+---
 ---* `space_object` does not exist or has no format.
 ---* Unknown field.
 ---

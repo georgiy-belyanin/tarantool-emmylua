@@ -21,6 +21,7 @@
 ---| array # Tarantool arr
 
 ---@alias tuple_type scalar | compound
+---@alias tuple_type_name 'unsigned' | 'string' | 'boolean' | 'number' | 'integer' | 'decimal' | 'varbinary' | 'uuid' | 'scalar' | 'array'
 
 ---@alias map table<string, tuple_type> Tarantool kv map, keys are always strings
 ---@alias array tuple_type[] Tarantool array
