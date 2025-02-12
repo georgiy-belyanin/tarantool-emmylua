@@ -162,7 +162,7 @@ For more information on using LSP refer to the [project's documentation](https:/
     - [ ] `crypto`
     - [ ] `csv`
     - [x] `datetime`
-    - [ ] `decimal`
+    - [x] `decimal`
     - [ ] `digest`
     - [ ] `errno`
     - [ ] `experimental.connpool`
@@ -187,7 +187,7 @@ For more information on using LSP refer to the [project's documentation](https:/
     - [ ] `tarantool`
     - [x] `uri`
     - [ ] `utf8`
-    - [ ] `uuid`
+    - [x] `uuid`
     - [ ] `xlog`
     - [x] `yaml`
 
