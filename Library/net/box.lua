@@ -245,4 +245,4 @@ function net_box.connect(endpoint, options) end
 ---@return net.box.conn
 function net_box.new(endpoint, options) end
 
-return m
+return net_box
