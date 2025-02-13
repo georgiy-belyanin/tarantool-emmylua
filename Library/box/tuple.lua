@@ -353,9 +353,9 @@ box.tuple = {}
 --- ...
 --- ```
 ---
----@overload fun(...: tuple_type): box.tuple
+---@overload fun(...: tuple_type): box.tuple<any, any>
 ---@param value tuple_type[]
----@return box.tuple tuple
+---@return box.tuple<any, any> tuple
 function box.tuple.new(value) end
 
 ---Check whether a given object is a tuple cdata object.

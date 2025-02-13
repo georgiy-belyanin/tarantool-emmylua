@@ -1,9 +1,9 @@
 ---@meta
 
 ---@alias box.index_part_def
----| { field: number, type: 'unsigned' | 'string' | 'boolean' | 'number' | 'integer' | 'decimal' | 'varbinary' | 'uuid' | 'scalar' | 'array', is_nullable: boolean, collation: string, path: string, fieldno: number }
+---| { field: number, type: tuple_type_name, is_nullable: boolean, collation: string, path: string, fieldno: number }
 ---| { field: string, is_nullable: boolean, collation: string, path: string, fieldno: number }
----| { [1]: number|string, [2]: 'unsigned' | 'string' | 'boolean' | 'number' | 'integer' | 'decimal' | 'varbinary' | 'uuid' | 'scalar' | 'array', is_nullable: boolean, collation: string, path: string, fieldno: number }
+---| { [1]: number|string, [2]: tuple_type_name, is_nullable: boolean, collation: string, path: string, fieldno: number }
 
 ---@alias box.index_type "TREE" | "HASH" | "BITSET" | "RTREE" | "tree" | "hash" | "bitset" | "rtree"
 

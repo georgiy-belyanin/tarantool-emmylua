@@ -177,10 +177,11 @@ function box.rollback_to_savepoint(savepoint) end
 ---         insert_band, 'The Rolling Stones', 1962)
 --- ```
 ---
----@param opts { txn_isolation: box.txn_isolation }
----@param tx_function fun(...: any): ...?
+---@param opts { txn_isolation?: box.txn_isolation }
+---@param tx_function? fun(...: any): ...
 ---@param ... any
 ---@return ...? The result of the function passed to `atomic()` as an argument.
+---@overload fun(tx_function: fun(...: any): ..., ...): ...?
 function box.atomic(opts, tx_function, ...) end
 
 ---@alias box.on_commit_iterator fun():(number, box.tuple|nil, box.tuple|nil, number) request_id, old_tuple, new_tuple, space_id
@@ -284,12 +285,10 @@ function box.on_commit(trigger_func, old_trigger_func) end
 ---@param old_trigger_func? box.on_commit_trigger_func
 function box.on_commit(trigger_func, old_trigger_func) end
 
-
----@alias box.iterator box.table.iterator
-
----@class box.table.iterator
----@field iterator "GE" | "GT" | "LT" | "LE" | "EQ" | "REQ" | "BITS_ALL_NOT_SET" | "BITS_ALL_SET" | "BITS_ANY_SET" | "OVERLAPS" | "NEIGHBOR" | "ALL" | box.index.iterator
----@field after string | nil? position in index (starting from Tarantool ≥ 2.11)
+---@alias box.iterator {
+---     iterator: "GE" | "GT" | "LT" | "LE" | "EQ" | "REQ" | "BITS_ALL_NOT_SET" | "BITS_ALL_SET" | "BITS_ANY_SET" | "OVERLAPS" | "NEIGHBOR" | "ALL" | box.index.iterator,
+---     after?: string
+---}
 
 ---@enum box.index.iterator
 box.index = {

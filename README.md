@@ -7,9 +7,32 @@ For the ones unfamiliar with the LSP and annotations they extend Lua code with t
 
 See the usage section for examples on how to use it.
 
-## Installation
+## Installation (stable)
 
-Currently, the project focuses on the experimental solution based on the [emmylua-analyzer-rust LSP](https://github.com/CppCXY/emmylua-analyzer-rust). It's development is in focus since it provides preciser type system and great possibilities for extending it. Though if you'd like something more stable you may stick with [lua-language-server](https://github.com/LuaLS/lua-language-server).
+This path lua-language-server
+
+1. Set up [lua-language-server](https://github.com/LuaLS/lua-language-server) using the [instructions from the official website](https://luals.github.io/#vscode-install).
+2. Configure LSP to find annotations Library. Create `.luarc.json` inside you Tarantool app with the following contents.
+```json
+{
+  "runtime": {
+    "version": "LuaJIT"
+  },
+  "workspace": {
+    "library": [
+      "<path to the cloned repository>/Library"
+    ]
+  }
+}
+```
+
+For more information on configuring language server refer to the [project's documentation](https://luals.github.io/wiki/configuration/).
+
+## Installation (experimental)
+
+*Note:* [lua-language-server](https://github.com/LuaLS/lua-language-server) is a mature project. Though at the time of publishing this repository it has [poor support of generics](https://github.com/LuaLS/lua-language-server/issues/1861). But using a generic concept is crucial for Tarantool objects. Take [spaces](https://www.tarantool.io/en/doc/latest/platform/ddl_dml/value_store/#index-box-space) as an example. Tarantool spaces are the containers for the data of generic type defined by the user (similarly to the tables storing rows satisfying corresponding to some schema in relational databases). Thus, function for processing the tuples can't be simply implemented without generics.
+
+Since there, there is an experimental solution based on the [emmylua-analyzer-rust project](https://github.com/CppCXY/emmylua-analyzer-rust). Currently, this language server may throw some false-positive warnings. Thus, it's not recommended to use it within the CI. Though it provides better autocompletion, stricter type-checking, and more tools for code analysis (honestly it's also easier to contribute to since it's written in Rust).
 
 1. Install [emmylua-analyzer-rust LSP](https://github.com/CppCXY/emmylua-analyzer-rust).
 2. Configure your text editor to use it.
@@ -40,7 +63,7 @@ git clone https://github.com/georgiy-belyanin/tarantool-emmylua
 }
 ```
 
-For more information on configuring LSP refer to the [project's documentation](https://github.com/CppCXY/emmylua-analyzer-rust/blob/main/docs/config/emmyrc_json_EN.md).
+For more information on configuring language sesrver refer to the [project's documentation](https://github.com/CppCXY/emmylua-analyzer-rust/blob/main/docs/config/emmyrc_json_EN.md).
 
 ## Usage
 
@@ -95,7 +118,7 @@ local tuple_2 = process_tuple({1, 'Stan', 1000})
 local stan_deposit = { id = 1, owner = 'Stan', amount = 1000 }
 ```
 
-You may annotate your spaces by defining a project-specific language server definition file with similar generic type annotations.
+If you use experimental [emmylua-analyzer-rust](https://github.com/CppCXY/emmylua-analyzer-rust) as a language server you may annotate your spaces by defining a project-specific language server definition file with similar generic type annotations.
 
 ```lua
 ---@meta
