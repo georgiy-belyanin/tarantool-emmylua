@@ -49,7 +49,7 @@ This path lua-language-server
 
         Step 4. Install [Lua Language Server](https://github.com/LuaLS/lua-language-server)
 
-        If you have `homebrew`, `scoop, `macports` run one of these:
+        If you have `homebrew`, `scoop`, `macports` run one of these:
         ```bash
         # Scoop
         scoop install lua-language-server
