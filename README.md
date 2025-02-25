@@ -12,7 +12,92 @@ See the usage section for examples on how to use it.
 This path lua-language-server
 
 1. Set up [lua-language-server](https://github.com/LuaLS/lua-language-server) using the [instructions from the official website](https://luals.github.io/#vscode-install).
-2. Configure LSP to find annotations Library. Create `.luarc.json` inside you Tarantool app with the following contents.
+    - __VS Code__:
+        Search for "Lua" by sumneko in the extension marketplace. Install it. There you go.
+    - __NeoVim__:
+        If you are new to NeoVim, follow this guide to setup plugin manager and the Tarantool annotations. If you already familiar with this text editor you might proceed to the fourth step.
+
+        Step 1. Setup plugin manager. This guide uses [packer.nvim](https://github.com/wbthomason/packer.nvim) but there might be other options.
+        ```bash
+        git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+        ```
+
+        Step 2. Setup [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig/tree/master), [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) and [cmp-nvim-lsp](https://github.com/hrsh7th/cmp-nvim-lsp) plugins. They're needed for easy LSP configuration and for adding completions support. To do this, create `~/.config/nvim/lua/plugins.lua` with the following contents.
+        ```lua
+        -- ~/.config/nvim/lua/plugins.lua
+
+        vim.cmd [[packadd packer.nvim]]
+
+        return require('packer').startup(function(use)
+            use 'wbthomason/packer.nvim'
+            use 'neovim/nvim-lspconfig'
+            use 'hrsh7th/cmp-nvim-lsp'
+            use 'hrsh7th/nvim-cmp'
+        end)
+        ```
+
+        NeoVim supports both Lua and VimScript for its configuration. If you previously used vanilla Vim you might wanna use your `.vimrc`. This can be done using `source` command in the `~/.config/nvim/init.vim` initialization file. You also need to enable the created plugins script using the `lua` command. Create `~/.config/nvim/init.vim` with the following contents.
+        ```vim
+        " ~/.config/nvim/init.vim
+
+        source ~/.vimrc
+
+        lua require('plugins')
+        ```
+
+        Step 3. Run NeoVim and execute `:PackerSync` to install the configured plugins.
+
+        Step 4. Install [Lua Language Server](https://github.com/LuaLS/lua-language-server)
+
+        If you have `homebrew`, `scoop, `macports` run one of these:
+        ```bash
+        # Scoop
+        scoop install lua-language-server
+
+        # Homebrew
+        brew install lua-language-server
+
+        # Macports
+        sudo port install lua-language-server
+        ```
+
+        Otherwise, install it from the [latest releases](https://github.com/LuaLS/lua-language-server/releases/latest) or build it from sources.
+
+        Step 4. Now you should have all the needed plugins installed. Add this to `~/.config/nvim/lua/config.lua` to set up Lua Language Server for Lua files.
+        ```lua
+        -- ~/.config/nvim/lua/config.lua
+
+        -- Setup Lua Language Server.
+        require'lspconfig'.lua_ls.setup{}
+
+        -- Setup completions and arrows for navigating them.
+        local cmp = require'cmp'
+        cmp.setup({
+            sources = {
+                { name = "nvim_lsp" },
+                { name = "buffer" },
+            },
+            mapping = {
+                ["<cr>"] = cmp.mapping.confirm({select = true}),
+                ["<Up>"] = cmp.mapping.select_prev_item(),
+                ["<Down>"] = cmp.mapping.select_next_item(),
+            },
+        })
+        ```
+        And enable this file inside your initialization `init.vim` file.
+        ```vim
+        " ~/.config/nvim/init.vim
+
+        source ~/.vimrc
+
+        lua require('plugins')
+        lua require('config')
+        ```
+
+        That's it, you now have NeoVim configured for using it with Tarantool annotations.
+    - __JetBrains__:
+        Install [SumnekoLua](https://plugins.jetbrains.com/plugin/22315-sumnekolua) from the plugin marketplace.
+2. Configure LSP to find annotations Library. Create `.luarc.json` inside you Tarantool app (or within the Tarantool sources if you want to use the annotations within the Tarantool repository) with the following contents.
 ```json
 {
   "runtime": {
