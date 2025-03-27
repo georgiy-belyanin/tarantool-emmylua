@@ -24,7 +24,9 @@ function box.is_in_txn() end
 ---@field txn_isolation? box.txn_isolation the transaction isolation level (default: best-effort)
 ---@field timeout? (in_seconds) Number a timeout, after which the transaction is rolled back
 
----Begin the transaction. Disable implicit yields until the transaction ends.
+---Begin the transaction.
+---
+---Disable implicit yields until the transaction ends.
 ---Signal that writes to the write-ahead log will be deferred until the transaction ends.
 ---In effect the fiber which executes `box.begin()` is starting an "active multi-request transaction", blocking all other fibers.
 ---
@@ -177,11 +179,12 @@ function box.rollback_to_savepoint(savepoint) end
 ---         insert_band, 'The Rolling Stones', 1962)
 --- ```
 ---
+---@generic T, R
 ---@param opts { txn_isolation?: box.txn_isolation }
----@param tx_function? fun(...: any): ...
----@param ... any
----@return ...? The result of the function passed to `atomic()` as an argument.
----@overload fun(tx_function: fun(...: any): ..., ...): ...?
+---@param tx_function? fun(...: T...): R...
+---@param ... T...
+---@return R... retvals The result of the function passed to `atomic()` as an argument.
+---@overload fun(tx_function: fun(...: T...): R..., ...: T...): R...
 function box.atomic(opts, tx_function, ...) end
 
 ---@alias box.on_commit_iterator fun():(number, box.tuple|nil, box.tuple|nil, number) request_id, old_tuple, new_tuple, space_id
@@ -322,11 +325,9 @@ box.index = {
 ---
 ---**Note:**
 ---
----The parameter `key` will be stored in the :ref:`_schema <box_space-schema>`
----system space after `box.once()` is called in order to prevent a double
----run. These keys are global per replica set. So a simultaneous call of
----`box.once()` with the same key on two instances of the same replica set
----may succeed on both of them, but it'll lead to a transaction conflict.
+---The parameter `key` will be stored in the [`_schema`](lua://box.space._schema) system space after `box.once()` is called in order to prevent a double run.
+---
+---These keys are global per replica set. So a simultaneous call of `box.once()` with the same key on two instances of the same replica set may succeed on both of them, but it'll lead to a transaction conflict.
 ---
 ---**Example:**
 ---
@@ -386,9 +387,11 @@ box.index = {
 ---
 --- ```
 ---
+---@generic T, R
 ---@param key string a value that will be checked
----@param fnc fun(...) function to be executed
----@vararg any ... arguments to the function
+---@param fnc fun(...: T...): R... function to be executed
+---@param ... T... arguments to the function
+---@return R...
 function box.once(key, fnc, ...) end
 
 ---Creates new snapshot of the data and executes checkpoint.gc process
@@ -560,5 +563,3 @@ function box.watch_once(key, func) end
 ---| '!' # Insertion of a new field.
 ---| '#' # Deletion.
 ---| '=' # Assignment.
-
-return box
