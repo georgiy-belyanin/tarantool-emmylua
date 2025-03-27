@@ -51,7 +51,7 @@
 ---@field uuid string A globally unique identifier of instance n.
 ---@field pid integer A process ID.
 ---@field uptime integer A number of seconds since the instance started.
----@field status "running" | "loading" | "orphan" | "hot_standby"
+---@field status "unconfigured" | "running" | "loading" | "orphan" | "hot_standby" 
 ---@field lsn integer A log sequence number (LSN) for the latest entry in instance n's write ahead log (WAL).
 ---@field version string A Tarantool version number.
 ---@field ro boolean Is `true` if the instance is in "read-only" mode.
@@ -67,12 +67,12 @@
 box.info = {}
 
 ---@class box.info.memory
----@field cache number A number of bytes used for caching user data. The memtx storage engine does not require a cache, so in fact this is the number of bytes in the cache for the tuples stored for the vinyl storage engine.
----@field data number A number of bytes used for storing user data (the tuples) with the memtx engine and with level 0 of the vinyl engine, without taking memory fragmentation into account.
----@field index number A number of bytes used for indexing user data, including memtx and vinyl memory tree extents, the vinyl page index, and the vinyl bloom filters.
----@field lua number A number of bytes used for Lua runtime.
----@field net number A number of bytes used for network input/output buffers.
----@field tx number A number of bytes in use by active transactions. For the vinyl storage engine, this is the total size of all allocated objects (struct txv, struct vy_tx, struct vy_read_interval) and tuples pinned for those objects.
+---@field cache integer A number of bytes used for caching user data. The memtx storage engine does not require a cache, so in fact this is the number of bytes in the cache for the tuples stored for the vinyl storage engine.
+---@field data integer A number of bytes used for storing user data (the tuples) with the memtx engine and with level 0 of the vinyl engine, without taking memory fragmentation into account.
+---@field index integer A number of bytes used for indexing user data, including memtx and vinyl memory tree extents, the vinyl page index, and the vinyl bloom filters.
+---@field lua integer A number of bytes used for Lua runtime.
+---@field net integer A number of bytes used for network input/output buffers.
+---@field tx integer A number of bytes in use by active transactions. For the vinyl storage engine, this is the total size of all allocated objects (struct txv, struct vy_tx, struct vy_read_interval) and tuples pinned for those objects.
 
 ---Get information about memory usage for the current instance.
 ---

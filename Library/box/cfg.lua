@@ -129,4 +129,3 @@
 ---@field work_dir? string (Default: nil) path to work dir of tarantool
 ---@overload fun(box_cfg: box.cfg)
 box.cfg = {}
-

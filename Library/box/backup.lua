@@ -31,7 +31,6 @@ box.backup = {}
 ---@param n? number *Since Tarantool 1.10.1* an argument that indicates the checkpoint to use relative to the latest checkpoint. For example `n = 0` means "backup will be based on the latest checkpoint", `n = 1` means "backup will be based on the first checkpoint before the latest checkpoint (counting backwards)", and so on. The default value for n is zero.
 ---@return string[]
 function box.backup.start(n) end
-box.backup.start()
 
 ---Informs the server that normal operations may resume.
 function box.backup.stop() end

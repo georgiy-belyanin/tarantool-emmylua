@@ -1,20 +1,18 @@
 ---@meta
 
----@alias box.index_part_def
----| { field: number, type: tuple_type_name, is_nullable: boolean, collation: string, path: string, fieldno: number }
----| { field: string, is_nullable: boolean, collation: string, path: string, fieldno: number }
----| { [1]: number|string, [2]: tuple_type_name, is_nullable: boolean, collation: string, path: string, fieldno: number }
+----@alias box.index_part_def {[2]: tuple_type_name | nil, type?: tuple_type_name, is_nullable?: boolean, collation?: string, path: string, fieldno?: integer } & ({ field: integer | string } | { [1]: integer | string })
+---@alias box.index_part_def {[2]: tuple_type_name | nil, type?: tuple_type_name, is_nullable?: boolean, collation?: string, path: string, fieldno?: integer, field: integer | string }
 
 ---@alias box.index_type "TREE" | "HASH" | "BITSET" | "RTREE" | "tree" | "hash" | "bitset" | "rtree"
 
 ---@class box.index_options: table
 ---@field name? string name of the index
 ---@field type? box.index_type (Default: "TREE") type of index
----@field id? number (Default: last index’s id + 1) unique identifier
+---@field id? integer (Default: last index’s id + 1) unique identifier
 ---@field unique? boolean (Default: true) index is unique
 ---@field if_not_exists? boolean (Default: false) no error if duplicate name
 ---@field parts? box.index_part_def[] | string[] field numbers + types
----@field dimension? number (Default: 2) affects RTREE only
+---@field dimension? integer (Default: 2) affects RTREE only
 ---@field distance? "euclid" | "manhattan" (Default: euclid) affects RTREE only
 ---@field bloom_fpr? number (Default: vinyl_bloom_fpr) affects vinyl only
 ---@field page_size? number (Default: vinyl_page_size) affects vinyl only
@@ -28,7 +26,7 @@
 ---@class box.index_part
 ---@field type string type of the field
 ---@field is_nullable boolean false if field not-nullable, otherwise true
----@field fieldno number position in tuple of the field
+---@field fieldno integer position in tuple of the field
 
 ---@class box.index<T, U>: box.index_options
 ---@field parts box.index_part[] list of index parts
@@ -273,9 +271,11 @@ function index_methods:select(key, options) end
 --- ...
 --- ```
 ---
----@param key box.tuple<T, U>|tuple_type[]|scalar value to be matched against the index key, which may be multi-part
+---@param key box.tuple<T, U> | tuple_type[] | scalar value to be matched against the index key, which may be multi-part
 ---@param iterator? box.iterator (Default: 'EQ') defines iterator order
----@return box.space.iterator,box.space.iterator.param,box.space.iterator.state
+---@return box.space.iterator<T, U> iter Luafun iterator
+---@return box.space.iterator.param
+---@return box.space.iterator.state
 function index_methods:pairs(key, iterator) end
 
 ---Update a tuple.
@@ -355,7 +355,7 @@ function index_methods:max(key) end
 --- --]]
 --- ```
 ---
----@param key box.tuple<T, U> |tuple_type[]|scalar
+---@param key box.tuple<T, U> | tuple_type[] | scalar
 ---@return box.tuple<T, U>? tuple result
 function index_methods:min(key) end
 
@@ -384,7 +384,7 @@ function index_methods:min(key) end
 --- ```
 ---@param key? box.tuple<T, U> | tuple_type[] | scalar
 ---@param iterator? box.iterator
----@return number number_of_tuples
+---@return integer number_of_tuples
 function index_methods:count(key, iterator) end
 
 ---Return the total number of bytes taken by the index.
@@ -400,16 +400,16 @@ function index_methods:bsize() end
 ---
 ---**Note regarding storage engine:** vinyl will return `nil`, rather than the deleted tuple.
 ---
----@param key box.tuple<T, U>|tuple_type[]|scalar
+---@param key box.tuple<T, U> | tuple_type[] | scalar
 ---@return box.tuple<T, U>? tuple the deleted tuple
 function index_methods:delete(key) end
 
 ---Alter an index.
----It is legal in some circumstances to change one or more of the index characteristics,
----for example its type, its sequence options, its parts, and whether it is unique.
 ---
----Usually this causes rebuilding of the space, except for the simple case
----where a part’s is_nullable flag is changed from false to true.
+---It is legal in some circumstances to change one or more of the index characteristics, for example its type, its sequence options, its parts, and whether it is unique.
+---
+---Usually this causes rebuilding of the space, except for the simple case where a part’s is_nullable flag is changed from false to true.
+---
 ---@param opts box.index_options
 function index_methods:alter(opts) end
 
@@ -447,6 +447,6 @@ function index_methods:alter(opts) end
 --- ...
 --- ```
 ---
----@param tuple scalar|table
+---@param tuple scalar | table
 ---@return string # base64-encoded string (a tuple’s position in a space)
 function index_methods:tuple_pos(tuple) end

@@ -135,7 +135,6 @@ function box.schmea.downgrade_versions() end
 ---@param version string
 function box.schmea.downgrade_issues(version) end
 
--- TODO
 box.schema.user = {}
 
 ---@alias box.schema.user.grant_object_type
@@ -189,5 +188,3 @@ box.schema.user = {}
 ---@overload fun(user_name: string, priv: string, grant_object_type: "universe", options?: box.schema.user.grant_options?)
 ---@overload fun(user_name: string, role: string, options?: box.schema.user.grant_options?)
 function box.schema.user.grant(user_name, priv, object_type, object_name, options) end
-
-return box.schema

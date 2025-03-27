@@ -80,8 +80,8 @@ function box.ctl.wait_ro(timeout) end
 ---If you want to set a timeout for this trigger, use the [`set_on_shutdown_timeout`](lua://box.ctl.on_shutdown_timeout) function.
 ---
 ---@param trigger_function fun()
----@param old_trigger_function fun()
----@return fun() 
+---@param old_trigger_function? fun()
+---@return fun()? created_trigger
 function box.ctl.on_shutdown(trigger_function, old_trigger_function) end
 
 ---Create a trigger executed when leader election changes replica state.
@@ -99,3 +99,4 @@ function box.ctl.on_shutdown(trigger_function, old_trigger_function) end
 ---@param trigger function
 function box.ctl.on_election(trigger) end
 
+return box.ctl

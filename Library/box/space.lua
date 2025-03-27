@@ -1,15 +1,15 @@
 ---@meta
 
----@class box.space<T, U>: table
----@field id number Ordinal space number. Spaces can be referenced by either name or number
+---@class box.space<T, U>
+---@field id integer Ordinal space number. Spaces can be referenced by either name or number
 ---@field name string name of the space
 ---@field enabled boolean Whether or not this space is enabled. The value is false if the space has no index.
 ---@field engine string
 ---@field is_sync boolean
 ---@field is_local boolean
 ---@field temporary boolean
----@field field_count number (Default: 0) The required field count for all tuples in this space
----@field index table<number | string, box.index> kv and list of indexes of space
+---@field field_count integer (Default: 0) The required field count for all tuples in this space
+---@field index table<integer | string, box.index> kv and list of indexes of space
 local space_methods = {}
 
 ---# Builtin `box.space` submodule.
@@ -17,6 +17,8 @@ local space_methods = {}
 ---**CRUD operations** in Tarantool are implemented by the `box.space` submodule.
 ---
 ---It has the data-manipulation functions `select`, `insert`, `replace`, `update`, `upsert`, `delete`, ``get``, `put`. It also has members, such as id, and whether or not a space is enabled.
+---
+---@type { [string]: box.space<any, any> }
 box.space = {}
 
 ---Create an index.
@@ -41,7 +43,7 @@ function space_methods:create_index(index_name, options) end
 
 ---@class box.space.alter_options
 ---@field name? string name of the space
----@field field_count? number fixed count of fields: for example if field_count=5, it is illegal to insert a tuple with fewer than or more than 5 fields
+---@field field_count? integer fixed count of fields: for example if field_count=5, it is illegal to insert a tuple with fewer than or more than 5 fields
 ---@field format? box.space.format
 ---@field is_sync? boolean (Default: false) any transaction doing a DML request on this space becomes synchronous
 ---@field temporary? boolean (Default: false) space contents are temporary: changes are not stored in the write-ahead log and there is no replication. Note regarding storage engine: vinyl does not support temporary spaces.
@@ -91,7 +93,7 @@ function space_methods:alter(options) end
 --- ...
 --- ```
 ---
----@return number bytes
+---@return integer bytes
 function space_methods:bsize() end
 
 ---Return the number of tuples.
@@ -288,15 +290,17 @@ function space_methods:on_replace(trigger_func, old_trigger_func) end
 ---@return box.space.replace_trigger<T, U> | nil func the old trigger if it was replaced or deleted
 function space_methods:before_replace(trigger_func, old_trigger_func) end
 
----Search for a tuple or a set of tuples in the given space, and allow iterating over one tuple at a time.
----@param key box.tuple<T, U>|tuple_type[]|scalar value to be matched against the index key, which may be multi-part
----@param iterator? box.iterator (Default: 'EQ') defines iterator order
----@return box.space.iterator,box.space.iterator.param,box.space.iterator.state
-function space_methods:pairs(key, iterator) end
+---@alias box.space.iterator<T> fun.array_iterator<T>
+---@alias box.space.iterator.param string
+---@alias box.space.iterator.state ffi.cdata*
 
----@class box.space.iterator: fun.iterator
----@class box.space.iterator.param: string
----@class box.space.iterator.state: ffi.cdata*
+---Search for a tuple or a set of tuples in the given space, and allow iterating over one tuple at a time.
+---@param key? box.tuple<T, U>|tuple_type[]|scalar value to be matched against the index key, which may be multi-part
+---@param iterator? box.iterator (Default: 'EQ') defines iterator order
+---@return box.space.iterator<T>,
+---@return box.space.iterator.param
+---@return box.space.iterator.state
+function space_methods:pairs(key, iterator) end
 
 ---Rename a space.
 ---
@@ -369,8 +373,8 @@ function space_methods:run_triggers(flag) end
 
 ---@class box.space.select_options: table
 ---@field iterator? box.iterator type of the iterator
----@field limit? number maximum number of tuples
----@field offset? number number of tuples to skip
+---@field limit? integer maximum number of tuples
+---@field offset? integer number of tuples to skip
 
 ---Search for a tuple or a set of tuples in the given space by the primary key.
 ---
@@ -583,7 +587,7 @@ function space_methods:truncate() end
 ---*Since 2.3* a tuple can also be updated via [JSON paths](lua://json.paths).
 ---
 ---@param key box.tuple<T, U> | tuple_type[] | scalar
----@param update_operations [box.update_operation, number|string, tuple_type][]
+---@param update_operations [box.update_operation, integer | string, tuple_type][]
 ---@return box.tuple<T, U> | nil tuple the updated tuple if it was found
 function space_methods:update(key, update_operations) end
 
@@ -617,7 +621,7 @@ function space_methods:update(key, update_operations) end
 ---For more usage scenarios and typical errors see [example: using data operations](doc://box_space-operations-detailed-examples).
 ---
 ---@param tuple box.tuple<T, U> | tuple_type[]
----@param update_operations [box.update_operation, number|string, tuple_type][]
+---@param update_operations [box.update_operation, integer | string, tuple_type][]
 function space_methods:upsert(tuple, update_operations) end
 
 ---Convert a map to a tuple instance or to a table.
@@ -658,5 +662,3 @@ function space_methods:upsert(tuple, update_operations) end
 ---@param tbl U
 ---@return box.tuple<T, U>
 function space_methods:frommap(tbl) end
-
-return box.space

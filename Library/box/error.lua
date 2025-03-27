@@ -46,9 +46,9 @@ function box.error(code, errtext, ...) end
 ---@field line number Tarantool source file line number
 
 ---@class box.error.table
----@field code number error’s number
----@field type string error’s C++ class
----@field message string error’s message
+---@field code number error's number
+---@field type string error's C++ class
+---@field message string error's message
 ---@field prev? box.error previous error
 ---@field base_type string usually ClientError or CustomError
 ---@field custom_type string? present if custom ErrorType was passed
@@ -130,6 +130,7 @@ function box_error_object:raise() end
 ---@overload fun(type: string, reason: string, ...): box.error
 function box.error.new(err) end
 
+---Get the last error that was raised.
+---
 ---@return box.error
 function box.error.last() end
-
