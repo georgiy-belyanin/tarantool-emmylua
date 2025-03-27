@@ -2,27 +2,28 @@
 
 ---# Builtin `datetime` module
 ---
----The `datetime` module provides support for the :ref:`datetime <index-box_datetime>`and :ref:`interval <index-box_interval>` data types.
----It allows creating the date and time values either via the object interface
----or via parsing string values conforming to the ISO-8601 standard.
+---The `datetime` module provides support for the [datetime](lua://datetime) and [interval](lua://datetime.interval) data types.
+---
+---It allows creating the date and time values either via the object interface or via parsing string values conforming to the ISO-8601 standard.
 local datetime = {}
 
----@class datetime: ffi.cdata*
----@field nsec number (Default: 0) (usec, msec) Fractional part of the last second. You can specify either nanoseconds (nsec), or microseconds (usec), or milliseconds (msec). Specifying two of these units simultaneously or all three ones lead to an error
----@field sec number (Default: 0) Seconds. Value range: 0 - 60
----@field min number (Default: 0) Minutes. Value range: 0 - 59
----@field hour number (Default: 0) Hours. Value range: 0 - 23
----@field day number (Default: 1) Day number. Value range: 1 - 31. The special value -1 generates the last day of a particular month (see example below)
----@field month	number (Default: 1) Month number. Value range: 1 - 12
----@field year number (Default: 1970) Year.
----@field timestamp	number (Default: 0) Timestamp, in seconds. Similar to the Unix timestamp, but can have a fractional part which is converted in nanoseconds in the resulting datetime object. If the fractional part for the last second is set via the nsec, usec, or msec units, the timestamp value should be integer otherwise an error occurs. Timestamp is not allowed if you already set time and/or date via specific units, namely, sec, min, hour, day, month, and year
----@field tzoffset number (Default: 0) Time zone offset from UTC, in minutes. If both tzoffset and tz are specified, tz has the preference and the tzoffset value is ignored
----@field tz string Time zone name according to the tz database
----@field wday number Days since the beginning of the week
----@field yday	number Days since the beginning of the year
----@field isdst	boolean Is the DST (Daylight saving time) applicable for the date. Boolean.
-local datetime_obj = {}
+---@alias datetime.units { nsec?: integer, sec?: integer, min?: integer?, hour?: integer, day?: integer, year?: integer, timestamp?: number, tzoffset?: integer, tz?: string }
 
+---@class datetime: ffi.cdata*
+---@field nsec integer (Default: 0) (usec, msec) Fractional part of the last second. You can specify either nanoseconds (nsec), or microseconds (usec), or milliseconds (msec). Specifying two of these units simultaneously or all three ones lead to an error
+---@field sec integer (Default: 0) Seconds. Value range: 0 - 60
+---@field min integer (Default: 0) Minutes. Value range: 0 - 59
+---@field hour integer (Default: 0) Hours. Value range: 0 - 23
+---@field day integer (Default: 1) Day number. Value range: 1 - 31. The special value -1 generates the last day of a particular month (see example below)
+---@field month integer (Default: 1) Month number. Value range: 1 - 12
+---@field year integer (Default: 1970) Year.
+---@field timestamp number (Default: 0) Timestamp, in seconds. Similar to the Unix timestamp, but can have a fractional part which is converted in nanoseconds in the resulting datetime object. If the fractional part for the last second is set via the nsec, usec, or msec units, the timestamp value should be integer otherwise an error occurs. Timestamp is not allowed if you already set time and/or date via specific units, namely, sec, min, hour, day, month, and year
+---@field tzoffset integer (Default: 0) Time zone offset from UTC, in minutes. If both tzoffset and tz are specified, tz has the preference and the tzoffset value is ignored
+---@field tz string Time zone name according to the tz database
+---@field wday integer Days since the beginning of the week
+---@field yday	integer Days since the beginning of the year
+---@field isdst	boolean Is the DST (Daylight saving time) applicable for the date.
+local datetime_obj = {}
 
 ---Create a datetime object from a table of time units.
 ---
@@ -38,7 +39,7 @@ local datetime_obj = {}
 ---* `tzoffset: 0`
 ---* `tz: nil`
 ---
----@param units? { nsec?: number, sec?: number, min?: number?, hour?: number, day?: number, year?: number, timestamp?: number, tzoffset?: number, tz?: string }
+---@param units? datetime.units
 ---@return datetime datetime_obj
 function datetime.new(units) end
 
@@ -95,32 +96,32 @@ function datetime_obj:format(input_string) end
 ---
 --- ```tarantoolsession
 --- tarantool> dt = datetime.new {
---- sec = 20,
---- min = 25,
---- hour = 18,
+---   sec = 20,
+---   min = 25,
+---   hour = 18,
 --- 
---- day = 20,
---- month = 8,
---- year = 2021,
---- tz = 'MAGT',
---- }
+---   day = 20,
+---   month = 8,
+---   year = 2021,
+---   tz = 'MAGT',
+---   }
 --- ---
 --- ...
 --- 
 --- tarantool> dt:totable()
 --- ---
 --- - tz: 'MAGT'
---- sec: 20
---- min: 25
---- yday: 232
---- day: 20
---- nsec: 0
---- isdst: false
---- wday: 6
---- tzoffset: 600
---- month: 8
---- year: 2021
---- hour: 18
+---   sec: 20
+---   min: 25
+---   yday: 232
+---   day: 20
+---   nsec: 0
+---   isdst: false
+---   wday: 6
+---   tzoffset: 600
+---   month: 8
+---   year: 2021
+---   hour: 18
 --- ...
 --- ```
 ---
@@ -133,19 +134,19 @@ function datetime_obj:totable() end
 ---
 --- ```tarantoolsession
 --- tarantool> dt = datetime.new {
---- nsec = 123456789,
---- 
---- sec = 20,
---- min = 25,
---- hour = 18,
---- 
---- day = 20,
---- month = 8,
---- year = 2021,
---- 
---- tzoffset  = 180
+---   nsec = 123456789,
+---
+---   sec = 20,
+---   min = 25,
+---   hour = 18,
+---
+---   day = 20,
+---   month = 8,
+---   year = 2021,
+---
+---   tzoffset  = 180
 --- }
---- 
+---
 --- tarantool> dt:set {msec = 567}
 --- ---
 --- - 2021-08-20T18:25:20.567+0300
@@ -157,7 +158,7 @@ function datetime_obj:totable() end
 --- ...
 --- ```
 ---
----@param units { nsec?: number, sec?: number, min?: number?, hour?: number, day?: number, year?: number, timestamp?: number, tzoffset?: number, tz?: string }
+---@param units datetime.units
 ---@return datetime
 function datetime_obj:set(units) end
 
@@ -243,8 +244,77 @@ function datetime_obj:set(units) end
 --- ```
 ---
 ---@param input_string string string with the date and time information.
----@param opts { format: 'iso8601' | 'rfc3339' | string, tzoffset: number, tz: string }
+---@param opts { format: 'iso8601' | 'rfc3339' | string, tzoffset: integer, tz: string }
 function datetime.parse(input_string, opts) end
+
+---# Builtin `datetime.interval` submodule
+---
+---The `datetime` module enables creating of objects of two types: `datetime` and `interval`.
+--- 
+---If you need to shift the `datetime` object values, you can use either the modifier methods, that is, the [`datetime_object:add()`](lua://datetime_object.add) or [`datetime_object:sub()`](lua://datetime_object.sub) methods, or apply interval arithmetic using overloaded `+` (`__add`) or `-` (`__sub`) methods.
+---
+---`datetime_object:add()`/`datetime_object:sub()` modify the current object, but `+`/`-` create copy of the object as the operation result.
+datetime.interval = {}
+
+---@alias datetime.interval.adjust 'none' | 'last' | 'excess'
+---@alias datetime.interval.units { nsec?: integer, sec?: integer, min?: integer?, hour?: integer, day?: integer, year?: integer, adjust?: datetime.interval.adjust }
+
+---@class datetime.interval: ffi.cdata*
+---@field nsec integer (Default: 0) (usec, msec) Fractional part of the last second. You can specify either nanoseconds (nsec), or microseconds (usec), or milliseconds (msec). Specifying two of these units simultaneously or all three ones lead to an error
+---@field sec integer (Default: 0) Seconds
+---@field min integer (Default: 0) Minutes
+---@field hour integer (Default: 0) Hours
+---@field day integer (Default: 0) Day number
+---@field week integer (Default: 0) Week number
+---@field month integer (Default: 0) Month number
+---@field year integer (Default: 0) Year
+---@field adjust datetime.interval.adjust (Default: 'none') Defines how to round days in a month after an arithmetic operation
+---@operator add(datetime.interval): datetime.interval
+---@operator sub(datetime.interval): datetime.interval
+local interval_obj = {}
+
+---Create an interval object from a table of time units.
+---
+---**Default values:**
+---
+---* `nsec: 0`
+---* `sec: 0`
+---* `min: 0`
+---* `hour: 1`
+---* `day: 1`
+---* `week: 0`
+---* `month: 0`
+---* `year: 0`
+---* `adjust: 'none'`
+---
+---@param units? datetime.interval.units
+---@return datetime.interval interval_obj
+function datetime.interval.new(units) end
+
+---Convert the information from an `interval` object into the table format.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> iv = datetime.interval.new{month = 1, adjust = 'last'}
+--- ---
+--- ...
+--- tarantool> iv:totable()
+--- ---
+--- - adjust: last
+--- sec: 0
+--- nsec: 0
+--- day: 0
+--- week: 0
+--- hour: 0
+--- month: 1
+--- year: 0
+--- min: 0
+--- ...
+--- ```
+---
+---@return datetime.interval interval_obj
+function interval_obj:totable() end
 
 ---Modify an existing datetime object by adding values of the input argument.
 ---
@@ -326,7 +396,7 @@ function datetime.parse(input_string, opts) end
 --- ...
 --- ```
 ---
----@param input { nsec?: number, sec?: number, min?: number?, hour?: number, day?: number, year?: number, timestamp?: number, tzoffset?: number, tz?: string, adjust?: 'none' | 'last' | 'excess' } | datetime.interval
+---@param input datetime.interval.units | datetime.interval
 ---@return datetime
 function datetime_obj:add(input) end
 
@@ -345,96 +415,30 @@ function datetime_obj:add(input) end
 --- }
 --- ---
 --- ...
---- 
+---
 --- tarantool> iv = datetime.interval.new {day = 5}
 --- ---
 --- ...
---- 
+---
 --- tarantool> dt, iv
 --- ---
 --- - 2021-08-26T00:00:00+0300
 --- - +5 days
 --- ...
---- 
+---
 --- tarantool> dt:sub(iv)
 --- ---
 --- - 2021-08-21T00:00:00+0300
 --- ...
---- 
+---
 --- tarantool> dt:sub{ day = 1 }
 --- ---
 --- - 2021-08-20T00:00:00+0300
 --- ...
 --- ```
 ---
----@param input { nsec?: number, sec?: number, min?: number?, hour?: number, day?: number, year?: number, timestamp?: number, tzoffset?: number, tz?: string, adjust?: 'none' | 'last' | 'excess' } | datetime.interval
+---@param input datetime.interval.units | datetime.interval
 ---@return datetime
 function datetime_obj:sub(input) end
-
----# Builtin `datetime.interval` submodule
----
----The `datetime` module enables creating of objects of two types: `datetime` and `interval`.
---- 
----If you need to shift the `datetime` object values, you can use either the modifier methods, that is, the [`datetime_object:add()`](lua://datetime_object.add) or [`datetime_object:sub()`](lua://datetime_object.sub) methods, or apply interval arithmetic using overloaded `+` (`__add`) or `-` (`__sub`) methods.
----
----`datetime_object:add()`/`datetime_object:sub()` modify the current object, but `+`/`-` create copy of the object as the operation result.
-datetime.interval = {}
-
----@class datetime.interval: ffi.cdata*
----@field nsec number (Default: 0) (usec, msec)	Fractional part of the last second. You can specify either nanoseconds (nsec), or microseconds (usec), or milliseconds (msec). Specifying two of these units simultaneously or all three ones lead to an error
----@field sec number (Default: 0) Seconds
----@field min number (Default: 0) Minutes
----@field hour number (Default: 0) Hours
----@field day number (Default: 0) Day number
----@field week number (Default: 0) Week number
----@field month number (Default: 0) Month number
----@field year number (Default: 0) Year
----@field adjust string (Default: 'none') Defines how to round days in a month after an arithmetic operation
----@operator add(interval): interval
----@operator sub(interval): interval
-local interval_obj = {}
-
----Create an interval object from a table of time units.
----
----**Default values:**
----
---- * `nsec: 0`
---- * `sec: 0`
---- * `min: 0`
---- * `hour: 1`
---- * `day: 1`
---- * `week: 0`
---- * `month: 0`
---- * `year: 0`
---- * `adjust: 'none'`
----
----@param units? { nsec?: number, sec?: number, min?: number, hour?: number, day?: number, week?: number, month?: number, year?: number, adjust?: string}
----@return datetime.interval interval_obj
-function datetime.interval.new(units) end
-
----Convert the information from an `interval` object into the table format.
----
----**Example:**
----
---- ```tarantoolsession
---- tarantool> iv = datetime.interval.new{month = 1, adjust = 'last'}
---- ---
---- ...
---- tarantool> iv:totable()
---- ---
---- - adjust: last
---- sec: 0
---- nsec: 0
---- day: 0
---- week: 0
---- hour: 0
---- month: 1
---- year: 0
---- min: 0
---- ...
---- ```
----
----@return datetime.interval interval_obj
-function interval_obj:totable() end
 
 return datetime
