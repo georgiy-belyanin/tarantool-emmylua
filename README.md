@@ -280,7 +280,7 @@ For more information on using LSP refer to the [project's documentation](https:/
     - [ ] `http`
         + [ ] `client`
         + [ ] `server`
-    - [ ] `iconv`
+    - [x] `iconv`
     - [x] `jit`
     - [x] `json` (partial)
     - [x] `log`
