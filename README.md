@@ -281,7 +281,7 @@ For more information on using LSP refer to the [project's documentation](https:/
         + [ ] `client`
         + [ ] `server`
     - [ ] `iconv`
-    - [ ] `jit`
+    - [x] `jit`
     - [x] `json` (partial)
     - [x] `log`
     - [ ] `merger`
