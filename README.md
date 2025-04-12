@@ -290,7 +290,7 @@ For more information on using LSP refer to the [project's documentation](https:/
     - [ ] `pickle`
     - [ ] `popen`
     - [ ] `socket`
-    - [ ] `strict`
+    - [x] `strict`
     - [x] `string`
     - [ ] `tarantool`
     - [x] `uri`
