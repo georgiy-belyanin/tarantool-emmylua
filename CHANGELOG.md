@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Builtin `buffer` module definitions.
 * Builtin `errno` module definitions.
+* Builtin `strict` module definitions.
 
 ## [0.1.0] - 12.04.25
 
