@@ -263,7 +263,7 @@ For more information on using LSP refer to the [project's documentation](https:/
         + [x] `space` (partial)
         + [x] `stat` (partial)
         + [x] `tuple`
-    - [ ] `buffer`
+    - [x] `buffer`
     - [x] `clock`
     - [x] `console`
     - [ ] `config`
@@ -272,7 +272,7 @@ For more information on using LSP refer to the [project's documentation](https:/
     - [x] `datetime`
     - [x] `decimal`
     - [ ] `digest`
-    - [ ] `errno`
+    - [x] `errno`
     - [ ] `experimental.connpool`
     - [x] `fiber`
     - [x] `fio`
