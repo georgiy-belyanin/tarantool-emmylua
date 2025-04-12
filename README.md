@@ -268,7 +268,7 @@ For more information on using LSP refer to the [project's documentation](https:/
     - [x] `console`
     - [ ] `config`
     - [ ] `crypto`
-    - [ ] `csv`
+    - [x] `csv`
     - [x] `datetime`
     - [x] `decimal`
     - [ ] `digest`
