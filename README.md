@@ -97,7 +97,7 @@ This path lua-language-server
         That's it, you now have NeoVim configured for using it with Tarantool annotations.
     - __JetBrains__:
         Install [SumnekoLua](https://plugins.jetbrains.com/plugin/22315-sumnekolua) from the plugin marketplace.
-2. Configure LSP to find annotations Library. Create `.luarc.json` inside you Tarantool app (or within the Tarantool sources if you want to use the annotations within the Tarantool repository) with the following contents.
+2. Configure LSP to find annotations. Create `.luarc.json` inside you Tarantool app (or within the Tarantool sources if you want to use the annotations within the Tarantool repository) with the following contents.
 ```json
 {
   "runtime": {
@@ -105,7 +105,8 @@ This path lua-language-server
   },
   "workspace": {
     "library": [
-      "<path to the cloned repository>/Library"
+      "<path to the cloned repository>/Library",
+      "<path to the cloned repository>/Rocks"
     ]
   }
 }
@@ -142,7 +143,8 @@ git clone https://github.com/georgiy-belyanin/tarantool-emmylua
   },
   "workspace": {
     "library": [
-      "<path to the cloned repository>/Library"
+      "<path to the cloned repository>/Library",
+      "<path to the cloned repository>/Rocks"
     ]
   }
 }
@@ -306,7 +308,7 @@ For more information on using LSP refer to the [project's documentation](https:/
     - [ ] `luatest`
     - [ ] `metrics`
     - [ ] `queue`
-    - [ ] `vshard`
+    - [x] `vshard` (partial)
 
 ## Contributing
 
