@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * Tightened some of the `box` `number` types to `integer`.
+* Tightened some of the `string` `number` types to `integer`.
 
 ### Fixed
 
