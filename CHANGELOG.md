@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Builtin `strict` module definitions.
 * Partial `vshard` rock definitions.
 * `box.execute()` documentation used for evaluating SQL statements.
+* `box.space.*:format()` documentation and annotations.
 * `box.schema.role` and `box.schema.user` documentation and type annotations.
 * Annotations on a few supplementary spaces like `box.schema._cluster`.
 
