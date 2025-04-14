@@ -456,7 +456,7 @@ function box.snapshot() end
 ---@class box.watcher
 local watcher = {}
 
----unregisters the watcher
+---Unregisters the watcher.
 function watcher:unregister() end
 
 ---Update the value of a particular key and notify all key watchers of the update.
