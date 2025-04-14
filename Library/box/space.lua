@@ -21,6 +21,228 @@ local space_methods = {}
 ---@type { [string]: box.space<any, any> }
 box.space = {}
 
+---@alias box.space._user_tuple [integer, integer, string, 'user' | 'role', ffi.cdata* | nil, ffi.cdata* | nil, integer | nil]
+---@alias box.space._user_info {
+---    id: integer,
+---    creator: integer,
+---    name: string,
+---    type: 'user' | 'role',
+---    auth?: ffi.cdata*,
+---    auth_history?: ffi.cdata*,
+---    owner?: integer,
+---}
+
+---System `_user` space.
+---
+---`_user` is a system space where user names and password hashes are stored.
+---
+---Learn more about Tarantool's access control system from the [access control](doc://access_control) topic.
+---
+---There are five special tuples in the `_user` space: 'guest', 'admin', 'public', 'replication', and 'super'.
+---
+--- +-------------+----+------+----------------------------------------------------------------+
+--- | Name        | ID | Type | Description                                                    |
+--- +=============+====+======+================================================================+
+--- | guest       | 0  | user | Default user when connecting remotely.                         |
+--- |             |    |      | Usually, an untrusted user with few privileges.                |
+--- +-------------+----+------+----------------------------------------------------------------+
+--- | admin       | 1  | user | Default user when using Tarantool as a console.                |
+--- |             |    |      | Usually, an                                                    |
+--- |             |    |      | [administrative user](doc://authentication-owners_privileges)                                            |
+--- |             |    |      | with all privileges.                                           |
+--- +-------------+----+------+----------------------------------------------------------------+
+--- | public      | 2  | role | Pre-defined [role](doc://authentication-roles),                                              |
+--- |             |    |      | automatically granted to new users when they are               |
+--- |             |    |      | created with                                                   |
+--- |             |    |      | `box.schema.user.create(user-name)`.                             |
+--- |             |    |      | Therefore a convenient way to grant 'read' on space            |
+--- |             |    |      | 't' to every user that will ever exist is with                 |
+--- |             |    |      | `box.schema.role.grant('public','read','space','t')`.            |
+--- +-------------+----+------+----------------------------------------------------------------+
+--- | replication | 3  | role | Pre-defined [role](doc://authentication-roles),                                              |
+--- |             |    |      | which the 'admin' user can grant to users who need to use      |
+--- |             |    |      | [replication](doc://replication) features.                                          |
+--- +-------------+----+------+----------------------------------------------------------------+
+--- | super       | 31 | role | Pre-defined [role](doc://authentication-roles),                                              |
+--- |             |    |      | which the 'admin' user can grant to users who need all         |
+--- |             |    |      | privileges on all objects.                                     |
+--- |             |    |      | The 'super' role has these privileges on                       |
+--- |             |    |      | 'universe':                                                    |
+--- |             |    |      | read, write, execute, create, drop, alter.                     |
+--- +-------------+----+------+----------------------------------------------------------------+
+---
+---To select a tuple from the `_user` space, use `box.space._user:select()`.
+---In the example below, `select` is executed for a user with id = 0.
+---This is the 'guest' user that has no password.
+---
+--- ```tarantoolsession
+--- tarantool> box.space._user:select{0}
+--- ---
+--- - - [0, 1, 'guest', 'user']
+--- ...
+--- ```
+---
+---**Warning:**
+---
+---To change tuples in the `_user` space, do not use ordinary `box.space` functions for insert, update, or delete.
+---
+---Learn more from [access control users](doc://access_control_users).
+---
+---@type box.space<box.space._user_tuple, box.space._user_info>
+box.space._user = {}
+
+---System `_cluster` space
+---
+---`_cluster` is a system space for support of the [replication feature](doc://replication).
+---
+---@type box.space<unknown, unknown>
+box.space._cluster = {}
+
+---System `_func` space
+---
+---A system space containing functions created using [`box.schema.func.create()`](lua://<box.schema.func.create).
+---
+---If a function's definition is specified in the body option, this function is *persistent*.
+---In this case, its definition is stored in a snapshot and can be recovered if the server restarts.
+---
+---@type box.space<unknown, unknown>
+box.space._func = {}
+
+---@alias box.space._space_tuple [integer, integer, string, string, { unique: boolean }]
+---@alias box.space._space_info {
+---    id: integer,
+---    owner: integer,
+---    name: string,
+---    engine: string,
+---    field_count: integer,
+---    flags: { temporary: boolean },
+---    format: { [integer]: { [string]: string } },
+---}
+
+---System `_space` space.
+---
+---`_space` is a system space. It contains all spaces hosted on the current Tarantool instance, both system ones and created by users.
+---
+---The [system space view](lua://box.space.sysviews) for `_space` is `_vspace`.
+---
+---**Example #1:**
+---
+---The following function will display every simple field in all tuples of `_space`.
+---
+--- ```lua
+--- function example()
+---     local ta = {}
+---     local i, line
+---     for k, v in box.space._space:pairs() do
+---         i = 1
+---         line = ''
+---         while i <= #v do
+---             if type(v[i]) ~= 'table' then
+---                 line = line .. v[i] .. ' '
+---             end
+---         i = i + 1
+---         end
+---         table.insert(ta, line)
+---     end
+---     return ta
+--- end
+--- ```
+---
+---Here is what `example()` returns in a typical installation:
+---
+--- ```tarantoolsession
+--- tarantool> example()
+--- ---
+--- - - '272 1 _schema memtx 0  '
+---   - '280 1 _space memtx 0  '
+---   - '281 1 _vspace sysview 0  '
+---   - '288 1 _index memtx 0  '
+---   - '296 1 _func memtx 0  '
+---   - '304 1 _user memtx 0  '
+---   - '305 1 _vuser sysview 0  '
+---   - '312 1 _priv memtx 0  '
+---   - '313 1 _vpriv sysview 0  '
+---   - '320 1 _cluster memtx 0  '
+---   - '512 1 tester memtx 0  '
+---   - '513 1 origin vinyl 0  '
+---   - '514 1 archive memtx 0  '
+--- ...
+--- ```
+---
+---**Example #2:**
+---
+---The following requests will create a space using [`box.schema.space.create()`](lua://box.schema.space.create) with a [format clause](lua://box.space.format), then retrieve the `_space` tuple for the new space.
+---
+---This illustrates the typical use of the `format` clause, it shows the recommended names and data types for the fields.
+---
+--- ```tarantoolsession
+--- tarantool> box.schema.space.create('TM', {
+--- >   id = 12345,
+--- >   format = {
+--- >     [1] = {["name"] = "field_1"},
+--- >     [2] = {["type"] = "unsigned"}
+--- >   }
+--- > })
+--- ---
+--- - index: []
+---   on_replace: 'function: 0x41c67338'
+---   temporary: false
+---   id: 12345
+---   engine: memtx
+---   enabled: false
+---   name: TM
+---   field_count: 0
+--- - created
+--- ...
+--- tarantool> box.space._space:select(12345)
+--- ---
+--- - - [12345, 1, 'TM', 'memtx', 0, {}, [{'name': 'field_1'}, {'type': 'unsigned'}]]
+--- ...
+--- ```
+---@type box.space<box.space._space_tuple, box.space._space_info>
+box.space._space = {}
+
+---@alias box.space._index_tuple [integer, integer, string, string, { unique: boolean }]
+---@alias box.space._index_info {
+---    id: integer,
+---    iid: integer,
+---    name: string,
+---    type: string,
+---    opts: { unique: boolean },
+---}
+
+---System `_index` space.
+---
+---Tuples in this space contain the following fields:
+---
+---Here is what `_index` contains in a typical installation:
+---
+--- ```tarantoolsession
+--- tarantool> box.space._index:select{}
+--- ---
+--- - - [272, 0, 'primary', 'tree', {'unique': true}, [[0, 'string']]]
+---   - [280, 0, 'primary', 'tree', {'unique': true}, [[0, 'unsigned']]]
+---   - [280, 1, 'owner', 'tree', {'unique': false}, [[1, 'unsigned']]]
+---   - [280, 2, 'name', 'tree', {'unique': true}, [[2, 'string']]]
+---   - [281, 0, 'primary', 'tree', {'unique': true}, [[0, 'unsigned']]]
+---   - [281, 1, 'owner', 'tree', {'unique': false}, [[1, 'unsigned']]]
+---   - [281, 2, 'name', 'tree', {'unique': true}, [[2, 'string']]]
+---   - [288, 0, 'primary', 'tree', {'unique': true}, [[0, 'unsigned'], [1, 'unsigned']]]
+---   - [288, 2, 'name', 'tree', {'unique': true}, [[0, 'unsigned'], [2, 'string']]]
+---   - [289, 0, 'primary', 'tree', {'unique': true}, [[0, 'unsigned'], [1, 'unsigned']]]
+---   - [289, 2, 'name', 'tree', {'unique': true}, [[0, 'unsigned'], [2, 'string']]]
+---   - [296, 0, 'primary', 'tree', {'unique': true}, [[0, 'unsigned']]]
+---   - [296, 1, 'owner', 'tree', {'unique': false}, [[1, 'unsigned']]]
+---   - [296, 2, 'name', 'tree', {'unique': true}, [[2, 'string']]]
+--- ---
+--- ...
+--- ```
+---
+---The [system space view](box_space-sysviews) for `_index` is `_vindex`.
+---
+---@type box.space<box.space._index_tuple, box.space._index_info>
+box.space._index = {}
+
 ---Create an index.
 ---
 ---It is mandatory to create an index for a space before trying to insert tuples into it or select tuples from it.
@@ -154,7 +376,7 @@ function space_methods:count(key, iterator) end
 --- tarantool> box.space.tester:delete('a')
 --- ---
 --- - error: 'Supplied key type of part 0 does not match index part type:
---- expected unsigned'
+---   expected unsigned'
 --- ...
 --- ```
 ---
