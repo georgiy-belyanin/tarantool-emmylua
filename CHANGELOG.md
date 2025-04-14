@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Builtin `buffer` module definitions.
 * Builtin `csv` module definitions.
 * Partial `fun` module definitions.
+* Builtin `http.client` module definitions.
 * Builtin `errno` module definitions.
 * Builtin `strict` module definitions.
 * Partial `vshard` rock definitions.

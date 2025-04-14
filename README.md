@@ -279,9 +279,7 @@ For more information on using LSP refer to the [project's documentation](https:/
     - [x] `fiber`
     - [x] `fio`
     - [x] `fun` (partial)
-    - [ ] `http`
-        + [ ] `client`
-        + [ ] `server`
+    - [x] `http.client`
     - [x] `iconv`
     - [x] `jit`
     - [x] `json` (partial)
