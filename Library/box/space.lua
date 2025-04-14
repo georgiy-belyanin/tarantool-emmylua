@@ -1040,4 +1040,4 @@ function space_methods:frommap(tbl) end
 ---
 ---@param format? box.space.format
 ---@return box.space.format
-function space_methods:format() end
+function space_methods:format(format) end
