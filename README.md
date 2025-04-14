@@ -259,7 +259,7 @@ For more information on using LSP refer to the [project's documentation](https:/
         + [x] `error`
         + [x] `index` (partial)
         + [x] `info`
-        + [x] `schema` (partial, `user`/`role` is missing)
+        + [x] `schema` (partial, `func` is missing)
         + [x] `session`
         + [x] `slab`
         + [x] `space` (partial)
