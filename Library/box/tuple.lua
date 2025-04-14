@@ -1,6 +1,8 @@
 ---@meta
 
----@class box.tuple<T, U>: (T | U)
+-- TODO: need generic inheritance to inherit from `T & U`.
+
+---@class box.tuple<T, U>: table
 local tuple_object = {}
 
 ---Number of bytes in the tuple.
