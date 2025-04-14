@@ -1038,6 +1038,6 @@ function space_methods:frommap(tbl) end
 ---
 ---Formatting or reformatting a large space will cause occasional [yields](doc://app-yields) so that other requests will not be blocked. If the other requests cause an illegal situation such as a field value of the wrong type, the formatting or reformatting will fail.
 ---
----@param format box.space.format
----@overload fun(): box.space.format
-function space_methods:format(format) end
+---@param format? box.space.format
+---@return box.space.format
+function space_methods:format() end
