@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * Marked `vshard.router.call*` arguments and options optional.
+* Added missing `map`, `any`, `double` tuple type names.
+* Overloads of `box.space.*:format()` are now resolved properly.
 
 ## [0.1.1] - 14.04.25
 
