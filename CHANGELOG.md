@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 * A `box.atomic()` overload has now proper variadic arguments.
+* `box.tuple` now doesn't issue diagnostics on missing field.
 
 ## [0.1.0] - 12.04.25
 
