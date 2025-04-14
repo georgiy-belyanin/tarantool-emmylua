@@ -268,7 +268,7 @@ For more information on using LSP refer to the [project's documentation](https:/
     - [x] `buffer`
     - [x] `clock`
     - [x] `console`
-    - [ ] `config`
+    - [x] `config`
     - [ ] `crypto`
     - [x] `csv`
     - [x] `datetime`
@@ -278,7 +278,7 @@ For more information on using LSP refer to the [project's documentation](https:/
     - [ ] `experimental.connpool`
     - [x] `fiber`
     - [x] `fio`
-    - [ ] `fun`
+    - [x] `fun` (partial)
     - [ ] `http`
         + [ ] `client`
         + [ ] `server`
