@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Builtin `strict` module definitions.
 * Partial `vshard` rock definitions.
 
+### Changed
+
+* Tightened some of the `box` `number` types to `integer`.
+
 ## [0.1.0] - 12.04.25
 
 ### Added

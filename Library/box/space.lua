@@ -288,16 +288,12 @@ function space_methods:on_replace(trigger_func, old_trigger_func) end
 ---@return box.space.replace_trigger<T, U> | nil func the old trigger if it was replaced or deleted
 function space_methods:before_replace(trigger_func, old_trigger_func) end
 
----@alias box.space.iterator<T> fun.array_iterator<T>
----@alias box.space.iterator.param string
----@alias box.space.iterator.state ffi.cdata*
+---@alias box.space.iterator<T, U> fun.iterator<box.tuple<T, U>, nil>
 
 ---Search for a tuple or a set of tuples in the given space, and allow iterating over one tuple at a time.
 ---@param key? box.tuple<T, U>|tuple_type[]|scalar value to be matched against the index key, which may be multi-part
 ---@param iterator? box.iterator (Default: 'EQ') defines iterator order
----@return box.space.iterator<T>,
----@return box.space.iterator.param
----@return box.space.iterator.state
+---@return box.space.iterator<T, U>
 function space_methods:pairs(key, iterator) end
 
 ---Rename a space.
@@ -380,7 +376,7 @@ function space_methods:run_triggers(flag) end
 ---
 ---**Note:** this method doesn't yield. For details, [Cooperative multitasking](doc://app-cooperative_multitasking).
 ---
----**Note:** the `after` and `fetch_pos` options are supported for the `TREE` :ref:`index <index-types>` only.
+---**Note:** the `after` and `fetch_pos` options are supported for the `TREE` [index](doc://index-types) only.
 ---
 ---**Possible errors:**
 ---
@@ -423,16 +419,16 @@ function space_methods:run_triggers(flag) end
 --- tarantool> bands:select({3}, {iterator='GT', limit = 3})
 --- ---
 --- - - [4, 'The Beatles', 1960]
---- - [5, 'Pink Floyd', 1965]
---- - [6, 'The Rolling Stones', 1962]
+---   - [5, 'Pink Floyd', 1965]
+---   - [6, 'The Rolling Stones', 1962]
 --- ...
 ---
 --- -- Select maximum 3 tuples after the specified tuple --
 --- tarantool> bands:select({}, {after = {4, 'The Beatles', 1960}, limit = 3})
 --- ---
 --- - - [5, 'Pink Floyd', 1965]
---- - [6, 'The Rolling Stones', 1962]
---- - [7, 'The Doors', 1965]
+---   - [6, 'The Rolling Stones', 1962]
+---   - [7, 'The Doors', 1965]
 --- ...
 ---
 --- -- Select first 3 tuples and fetch a last tuple's position --
@@ -443,8 +439,8 @@ function space_methods:run_triggers(flag) end
 --- tarantool> bands:select({}, {limit = 3, after = position})
 --- ---
 --- - - [4, 'The Beatles', 1960]
---- - [5, 'Pink Floyd', 1965]
---- - [6, 'The Rolling Stones', 1962]
+---   - [5, 'Pink Floyd', 1965]
+---   - [6, 'The Rolling Stones', 1962]
 --- ...
 --- ```
 ---
@@ -653,7 +649,7 @@ function space_methods:upsert(tuple, update_operations) end
 --- tarantool> s:frommap({b = 'x', a = 123456}, {table = true})
 --- ---
 --- - - 123456
---- - x
+---   - x
 --- ...
 --- ```
 ---
