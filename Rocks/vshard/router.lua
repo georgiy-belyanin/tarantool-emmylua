@@ -78,8 +78,8 @@ function router.new(name, cfg) end
 ---@param bucket_id integer A bucket identifier
 ---@param mode vshard.call_mode | {mode: vshard.call_mode, prefer_replica?: boolean, balance?: boolean } If `prefer_replica=true` is specified then the preferred target is one of the replicas, but the target is the master if there is no conveniently available replica. If `balance=true` then there is load balancing—reads are distributed over all the nodes in the replica set in round-robin fashion, with a preference for replicas if `prefer_replica=true` is also set.
 ---@param function_name string A function to execute
----@param argument_list table An array of the function’s arguments
----@param options net.box.call_options net.box options. `timeout` - if the router cannot identify a shard with the specified bucket_id, the operation will be repeated until the timeout is reached.
+---@param argument_list? table An array of the function’s arguments
+---@param options? net.box.call_options net.box options. `timeout` - if the router cannot identify a shard with the specified bucket_id, the operation will be repeated until the timeout is reached.
 ---@return any # Result of function_name on success or nil otherwise
 ---@return vshard.sharding_error? # Error on failure
 function router.call(bucket_id, mode, function_name, argument_list, options) end
@@ -88,8 +88,8 @@ function router.call(bucket_id, mode, function_name, argument_list, options) end
 ---
 ---@param bucket_id integer A bucket identifier
 ---@param function_name string A function to execute
----@param argument_list table An array of the function’s arguments
----@param options net.box.call_options net.box options. `timeout` - if the router cannot identify a shard with the specified bucket_id, the operation will be repeated until the timeout is reached.
+---@param argument_list? table An array of the function’s arguments
+---@param options? net.box.call_options net.box options. `timeout` - if the router cannot identify a shard with the specified bucket_id, the operation will be repeated until the timeout is reached.
 ---@return any # Result of function_name on success or nil otherwise
 ---@return vshard.sharding_error? # Error on failure
 function router.callro(bucket_id, function_name, argument_list, options) end
@@ -98,8 +98,8 @@ function router.callro(bucket_id, function_name, argument_list, options) end
 ---
 ---@param bucket_id integer A bucket identifier
 ---@param function_name string A function to execute
----@param argument_list table An array of the function’s arguments
----@param options net.box.call_options net.box options. `timeout` - if the router cannot identify a shard with the specified bucket_id, the operation will be repeated until the timeout is reached.
+---@param argument_list? table An array of the function’s arguments
+---@param options? net.box.call_options net.box options. `timeout` - if the router cannot identify a shard with the specified bucket_id, the operation will be repeated until the timeout is reached.
 ---@return any # Result of function_name on success or nil otherwise
 ---@return vshard.sharding_error? # Error on failure
 function router.callrw(bucket_id, function_name, argument_list, options) end
@@ -108,8 +108,8 @@ function router.callrw(bucket_id, function_name, argument_list, options) end
 ---
 ---@param bucket_id integer A bucket identifier
 ---@param function_name string A function to execute
----@param argument_list table An array of the function’s arguments
----@param options net.box.call_options net.box options. `timeout` - if the router cannot identify a shard with the specified bucket_id, the operation will be repeated until the timeout is reached.
+---@param argument_list? table An array of the function’s arguments
+---@param options? net.box.call_options net.box options. `timeout` - if the router cannot identify a shard with the specified bucket_id, the operation will be repeated until the timeout is reached.
 ---@return any # Result of function_name on success or nil otherwise
 ---@return vshard.sharding_error? # Error on failure
 function router.callre(bucket_id, function_name, argument_list, options) end
@@ -118,8 +118,8 @@ function router.callre(bucket_id, function_name, argument_list, options) end
 ---
 ---@param bucket_id integer A bucket identifier
 ---@param function_name string A function to execute
----@param argument_list table An array of the function’s arguments
----@param options net.box.call_options net.box options. `timeout` - if the router cannot identify a shard with the specified bucket_id, the operation will be repeated until the timeout is reached.
+---@param argument_list? table An array of the function’s arguments
+---@param options? net.box.call_options net.box options. `timeout` - if the router cannot identify a shard with the specified bucket_id, the operation will be repeated until the timeout is reached.
 ---@return any # Result of function_name on success or nil otherwise
 ---@return vshard.sharding_error? # Error on failure
 function router.callbro(bucket_id, function_name, argument_list, options) end
@@ -129,8 +129,8 @@ function router.callbro(bucket_id, function_name, argument_list, options) end
 ---
 ---@param bucket_id integer A bucket identifier
 ---@param function_name string A function to execute
----@param argument_list table An array of the function’s arguments
----@param options net.box.call_options net.box options. `timeout` - if the router cannot identify a shard with the specified bucket_id, the operation will be repeated until the timeout is reached.
+---@param argument_list? table An array of the function’s arguments
+---@param options? net.box.call_options net.box options. `timeout` - if the router cannot identify a shard with the specified bucket_id, the operation will be repeated until the timeout is reached.
 ---@return any # Result of function_name on success or nil otherwise
 ---@return vshard.sharding_error? # Error on failure
 function router.callbre(bucket_id, function_name, argument_list, options) end
@@ -148,8 +148,8 @@ function router.callbre(bucket_id, function_name, argument_list, options) end
 ---* A vast number of buckets scattered over the instances in case their individual `vshard.router.call()` takes up too much time
 ---
 ---@param function_name string A function to call on the storages (masters of all replica sets)
----@param argument_list table An array of the function’s arguments
----@param options net.box.call_options **Important:** Do not use a big timeout (longer than 1 minute, for instance). The router tries to block the bucket moves to another storage for the given timeout on all storages. On failure, the block remains for the entire timeout.
+---@param argument_list? table An array of the function’s arguments
+---@param options? net.box.call_options **Important:** Do not use a big timeout (longer than 1 minute, for instance). The router tries to block the bucket moves to another storage for the given timeout on all storages. On failure, the block remains for the entire timeout.
 ---@return table<vshard.uuid, table>|nil # A map with replica set UUIDs (keys) and results of the function_name (values).
 ---@return vshard.sharding_error? # Error object
 ---@return vshard.uuid? # Optional replica set UUID where the error occurred. UUID will not be returned if the error is not related to a particular replica set. For instance, the method fails if not all buckets were found, even if all replica sets were scanned successfully

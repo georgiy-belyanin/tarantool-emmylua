@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+* Marked `vshard.router.call*` arguments and options optional.
+
 ## [0.1.1] - 14.04.25
 
 ### Added
