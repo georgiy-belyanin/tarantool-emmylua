@@ -24,6 +24,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Tightened some of the `box` `number` types to `integer`.
 
+### Fixed
+
+* A `box.atomic()` overload has now proper variadic arguments.
+
 ## [0.1.0] - 12.04.25
 
 ### Added
