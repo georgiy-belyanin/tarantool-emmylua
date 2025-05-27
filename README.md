@@ -296,7 +296,7 @@ For more information on using LSP refer to the [project's documentation](https:/
     - [x] `uri`
     - [ ] `utf8`
     - [x] `uuid`
-    - [ ] `xlog`
+    - [x] `xlog`
     - [x] `yaml`
 
 * Popular Tarantool rocks
