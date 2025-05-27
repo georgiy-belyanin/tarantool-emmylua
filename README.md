@@ -259,6 +259,7 @@ For more information on using LSP refer to the [project's documentation](https:/
         + [x] `error`
         + [x] `index` (partial)
         + [x] `info`
+        + [x] `iproto`
         + [x] `schema` (partial, `func` is missing)
         + [x] `session`
         + [x] `slab`
