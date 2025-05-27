@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* Builtin `socket` module declarations.
+* Builtin `xlog` module declarations.
+* Builtin `box.iproto` submodule declarations.
+
 ### Fixed
 
 * Marked `vshard.router.call*` arguments and options optional.
