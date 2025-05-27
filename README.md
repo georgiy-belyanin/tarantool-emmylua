@@ -289,7 +289,7 @@ For more information on using LSP refer to the [project's documentation](https:/
     - [x] `net.box` (partial)
     - [ ] `pickle`
     - [ ] `popen`
-    - [ ] `socket`
+    - [x] `socket`
     - [x] `strict`
     - [x] `string`
     - [ ] `tarantool`
