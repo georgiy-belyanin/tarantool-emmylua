@@ -350,6 +350,7 @@ function space_methods:count(key, iterator) end
 ---     name?: string,
 ---     type?: tuple_type_name,
 ---     is_nullable?: boolean,
+---     nullable_action?: box.space.nullable_action,
 ---     collation?: box.space.collation,
 ---     constraint?: string | { [string]: string },
 ---     foreign_key?: box.space.foreign_key | { [string]: box.space.foreign_key },

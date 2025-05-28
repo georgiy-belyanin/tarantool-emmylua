@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Builtin `socket` module declarations.
 * Builtin `xlog` module declarations.
 * Builtin `box.iproto` submodule declarations.
+* `box.tuple.format` submodule.
+* Various `box.space.format` fields (e.g. `foreign_keys`, `constraint`).
 
 ### Fixed
 

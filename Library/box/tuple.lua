@@ -375,25 +375,18 @@ function box.tuple.is(object) end
 box.tuple.format = {}
 
 ---Tuple format.
+---
 ---@class box.tuple.format: userdata
 local tuple_format = {}
 
----@alias box.tuple.field_format {
----     name?: string,
----     type?: tuple_type_name,
----     is_nullable?: boolean,
----     nullable_action?: 'none'|'rollback'|'abort'|'fail'|'ignore'|'replace'|'default',
----     default?: string,
----     collation?: string,
----     constraint?: string | { [string]: string },
----     foreign_key?: { space: string, field: string },
----}
+---@alias box.tuple.field_format box.space.field_format
 
----`tuple_format:totable()` returns tuple_format as lua table.
+---Returns tuple format as a lua table.
+---
 ---@return box.tuple.field_format[]
 function tuple_format:totable() end
 
----Get a tuple_format iterator
+---Get a tuple_format iterator.
 ---
 ---In Lua, [`lua-table-value:pairs()`](https://www.lua.org/pil/7.3.html) is a method which returns: `function`, `lua-table-value`, `nil`.
 ---
@@ -402,9 +395,10 @@ function tuple_format:totable() end
 ---`tuple_format:ipairs()` is the same as `pairs()`, because tuple_format fields are always integers.
 ---
 ---@see box.tuple.format.ipairs
----@return fun() ctx, any box.tuple.field_format[], nil
+---@return fun(tbl: any): (integer, box.tuple.field_format)
 function tuple_format:pairs() end
 
+---@see box.tuple.format.pairs
 tuple_format.ipairs = tuple_format.pairs
 
 ---Get the format of a tuple.
