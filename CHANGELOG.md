@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* More `box.space` supplementary spaces.
+* Trigger functions to `box.ctl` and functions for managing the cluster.
+* `box.schema.func` definitions.
+* `box.schema.sequence` definitions.
+
+### Fixed
+
+* `box.schema.role.grant()` missing a parameter.
+
 ## [0.2.0] - 28.05.25
 
 ### Added

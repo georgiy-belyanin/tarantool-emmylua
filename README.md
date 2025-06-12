@@ -255,15 +255,15 @@ For more information on using LSP refer to the [project's documentation](https:/
     - [x] `box` (partial)
         + [x] `backup`
         + [x] `cfg`
-        + [x] `ctl` (partial)
+        + [x] `ctl`
         + [x] `error`
         + [x] `index` (partial)
         + [x] `info`
         + [x] `iproto`
-        + [x] `schema` (partial, `func` is missing)
+        + [x] `schema`
         + [x] `session`
         + [x] `slab`
-        + [x] `space` (partial)
+        + [x] `space`
         + [x] `stat` (partial)
         + [x] `tuple`
     - [x] `buffer`

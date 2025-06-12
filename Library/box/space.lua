@@ -1051,3 +1051,240 @@ function space_methods:frommap(tbl) end
 ---@param format? box.space.format
 ---@return box.space.format
 function space_methods:format(format) end
+
+---Generate the next value of the specified sequence and insert a tuple.
+---
+---@param sequence_name string The sequence name or sequence id
+---@param tuple? T | box.tuple<T, U> tuple to be inserted
+---@return box.tuple<T, U> tuple the inserted tuple
+function space_methods:auto_increment(sequence_name, tuple) end
+
+---Return space statistics.
+---
+---This function returns statistics for the space including memory usage details,
+---number of operations performed, etc.
+---
+---@return table statistics table containing memory usage and operation statistics
+function space_methods:stat() end
+
+---Create a check constraint.
+---
+---A check constraint is a SQL CHECK constraint that is added to a space.
+---
+---@param constraint_name string name of the constraint
+---@param expression string SQL expression for the constraint
+function space_methods:create_check_constraint(constraint_name, expression) end
+
+---Add a user-defined method to the space object.
+---
+---This allows users to add their own methods to space objects.
+---
+---@param method_name string name of the method to add
+---@param method_function function the function to be added as a method
+function space_methods:user_defined(method_name, method_function) end
+
+-- System space definitions that are referenced in the documentation but missing
+
+---@alias box.space._vindex_tuple box.space._index_tuple
+---@alias box.space._vindex_info box.space._index_info
+
+---System `_vindex` space (view of _index).
+---
+---This is a view of the _index space that shows only indexes accessible
+---to the current user.
+---
+---@type box.space<box.space._vindex_tuple, box.space._vindex_info>
+box.space._vindex = {}
+
+---@alias box.space._priv_tuple [integer, integer, string, integer, string]
+---@alias box.space._priv_info {
+---    grantor: integer,
+---    grantee: integer,
+---    object_type: string,
+---    object_id: integer,
+---    privilege: string,
+---}
+
+---System `_priv` space.
+---
+---This space contains privilege information for access control.
+---
+---@type box.space<box.space._priv_tuple, box.space._priv_info>
+box.space._priv = {}
+
+---@alias box.space._vpriv_tuple box.space._priv_tuple
+---@alias box.space._vpriv_info box.space._priv_info
+
+---System `_vpriv` space (view of _priv).
+---
+---This is a view of the _priv space that shows only privileges accessible
+---to the current user.
+---
+---@type box.space<box.space._vpriv_tuple, box.space._vpriv_info>
+box.space._vpriv = {}
+
+---@alias box.space._schema_tuple [string, any]
+---@alias box.space._schema_info {
+---    key: string,
+---    value: any,
+---}
+
+---System `_schema` space.
+---
+---This space contains schema information and version details.
+---
+---@type box.space<box.space._schema_tuple, box.space._schema_info>
+box.space._schema = {}
+
+---@alias box.space._sequence_tuple [integer, integer, string, integer, integer, integer, integer, boolean, boolean]
+---@alias box.space._sequence_info {
+---    id: integer,
+---    owner: integer,
+---    name: string,
+---    step: integer,
+---    min: integer,
+---    max: integer,
+---    start: integer,
+---    cache: boolean,
+---    cycle: boolean,
+---}
+
+---System `_sequence` space.
+---
+---This space contains sequence definitions.
+---
+---@type box.space<box.space._sequence_tuple, box.space._sequence_info>
+box.space._sequence = {}
+
+---@alias box.space._sequence_data_tuple [integer, integer]
+---@alias box.space._sequence_data_info {
+---    id: integer,
+---    value: integer,
+---}
+
+---System `_sequence_data` space.
+---
+---This space contains current values of sequences.
+---
+---@type box.space<box.space._sequence_data_tuple, box.space._sequence_data_info>
+box.space._sequence_data = {}
+
+---@alias box.space._vspace_tuple box.space._space_tuple
+---@alias box.space._vspace_info box.space._space_info
+
+---System `_vspace` space (view of _space).
+---
+---This is a view of the _space space that shows only spaces accessible
+---to the current user.
+---
+---@type box.space<box.space._vspace_tuple, box.space._vspace_info>
+box.space._vspace = {}
+
+---@alias box.space._space_sequence_tuple [integer, integer, boolean, string, integer, integer, integer, integer, boolean]
+---@alias box.space._space_sequence_info {
+---    space_id: integer,
+---    sequence_id: integer,
+---    is_generated: boolean,
+---    field: string,
+---    start: integer,
+---    min: integer,
+---    max: integer,
+---    cache: integer,
+---    cycle: boolean,
+---}
+
+---System `_space_sequence` space.
+---
+---This space contains connections between spaces and sequences.
+---
+---@type box.space<box.space._space_sequence_tuple, box.space._space_sequence_info>
+box.space._space_sequence = {}
+
+---@alias box.space._vspace_sequence_tuple box.space._space_sequence_tuple
+---@alias box.space._vspace_sequence_info box.space._space_sequence_info
+
+---System `_vspace_sequence` space (view of _space_sequence).
+---
+---This is a view of the _space_sequence space that shows only connections
+---accessible to the current user.
+---
+---@type box.space<box.space._vspace_sequence_tuple, box.space._vspace_sequence_info>
+box.space._vspace_sequence = {}
+
+---@alias box.space._vuser_tuple box.space._user_tuple
+---@alias box.space._vuser_info box.space._user_info
+
+---System `_vuser` space (view of _user).
+---
+---This is a view of the _user space that shows only users accessible
+---to the current user.
+---
+---@type box.space<box.space._vuser_tuple, box.space._vuser_info>
+box.space._vuser = {}
+
+---@alias box.space._ck_constraint_tuple [integer, string, string, string, string]
+---@alias box.space._ck_constraint_info {
+---    space_id: integer,
+---    name: string,
+---    deferred: string,
+---    match: string,
+---    sql: string,
+---}
+
+---System `_ck_constraint` space.
+---
+---This space contains check constraints.
+---
+---@type box.space<box.space._ck_constraint_tuple, box.space._ck_constraint_info>
+box.space._ck_constraint = {}
+
+---@alias box.space._collation_tuple [integer, string, integer, string, string, table]
+---@alias box.space._collation_info {
+---    id: integer,
+---    name: string,
+---    owner: integer,
+---    type: string,
+---    locale: string,
+---    opts: table,
+---}
+
+---System `_collation` space.
+---
+---This space contains collation definitions.
+---
+---@type box.space<box.space._collation_tuple, box.space._collation_info>
+box.space._collation = {}
+
+---@alias box.space._vcollation_tuple box.space._collation_tuple
+---@alias box.space._vcollation_info box.space._collation_info
+
+---System `_vcollation` space (view of _collation).
+---
+---This is a view of the _collation space that shows only collations accessible
+---to the current user.
+---
+---@type box.space<box.space._vcollation_tuple, box.space._vcollation_info>
+box.space._vcollation = {}
+
+---@alias box.space._session_settings_tuple [string, any]
+---@alias box.space._session_settings_info {
+---    name: string,
+---    value: any,
+---}
+
+---System `_session_settings` space.
+---
+---This space contains settings that affect the behavior of the current session.
+---
+---@type box.space<box.space._session_settings_tuple, box.space._session_settings_info>
+box.space._session_settings = {}
+
+-- Add the upgrade method reference mentioned in the documentation
+
+---Upgrade the space format and tuples.
+---
+---This method upgrades the space format to handle schema changes.
+---Referenced as box_space-upgrade in the documentation.
+---
+---@param format? box.space.format new format for the space
+function space_methods:upgrade(format) end

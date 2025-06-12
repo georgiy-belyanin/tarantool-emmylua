@@ -300,14 +300,34 @@ function box.schema.user.info(username) end
 ---For explanation of how Tarantool maintains user data, see section [Users](doc://authentication-users) and reference on [box.space._user](lua://box.space.user) space.
 ---
 ---@param username? string The name of the user
----@return bool exists `true` if a user exists; `false` if a user does not
+---@return boolean exists `true` if a user exists; `false` if a user does not
 function box.schema.user.exists(username) end
 
 ---Role privileges management.
 box.schema.role = {}
 
+---Create a role.
+---
+---**Examples:**
+---
+--- ```lua
+--- box.schema.role.create('writers')
+--- ```
+---
+---@param role_name string The name of the role
+---@param options? { if_not_exists?: boolean }
 function box.schema.role.create(role_name, options) end
 
+---Drop a role.
+---
+---**Examples:**
+---
+--- ```lua
+--- box.schema.role.drop('writers')
+--- ```
+---
+---@param role_name string The name of the role
+---@param options? { if_exists?: boolean }
 function box.schema.role.drop(role_name, options) end
 
 ---Grant privileges a role.
@@ -332,7 +352,7 @@ function box.schema.role.drop(role_name, options) end
 ---@param options? { grantor?: string | number, if_not_exists?: boolean }
 ---@overload fun(role_name: string, permissions: box.schema.privileges.permissions, universe: 'universe', _: nil, options?: { grantor?: string | number, if_not_exists?: boolean }})
 ---@overload fun(role_name: string, role_name: string, _1: nil, _2: nil, options?: { grantor?: string | number, if_not_exists?: boolean }})
-function box.schema.role.grant(role_name, object_type, object_name, options) end
+function box.schema.role.grant(role_name, permissions, object_type, object_name, options) end
 
 ---Revoke privileges from a role.
 ---
@@ -349,7 +369,7 @@ function box.schema.role.grant(role_name, object_type, object_name, options) end
 ---@param options? { grantor?: string | number, if_not_exists?: boolean }
 ---@overload fun(role_name: string, permissions: box.schema.privileges.permissions, universe: 'universe', _: nil, options?: { grantor?: string | number, if_not_exists?: boolean }})
 ---@overload fun(role_name: string, role_name: string, _1: nil, _2: nil, options?: { grantor?: string | number, if_not_exists?: boolean }})
-function box.schema.role.revoke(role_name, object_type, object_name, options) end
+function box.schema.role.revoke(role_name, permissions, object_type, object_name, options) end
 
 ---Return a description of a role's privileges.
 ---
@@ -362,12 +382,166 @@ function box.schema.role.info(role_name) end
 ---Check if role exists.
 ---
 ---@param role_name string
----@return bool exists `true` if a role exists; `false` if a role does not
+---@return boolean exists `true` if a role exists; `false` if a role does not
 function box.schema.role.exists(role_name) end
 
+---Sequence management.
+box.schema.sequence = {}
+
+---@class box.schema.sequence.create_options: table
+---@field start? number (Default: 1) The STARTS WITH value. The value to generate the first time a sequence is used.
+---@field min? number (Default: 1) The MINIMUM value. Values smaller than this cannot be generated.
+---@field max? number (Default: 9223372036854775807) The MAXIMUM value. Values larger than this cannot be generated.
+---@field cycle? boolean (Default: false) The CYCLE value. Whether to start again when values cannot be generated.
+---@field cache? number (Default: 0) The number of values to store in a cache.
+---@field step? number (Default: 1) What to add to the previous generated value, when generating a new value.
+---@field if_not_exists? boolean (Default: false) If this is true and a sequence with this name exists already, ignore other options and use the existing values.
+
+---@class box.sequence: table
+---@field name string The name of the sequence
+---@field id number The numeric identifier of the sequence
+
+---Create a new sequence generator.
+---
+---**Examples:**
+---
+--- ```lua
+--- s = box.schema.sequence.create('id_seq', {min=1000, start=1000})
+--- ```
+---
+---@param name string The name of the sequence
+---@param options? box.schema.sequence.create_options See sequence creation options
+---@return box.sequence # A reference to a new sequence object
+function box.schema.sequence.create(name, options) end
+
+---Generate and return the next value.
+---
+---**Examples:**
+---
+--- ```lua
+--- s = box.schema.sequence.create('test_seq')
+--- s:next() -- returns 1
+--- s:next() -- returns 2
+--- ```
+---
+---@param self box.sequence
+---@return number # The next generated value
+function box.sequence.next(self) end
+
+---Change sequence options.
+---
+---**Examples:**
+---
+--- ```lua
+--- s = box.schema.sequence.create('test_seq')
+--- s:alter({step=6})
+--- ```
+---
+---@param self box.sequence
+---@param options box.schema.sequence.create_options The options to change
+function box.sequence.alter(self, options) end
+
+---Reset sequence state.
+---
+---**Examples:**
+---
+--- ```lua
+--- s = box.schema.sequence.create('test_seq')
+--- s:next() -- returns 1
+--- s:reset()
+--- s:next() -- returns 1 again
+--- ```
+---
+---@param self box.sequence
+function box.sequence.reset(self) end
+
+---Set the new value.
+---
+---**Examples:**
+---
+--- ```lua
+--- s = box.schema.sequence.create('test_seq')
+--- s:set(150)
+--- s:next() -- returns 151
+--- ```
+---
+---@param self box.sequence
+---@param value number The new value to set
+function box.sequence.set(self, value) end
+
+---Return the last retrieved value.
+---
+---**Examples:**
+---
+--- ```lua
+--- s = box.schema.sequence.create('test_seq')
+--- s:next() -- returns 1
+--- s:current() -- returns 1
+--- ```
+---
+---@param self box.sequence
+---@return number # The last retrieved value
+function box.sequence.current(self) end
+
+---Drop an existing sequence.
+---
+---**Examples:**
+---
+--- ```lua
+--- s = box.schema.sequence.create('test_seq')
+--- s:drop()
+--- ```
+---
+---@param self box.sequence
+function box.sequence.drop(self) end
+
 ---Stored function management.
----
----This module hasn't been documented yet.
----
----@type any
 box.schema.func = {}
+
+---@class box.schema.func.create_options: table
+---@field language? 'LUA' | 'C' (Default: 'LUA') The language of the function body
+---@field body? string The function body
+---@field is_deterministic? boolean (Default: false) Whether the function is deterministic
+---@field is_sandboxed? boolean (Default: true) Whether the function should be executed in a sandbox
+---@field returns? string The return type
+---@field exports? ('LUA' | 'SQL')[] Which interfaces the function is exported to
+---@field param_list? string[] List of parameter types
+---@field if_not_exists? boolean (Default: false) Do not throw an error if the function already exists
+---@field setuid? boolean (Default: false) Whether the function should be executed with the privileges of its definer
+---@field comment? string A comment for the function
+
+---Create a function.
+---
+---**Examples:**
+---
+--- ```lua
+--- box.schema.func.create('calculate', {language = 'LUA', body = 'function(x) return x * 2 end'})
+--- ```
+---
+---@param func_name string The name of the function
+---@param options? box.schema.func.create_options Function creation options
+function box.schema.func.create(func_name, options) end
+
+---Drop a function tuple.
+---
+---**Examples:**
+---
+--- ```lua
+--- box.schema.func.drop('calculate')
+--- ```
+---
+---@param func_name string The name of the function
+---@param options? { if_exists?: boolean } Drop options
+function box.schema.func.drop(func_name, options) end
+
+---Check if a function exists.
+---
+---**Examples:**
+---
+--- ```lua
+--- box.schema.func.exists('calculate')
+--- ```
+---
+---@param func_name string The name of the function
+---@return boolean # True if the function exists, false otherwise
+function box.schema.func.exists(func_name) end
