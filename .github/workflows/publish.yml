@@ -27,7 +27,6 @@ jobs:
           path: .cache 
           restore-keys: |
             mkdocs-material-
-      - run: cargo install
       - name: Install emmylua_doc_cli
         uses: baptiste0928/cargo-install@v3
         with:
