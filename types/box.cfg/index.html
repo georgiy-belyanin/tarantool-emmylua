@@ -1,0 +1,6552 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../json.cfg/">
+      
+      
+        <link rel="next" href="../fiber.channel/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>class cfg - Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#class-cfg" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Docs" class="md-header__button md-logo" aria-label="Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              class cfg
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Docs" class="md-nav__button md-logo" aria-label="Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Types
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Types
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._ck_constraint_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _ck_constraint_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._ck_constraint_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _ck_constraint_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._collation_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _collation_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._collation_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _collation_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._index_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _index_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._index_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _index_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._priv_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _priv_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._priv_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _priv_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._schema_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _schema_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._schema_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _schema_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._sequence_data_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _sequence_data_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._sequence_data_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _sequence_data_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._sequence_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _sequence_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._sequence_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _sequence_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._session_settings_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _session_settings_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._session_settings_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _session_settings_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._space_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _space_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._space_sequence_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _space_sequence_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._space_sequence_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _space_sequence_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._space_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _space_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._user_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _user_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._user_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _user_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._vcollation_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vcollation_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._vcollation_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vcollation_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._vindex_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vindex_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._vindex_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vindex_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._vpriv_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vpriv_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._vpriv_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vpriv_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._vspace_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vspace_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._vspace_sequence_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vspace_sequence_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._vspace_sequence_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vspace_sequence_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._vspace_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vspace_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._vuser_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vuser_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space._vuser_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vuser_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datetime.interval.adjust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias adjust
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../array/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias array
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uuid.byte_order/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias byte_order
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space.collation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias collation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fun.comparator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias comparator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compound/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias compound
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../decimal_like/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias decimal_like
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.cfg.election_mode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias election_mode
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.iproto.feature/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias feature
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space.field_format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias field_format
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.tuple.field_format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias field_format
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias flags
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../float64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias float64
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space.foreign_key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias foreign_key
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space.format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias format
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.index_part_def/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias index_part_def
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.index_type/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias index_type
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../integer64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias integer64
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space.iterator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias iterator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.iterator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias iterator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.cfg.log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias log
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.cfg.log_format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias log_format
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.cfg.log_level/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias log_level
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias map
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias mode
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space.nullable_action/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias nullable_action
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.schema.privileges.object_type/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias object_type
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.on_commit_iterator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias on_commit_iterator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.on_commit_trigger_func/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias on_commit_trigger_func
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.schema.privileges.permissions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias permissions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fun.predicate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias predicate
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.schema.privileges/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias privileges
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.ctl.recovery_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias recovery_state
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space.replace_trigger/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias replace_trigger
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scalar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias scalar
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seek/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias seek
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config.info.status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias status
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tuple_type/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias tuple_type
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tuple_type_name/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias tuple_type_name
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.txn_isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias txn_isolation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.session.type/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias type
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datetime.interval.units/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias units
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datetime.units/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias units
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.update_operation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias update_operation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uri_like/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias uri_like
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.cfg.wal_mode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias wal_mode
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config.alert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class alert
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space.alter_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class alter_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.begin_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class begin_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../buffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class buffer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../net.box.call_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class call_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yaml.cfg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class cfg
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../json.cfg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class cfg
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    class cfg
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    class cfg
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      fields
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cfgbackground" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.background
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgcheckpoint_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.checkpoint_count
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgcheckpoint_interval" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.checkpoint_interval
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgcheckpoint_wal_threshold" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.checkpoint_wal_threshold
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgcoredump" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.coredump
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgcustom_proc_title" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.custom_proc_title
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgboxcfgelection_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.box.cfg.election_mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgfeedback_enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.feedback_enabled
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgfeedback_host" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.feedback_host
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgfeedback_interval" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.feedback_interval
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgforce_recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.force_recovery
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfghot_standby" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.hot_standby
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfginstance_uuid" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.instance_uuid
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgio_collect_interval" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.io_collect_interval
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgiproto_threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.iproto_threads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfglisten" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.listen
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfglog" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.log
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgboxcfglog_format" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.box.cfg.log_format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgboxcfglog_level" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.box.cfg.log_level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfglog_nonblock" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.log_nonblock
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgmemtx_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.memtx_dir
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgmemtx_max_tuple_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.memtx_max_tuple_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgmemtx_memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.memtx_memory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgmemtx_min_tuple_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.memtx_min_tuple_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgmemtx_use_mvcc_engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.memtx_use_mvcc_engine
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgnet_msg_max" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.net_msg_max
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgpid_file" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.pid_file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreadahead" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.readahead
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgread_only" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.read_only
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplicaset_uuid" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replicaset_uuid
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication_anon" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication_anon
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication_connect_quorum" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication_connect_quorum
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication_connect_timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication_connect_timeout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication_synchro_quorum" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication_synchro_quorum
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication_skip_conflict" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication_skip_conflict
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication_sync_lag" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication_sync_lag
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication_sync_timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication_sync_timeout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication_timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication_timeout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgslab_alloc_factor" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.slab_alloc_factor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgsnap_io_rate_limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.snap_io_rate_limit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgsql_cache_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.sql_cache_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgstrip_core" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.strip_core
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgtoo_long_threshold" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.too_long_threshold
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgtxn_isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.txn_isolation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgusername" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.username
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_bloom_fpr" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_bloom_fpr
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_cache
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_dir
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_max_tuple_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_max_tuple_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_memory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_page_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_page_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_range_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_range_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_read_threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_read_threads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_run_count_per_level" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_run_count_per_level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_run_size_ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_run_size_ratio
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_timeout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_write_threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_write_threads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgwal_cleanup_delay" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.wal_cleanup_delay
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgwal_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.wal_dir
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgwal_dir_rescan_delay" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.wal_dir_rescan_delay
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgwal_max_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.wal_max_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgboxcfgwal_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.box.cfg.wal_mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgworker_pool_threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.worker_pool_threads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgwork_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.work_dir
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiber.channel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class channel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.info.gc.checkpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class checkpoint
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.info.cluster/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class cluster
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiber.cond/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class cond
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../net.box.conn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class conn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../net.box.connect_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class connect_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.schema.func.create_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class create_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.schema.sequence.create_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class create_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.schema.create_space_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class create_space_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datetime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class datetime
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../decimal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class decimal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.stat.default/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class default
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.stat.default_with_current/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class default_with_current
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.info.downstream/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class downstream
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.info.election/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class election
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uri.encoding_opt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class encoding_opt
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../errno/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class errno
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.error/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class error
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiber/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class fiber
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fio.file/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class file
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.tuple.format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class format
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.info.gc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class gc
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iconv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class iconv
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.index_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class index_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.index_part/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class index_part
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.slab.info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config.info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.stat.info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiber.info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../int64_t/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class int64_t
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datetime.interval/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class interval
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fun.iterator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class iterator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class log
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.info.memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class memory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config.info.meta/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class meta
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.stat.net/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class net
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../http.client.request.options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../http.client.options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../csv.options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.info.synchro.queue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class queue
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.info.replica/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class replica
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../net.box.request_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class request_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../http.response/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class response
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.savepoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class savepoint
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space.select_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class select_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.sequence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class sequence
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiber.slice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class slice
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../socket/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class socket
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../socket_module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class socket_module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.space/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class space
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.spaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class spaces
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fio.stat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class stat
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../http.client.stat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class stat
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.stat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class stat
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.info.syncho/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class syncho
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.error.table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class table
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../socket.tcp_server_handler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class tcp_server_handler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fiber.top/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class top
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.error.trace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class trace
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uint64_t/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class uint64_t
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.info.upstream/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class upstream
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uri/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class uri
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uuid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class uuid
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config.info.v2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class v2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config.info.meta.v2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class v2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.watcher/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class watcher
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.iproto.ballot_key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    enum ballot_key
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.iproto.flag/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    enum flag
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.index.iterator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    enum iterator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.iproto.key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    enum key
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.iproto.metadata_key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    enum metadata_key
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.iproto.raft_key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    enum raft_key
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../box.iproto.type/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    enum type
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Modules
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Modules
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/buffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    buffer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/clock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    clock
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    config
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/console/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    console
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/csv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    csv
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/datetime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    datetime
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/decimal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    decimal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/errno/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    errno
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/fiber/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    fiber
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/fio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    fio
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/fun/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    fun
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/http.client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    http.client
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/iconv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    iconv
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/jit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    jit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/jit.bc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    jit.bc
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/jit.dis_x64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    jit.dis_x64
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/jit.dis_x86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    jit.dis_x86
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/jit.dump/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    jit.dump
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/jit.v/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    jit.v
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    json
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    log
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/net.box/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    net.box
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/socket/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    socket
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/strict/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    strict
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/uri/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    uri
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/uuid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    uuid
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/xlog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    xlog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/yaml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    yaml
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Globals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Globals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../globals/_TARANTOOL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    _TARANTOOL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../globals/box/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    box
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../globals/dostring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    dostring
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../globals/tonumber64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    tonumber64
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      fields
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cfgbackground" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.background
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgcheckpoint_count" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.checkpoint_count
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgcheckpoint_interval" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.checkpoint_interval
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgcheckpoint_wal_threshold" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.checkpoint_wal_threshold
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgcoredump" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.coredump
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgcustom_proc_title" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.custom_proc_title
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgboxcfgelection_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.box.cfg.election_mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgfeedback_enabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.feedback_enabled
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgfeedback_host" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.feedback_host
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgfeedback_interval" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.feedback_interval
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgforce_recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.force_recovery
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfghot_standby" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.hot_standby
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfginstance_uuid" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.instance_uuid
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgio_collect_interval" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.io_collect_interval
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgiproto_threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.iproto_threads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfglisten" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.listen
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfglog" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.log
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgboxcfglog_format" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.box.cfg.log_format
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgboxcfglog_level" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.box.cfg.log_level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfglog_nonblock" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.log_nonblock
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgmemtx_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.memtx_dir
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgmemtx_max_tuple_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.memtx_max_tuple_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgmemtx_memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.memtx_memory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgmemtx_min_tuple_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.memtx_min_tuple_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgmemtx_use_mvcc_engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.memtx_use_mvcc_engine
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgnet_msg_max" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.net_msg_max
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgpid_file" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.pid_file
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreadahead" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.readahead
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgread_only" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.read_only
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplicaset_uuid" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replicaset_uuid
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication_anon" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication_anon
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication_connect_quorum" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication_connect_quorum
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication_connect_timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication_connect_timeout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication_synchro_quorum" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication_synchro_quorum
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication_skip_conflict" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication_skip_conflict
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication_sync_lag" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication_sync_lag
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication_sync_timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication_sync_timeout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgreplication_timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.replication_timeout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgslab_alloc_factor" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.slab_alloc_factor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgsnap_io_rate_limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.snap_io_rate_limit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgsql_cache_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.sql_cache_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgstrip_core" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.strip_core
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgtoo_long_threshold" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.too_long_threshold
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgtxn_isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.txn_isolation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgusername" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.username
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_bloom_fpr" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_bloom_fpr
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_cache
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_dir
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_max_tuple_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_max_tuple_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_memory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_page_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_page_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_range_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_range_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_read_threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_read_threads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_run_count_per_level" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_run_count_per_level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_run_size_ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_run_size_ratio
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_timeout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgvinyl_write_threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.vinyl_write_threads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgwal_cleanup_delay" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.wal_cleanup_delay
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgwal_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.wal_dir
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgwal_dir_rescan_delay" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.wal_dir_rescan_delay
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgwal_max_size" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.wal_max_size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgboxcfgwal_mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.box.cfg.wal_mode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgworker_pool_threads" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.worker_pool_threads
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cfgwork_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      cfg.work_dir
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="class-cfg">class cfg</h1>
+<ul>
+<li>
+<p>supers: table</p>
+</li>
+<li>
+<p>namespace: box</p>
+</li>
+</ul>
+<p>Builtin <code>box.cfg</code> submodule</p>
+<p>The <code>box.cfg</code> submodule is used for specifying <a href="lua://box.cfg">server configuration parameters</a>.</p>
+<p>To view the current configuration, say <code>box.cfg</code> without braces.</p>
+<pre><code class="language-tarantoolsession"> tarantool&gt; box.cfg
+ ---
+ - checkpoint_count: 2
+   too_long_threshold: 0.5
+   slab_alloc_factor: 1.05
+   memtx_max_tuple_size: 1048576
+   background: false
+   &lt;...&gt;
+ ...
+</code></pre>
+<p>To set particular parameters, use the following syntax: <code>box.cfg{key = value [, key = value ...]}</code> (further referred to as <code>box.cfg{...}</code> for short). For example:</p>
+<pre><code class="language-tarantoolsession"> tarantool&gt; box.cfg{listen = 3301}
+</code></pre>
+<p>Parameters that are not specified in the <code>box.cfg{...}</code> call explicitly will be set to the <a href="doc://box_cfg_default">default values</a>.</p>
+<p>The first call to <code>box.cfg{...}</code> (with or without parameters) initiates Tarantool's database module <a href="lua://box"><code>box</code></a>.</p>
+<p><code>box.cfg{...}</code> is also the command that reloads <a href="doc://index-box_persistence">persistent data files</a> into RAM upon restart once we have data.</p>
+<hr />
+<h2 id="fields">fields</h2>
+<hr />
+<h3 id="cfgbackground">cfg.background</h3>
+<hr />
+<pre><code class="language-lua">cfg.background : boolean?
+</code></pre>
+<p>(default: false)</p>
+<h3 id="cfgcheckpoint_count">cfg.checkpoint_count</h3>
+<hr />
+<pre><code class="language-lua">cfg.checkpoint_count : integer?
+</code></pre>
+<p>(Default: 2) The maximum number of snapshots that may exist on the memtx_dir directory before the checkpoint daemon will delete old snapshots</p>
+<h3 id="cfgcheckpoint_interval">cfg.checkpoint_interval</h3>
+<hr />
+<pre><code class="language-lua">cfg.checkpoint_interval : number?
+</code></pre>
+<p>(Default: 3600 (one hour)) The interval between actions by the checkpoint daemon, in seconds. If checkpoint_interval is set to a value greater than zero, and there is activity which causes change to a database, then the checkpoint daemon will call box.snapshot() every checkpoint_interval seconds, creating a new snapshot file each time. If checkpoint_interval is set to zero, then the checkpoint daemon is disabled</p>
+<h3 id="cfgcheckpoint_wal_threshold">cfg.checkpoint_wal_threshold</h3>
+<hr />
+<pre><code class="language-lua">cfg.checkpoint_wal_threshold : number?
+</code></pre>
+<p>(Default: 10^18 (a large number so in effect there is no limit by default)) The threshold for the total size in bytes of all WAL files created since the last checkpoint</p>
+<h3 id="cfgcoredump">cfg.coredump</h3>
+<hr />
+<pre><code class="language-lua">cfg.coredump : boolean?
+</code></pre>
+<p>(Default: false) DEPRECATED, DO NOT USE</p>
+<h3 id="cfgcustom_proc_title">cfg.custom_proc_title</h3>
+<hr />
+<pre><code class="language-lua">cfg.custom_proc_title : string?
+</code></pre>
+<p>(Default: nil) Add the given string to the server’s process title</p>
+<h3 id="cfgboxcfgelection_mode">cfg.box.cfg.election_mode</h3>
+<hr />
+<pre><code class="language-lua">cfg.box.cfg.election_mode : box.cfg.election_mode?
+</code></pre>
+<p>(Default: off) enables RAFT</p>
+<h3 id="cfgfeedback_enabled">cfg.feedback_enabled</h3>
+<hr />
+<pre><code class="language-lua">cfg.feedback_enabled : boolean?
+</code></pre>
+<p>(Default: true) Whether to send feedback</p>
+<h3 id="cfgfeedback_host">cfg.feedback_host</h3>
+<hr />
+<pre><code class="language-lua">cfg.feedback_host : string?
+</code></pre>
+<p>(Default: 'https://feedback.tarantool.io') The address to which the packet is sent. Usually the recipient is Tarantool, but it can be any URL</p>
+<h3 id="cfgfeedback_interval">cfg.feedback_interval</h3>
+<hr />
+<pre><code class="language-lua">cfg.feedback_interval : number?
+</code></pre>
+<p>(Default: 3600) The number of seconds between sendings, usually 3600 (1 hour).</p>
+<h3 id="cfgforce_recovery">cfg.force_recovery</h3>
+<hr />
+<pre><code class="language-lua">cfg.force_recovery : boolean?
+</code></pre>
+<p>(Default: false) If force_recovery equals true, Tarantool tries to continue if there is an error while reading a snapshot file (at server instance start) or a write-ahead log file (at server instance start or when applying an update at a replica): skips invalid records, reads as much data as possible and lets the process finish with a warning. Users can prevent the error from recurring by writing to the database and executing box.snapshot()</p>
+<h3 id="cfghot_standby">cfg.hot_standby</h3>
+<hr />
+<pre><code class="language-lua">cfg.hot_standby : boolean?
+</code></pre>
+<p>(Default: false) Whether to start the server in hot standby mode. Hot standby is a feature which provides a simple form of failover without replication</p>
+<h3 id="cfginstance_uuid">cfg.instance_uuid</h3>
+<hr />
+<pre><code class="language-lua">cfg.instance_uuid : string?
+</code></pre>
+<p>(Generated automatically) For replication administration purposes, it is possible to set the universally unique identifiers of the instance (instance_uuid) and the replica set (replicaset_uuid), instead of having the system generate the values</p>
+<h3 id="cfgio_collect_interval">cfg.io_collect_interval</h3>
+<hr />
+<pre><code class="language-lua">cfg.io_collect_interval : number?
+</code></pre>
+<p>(Default: nil) The instance will sleep for io_collect_interval seconds between iterations of the event loop. Can be used to reduce CPU load in deployments in which the number of client connections is large, but requests are not so frequent (for example, each connection issues just a handful of requests per second)</p>
+<h3 id="cfgiproto_threads">cfg.iproto_threads</h3>
+<hr />
+<pre><code class="language-lua">cfg.iproto_threads : integer?
+</code></pre>
+<p>(Default: 1) The number of network threads</p>
+<h3 id="cfglisten">cfg.listen</h3>
+<hr />
+<pre><code class="language-lua">cfg.listen : (string|integer)?
+</code></pre>
+<p>(Default: nil) URI to bind tarantool</p>
+<h3 id="cfglog">cfg.log</h3>
+<hr />
+<pre><code class="language-lua">cfg.log : box.cfg.log?
+</code></pre>
+<p>(Default: nil) By default, Tarantool sends the log to the standard error stream (stderr). If log is specified, Tarantool sends the log to a file, or to a pipe, or to the system logger.</p>
+<h3 id="cfgboxcfglog_format">cfg.box.cfg.log_format</h3>
+<hr />
+<pre><code class="language-lua">cfg.box.cfg.log_format : box.cfg.log_format?
+</code></pre>
+<p>(Default: 'plain')</p>
+<h3 id="cfgboxcfglog_level">cfg.box.cfg.log_level</h3>
+<hr />
+<pre><code class="language-lua">cfg.box.cfg.log_level : box.cfg.log_level?
+</code></pre>
+<p>(Default: 5) What level of detail the log will have</p>
+<h3 id="cfglog_nonblock">cfg.log_nonblock</h3>
+<hr />
+<pre><code class="language-lua">cfg.log_nonblock : boolean?
+</code></pre>
+<p>(Default: true) If log_nonblock equals true, Tarantool does not block during logging when the system is not ready for writing, and drops the message instead</p>
+<h3 id="cfgmemtx_dir">cfg.memtx_dir</h3>
+<hr />
+<pre><code class="language-lua">cfg.memtx_dir : string?
+</code></pre>
+<p>(Default: '.') path to dir with memtx snapshots</p>
+<h3 id="cfgmemtx_max_tuple_size">cfg.memtx_max_tuple_size</h3>
+<hr />
+<pre><code class="language-lua">cfg.memtx_max_tuple_size : integer?
+</code></pre>
+<p>(Default: 1024 * 1024) Size of the largest allocation unit, for the memtx storage engine. It can be increased if it is necessary to store large tuples</p>
+<h3 id="cfgmemtx_memory">cfg.memtx_memory</h3>
+<hr />
+<pre><code class="language-lua">cfg.memtx_memory : integer?
+</code></pre>
+<p>(Default: 256 * 1024 *1024) How much memory Tarantool allocates to actually store tuples</p>
+<h3 id="cfgmemtx_min_tuple_size">cfg.memtx_min_tuple_size</h3>
+<hr />
+<pre><code class="language-lua">cfg.memtx_min_tuple_size : integer?
+</code></pre>
+<p>(Default: 16) Size of the smallest allocation unit. It can be decreased if most of the tuples are very small</p>
+<h3 id="cfgmemtx_use_mvcc_engine">cfg.memtx_use_mvcc_engine</h3>
+<hr />
+<pre><code class="language-lua">cfg.memtx_use_mvcc_engine : boolean?
+</code></pre>
+<p>(Default: false) Since version 2.6.1. Enables transactional manager if set to true.</p>
+<h3 id="cfgnet_msg_max">cfg.net_msg_max</h3>
+<hr />
+<pre><code class="language-lua">cfg.net_msg_max : number?
+</code></pre>
+<p>(Default: 768) To handle messages, Tarantool allocates fibers. To prevent fiber overhead from affecting the whole system, Tarantool restricts how many messages the fibers handle, so that some pending requests are blocked</p>
+<h3 id="cfgpid_file">cfg.pid_file</h3>
+<hr />
+<pre><code class="language-lua">cfg.pid_file : string?
+</code></pre>
+<p>(Default: nil) Store the process id in this file</p>
+<h3 id="cfgreadahead">cfg.readahead</h3>
+<hr />
+<pre><code class="language-lua">cfg.readahead : integer?
+</code></pre>
+<p>(Default: 16320) The size of the read-ahead buffer associated with a client connection</p>
+<h3 id="cfgread_only">cfg.read_only</h3>
+<hr />
+<pre><code class="language-lua">cfg.read_only : boolean?
+</code></pre>
+<p>(Default: false) should this instance be RO</p>
+<h3 id="cfgreplicaset_uuid">cfg.replicaset_uuid</h3>
+<hr />
+<pre><code class="language-lua">cfg.replicaset_uuid : string?
+</code></pre>
+<p>(Generated automatically)</p>
+<h3 id="cfgreplication">cfg.replication</h3>
+<hr />
+<pre><code class="language-lua">cfg.replication : string[]?
+</code></pre>
+<p>(Default: nil) list of URI of replicas to connect to</p>
+<h3 id="cfgreplication_anon">cfg.replication_anon</h3>
+<hr />
+<pre><code class="language-lua">cfg.replication_anon : boolean?
+</code></pre>
+<p>(Default: false) A Tarantool replica can be anonymous. This type of replica is read-only (but you still can write to temporary and replica-local spaces), and it isn’t present in the _cluster table</p>
+<h3 id="cfgreplication_connect_quorum">cfg.replication_connect_quorum</h3>
+<hr />
+<pre><code class="language-lua">cfg.replication_connect_quorum : integer?
+</code></pre>
+<p>(Default: _cluster:len()) required number of connected replicas to start bootstrap</p>
+<h3 id="cfgreplication_connect_timeout">cfg.replication_connect_timeout</h3>
+<hr />
+<pre><code class="language-lua">cfg.replication_connect_timeout : number?
+</code></pre>
+<p>(Default: 30) timeout in seconds to expect replicas in replication to fail bootstrap</p>
+<h3 id="cfgreplication_synchro_quorum">cfg.replication_synchro_quorum</h3>
+<hr />
+<pre><code class="language-lua">cfg.replication_synchro_quorum : (string|integer)?
+</code></pre>
+<p>(Default: N / 2 + 1. Before version 2.10.0, the default value was 1) number or formula of synchro quorum</p>
+<h3 id="cfgreplication_skip_conflict">cfg.replication_skip_conflict</h3>
+<hr />
+<pre><code class="language-lua">cfg.replication_skip_conflict : boolean?
+</code></pre>
+<p>(Default: false) By default, if a replica adds a unique key that another replica has added, replication stops with error = ER_TUPLE_FOUND</p>
+<h3 id="cfgreplication_sync_lag">cfg.replication_sync_lag</h3>
+<hr />
+<pre><code class="language-lua">cfg.replication_sync_lag : number?
+</code></pre>
+<p>(Default: 10) The maximum lag allowed for a replica</p>
+<h3 id="cfgreplication_sync_timeout">cfg.replication_sync_timeout</h3>
+<hr />
+<pre><code class="language-lua">cfg.replication_sync_timeout : number?
+</code></pre>
+<p>(Default: 300) The number of seconds that a replica will wait when trying to sync with a master in a cluster, or a quorum of masters, after connecting or during configuration update</p>
+<h3 id="cfgreplication_timeout">cfg.replication_timeout</h3>
+<hr />
+<pre><code class="language-lua">cfg.replication_timeout : number?
+</code></pre>
+<p>(Default: 1) If the master has no updates to send to the replicas, it sends heartbeat messages every replication_timeout seconds, and each replica sends an ACK packet back. Both master and replicas are programmed to drop the connection if they get no response in four replication_timeout periods. If the connection is dropped, a replica tries to reconnect to the master</p>
+<h3 id="cfgslab_alloc_factor">cfg.slab_alloc_factor</h3>
+<hr />
+<pre><code class="language-lua">cfg.slab_alloc_factor : number?
+</code></pre>
+<p>(Default: 1.05) The multiplier for computing the sizes of memory chunks that tuples are stored in. A lower value may result in less wasted memory depending on the total amount of memory available and the distribution of item sizes. Allowed values range from 1 to 2</p>
+<h3 id="cfgsnap_io_rate_limit">cfg.snap_io_rate_limit</h3>
+<hr />
+<pre><code class="language-lua">cfg.snap_io_rate_limit : number?
+</code></pre>
+<p>(Default: nil) Reduce the throttling effect of box.snapshot() on INSERT/UPDATE/DELETE performance by setting a limit on how many megabytes per second it can write to disk. The same can be achieved by splitting wal_dir and memtx_dir locations and moving snapshots to a separate disk</p>
+<h3 id="cfgsql_cache_size">cfg.sql_cache_size</h3>
+<hr />
+<pre><code class="language-lua">cfg.sql_cache_size : integer?
+</code></pre>
+<p>(Default: 5242880) The maximum number of bytes in the cache for SQL prepared statements</p>
+<h3 id="cfgstrip_core">cfg.strip_core</h3>
+<hr />
+<pre><code class="language-lua">cfg.strip_core : boolean?
+</code></pre>
+<p>(Default: true) Whether coredump files should include memory allocated for tuples</p>
+<h3 id="cfgtoo_long_threshold">cfg.too_long_threshold</h3>
+<hr />
+<pre><code class="language-lua">cfg.too_long_threshold : number?
+</code></pre>
+<p>(Default: 0.5) If processing a request takes longer than the given value (in seconds), warn about it in the log. Has effect only if log_level is more than or equal to 4 (WARNING)</p>
+<h3 id="cfgtxn_isolation">cfg.txn_isolation</h3>
+<hr />
+<pre><code class="language-lua">cfg.txn_isolation : txn_isolation?
+</code></pre>
+<p>(Default: best-effort)</p>
+<h3 id="cfgusername">cfg.username</h3>
+<hr />
+<pre><code class="language-lua">cfg.username : string?
+</code></pre>
+<p>(Default: nil) UNIX user name to switch to after start</p>
+<h3 id="cfgvinyl_bloom_fpr">cfg.vinyl_bloom_fpr</h3>
+<hr />
+<pre><code class="language-lua">cfg.vinyl_bloom_fpr : number?
+</code></pre>
+<p>(Default: 0.05) Bloom filter false positive rate – the suitable probability of the bloom filter to give a wrong result</p>
+<h3 id="cfgvinyl_cache">cfg.vinyl_cache</h3>
+<hr />
+<pre><code class="language-lua">cfg.vinyl_cache : integer?
+</code></pre>
+<p>(Default: 128 * 1024 * 1024) The cache size for the vinyl storage engine</p>
+<h3 id="cfgvinyl_dir">cfg.vinyl_dir</h3>
+<hr />
+<pre><code class="language-lua">cfg.vinyl_dir : string?
+</code></pre>
+<p>(Default: '.') A directory where vinyl files or subdirectories will be stored. Can be relative to work_dir. If not specified, defaults to work_dir</p>
+<h3 id="cfgvinyl_max_tuple_size">cfg.vinyl_max_tuple_size</h3>
+<hr />
+<pre><code class="language-lua">cfg.vinyl_max_tuple_size : integer?
+</code></pre>
+<p>(Default: 1024 * 1024) Size of the largest allocation unit, for the vinyl storage engine. It can be increased if it is necessary to store large tuples</p>
+<h3 id="cfgvinyl_memory">cfg.vinyl_memory</h3>
+<hr />
+<pre><code class="language-lua">cfg.vinyl_memory : integer?
+</code></pre>
+<p>(Default: 128 * 1024 * 1024) The maximum number of in-memory bytes that vinyl uses</p>
+<h3 id="cfgvinyl_page_size">cfg.vinyl_page_size</h3>
+<hr />
+<pre><code class="language-lua">cfg.vinyl_page_size : integer?
+</code></pre>
+<p>(Default: 8 * 1024) Page size. Page is a read/write unit for vinyl disk operations. The vinyl_page_size setting is a default value for one of the options in the Options for space_object:create_index() chart</p>
+<h3 id="cfgvinyl_range_size">cfg.vinyl_range_size</h3>
+<hr />
+<pre><code class="language-lua">cfg.vinyl_range_size : number?
+</code></pre>
+<p>(Default: nil) The default maximum range size for a vinyl index, in bytes. The maximum range size affects the decision whether to split a range. If vinyl_range_size is not nil and not 0, then it is used as the default value for the range_size option in the Options for space_object:create_index() chart. If vinyl_range_size is nil or 0, and range_size is not specified when the index is created, then Tarantool sets a value later depending on performance considerations. To see the actual value, use index_object:stat().range_size</p>
+<h3 id="cfgvinyl_read_threads">cfg.vinyl_read_threads</h3>
+<hr />
+<pre><code class="language-lua">cfg.vinyl_read_threads : integer?
+</code></pre>
+<p>(Default: 1) The maximum number of read threads that vinyl can use for some concurrent operations, such as I/O and compression</p>
+<h3 id="cfgvinyl_run_count_per_level">cfg.vinyl_run_count_per_level</h3>
+<hr />
+<pre><code class="language-lua">cfg.vinyl_run_count_per_level : integer?
+</code></pre>
+<p>(Default: 2) The maximal number of runs per level in vinyl LSM tree. If this number is exceeded, a new level is created. The vinyl_run_count_per_level setting is a default value for one of the options in the Options for space_object:create_index() chart</p>
+<h3 id="cfgvinyl_run_size_ratio">cfg.vinyl_run_size_ratio</h3>
+<hr />
+<pre><code class="language-lua">cfg.vinyl_run_size_ratio : number?
+</code></pre>
+<p>(Default: 3.5) Ratio between the sizes of different levels in the LSM tree. The vinyl_run_size_ratio setting is a default value for one of the options in the Options for space_object:create_index() chart</p>
+<h3 id="cfgvinyl_timeout">cfg.vinyl_timeout</h3>
+<hr />
+<pre><code class="language-lua">cfg.vinyl_timeout : number?
+</code></pre>
+<p>(Default: 60) The vinyl storage engine has a scheduler which does compaction. When vinyl is low on available memory, the compaction scheduler may be unable to keep up with incoming update requests. In that situation, queries may time out after vinyl_timeout seconds. This should rarely occur, since normally vinyl would throttle inserts when it is running low on compaction bandwidth. Compaction can also be ordered manually with index_object:compact()</p>
+<h3 id="cfgvinyl_write_threads">cfg.vinyl_write_threads</h3>
+<hr />
+<pre><code class="language-lua">cfg.vinyl_write_threads : integer?
+</code></pre>
+<p>(Default: 4) The maximum number of write threads that vinyl can use for some concurrent operations, such as I/O and compression</p>
+<h3 id="cfgwal_cleanup_delay">cfg.wal_cleanup_delay</h3>
+<hr />
+<pre><code class="language-lua">cfg.wal_cleanup_delay : number?
+</code></pre>
+<p>(Default: 14400 seconds) The delay (in seconds) used to prevent the Tarantool garbage collector from immediately removing write-ahead log files after a node restart.</p>
+<h3 id="cfgwal_dir">cfg.wal_dir</h3>
+<hr />
+<pre><code class="language-lua">cfg.wal_dir : string?
+</code></pre>
+<p>(Default: '.') path to dir with xlogs</p>
+<h3 id="cfgwal_dir_rescan_delay">cfg.wal_dir_rescan_delay</h3>
+<hr />
+<pre><code class="language-lua">cfg.wal_dir_rescan_delay : number?
+</code></pre>
+<p>(Default: 2) Number of seconds between periodic scans of the write-ahead-log file directory, when checking for changes to write-ahead-log files for the sake of replication or hot standby</p>
+<h3 id="cfgwal_max_size">cfg.wal_max_size</h3>
+<hr />
+<pre><code class="language-lua">cfg.wal_max_size : integer?
+</code></pre>
+<p>(Default: 256 * 1024 * 1024) The maximum number of bytes in a single write-ahead log file. When a request would cause an .xlog file to become larger than wal_max_size, Tarantool creates another WAL file</p>
+<h3 id="cfgboxcfgwal_mode">cfg.box.cfg.wal_mode</h3>
+<hr />
+<pre><code class="language-lua">cfg.box.cfg.wal_mode : box.cfg.wal_mode?
+</code></pre>
+<p>(Default: 'write') Specify fiber-WAL-disk synchronization mode as</p>
+<h3 id="cfgworker_pool_threads">cfg.worker_pool_threads</h3>
+<hr />
+<pre><code class="language-lua">cfg.worker_pool_threads : integer?
+</code></pre>
+<p>(Default: 4) he maximum number of threads to use during execution of certain internal processes (currently socket.getaddrinfo() and coio_call())</p>
+<h3 id="cfgwork_dir">cfg.work_dir</h3>
+<hr />
+<pre><code class="language-lua">cfg.work_dir : string?
+</code></pre>
+<p>(Default: nil) path to work dir of tarantool</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["quick-links", "navigation", "search", "toc", "fullscreen", "bookmarks", "tabs", "code", "edit-on-github", "language-selector", "code", "cover", "footer", "social-share", "theme-switcher"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

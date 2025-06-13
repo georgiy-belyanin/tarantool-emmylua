@@ -1,0 +1,6483 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../_TARANTOOL/">
+      
+      
+        <link rel="next" href="../dostring/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>box - Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#global-box" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Docs" class="md-header__button md-logo" aria-label="Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              box
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Docs" class="md-nav__button md-logo" aria-label="Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Types
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Types
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._ck_constraint_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _ck_constraint_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._ck_constraint_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _ck_constraint_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._collation_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _collation_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._collation_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _collation_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._index_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _index_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._index_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _index_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._priv_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _priv_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._priv_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _priv_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._schema_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _schema_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._schema_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _schema_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._sequence_data_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _sequence_data_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._sequence_data_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _sequence_data_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._sequence_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _sequence_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._sequence_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _sequence_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._session_settings_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _session_settings_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._session_settings_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _session_settings_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._space_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _space_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._space_sequence_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _space_sequence_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._space_sequence_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _space_sequence_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._space_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _space_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._user_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _user_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._user_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _user_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._vcollation_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vcollation_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._vcollation_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vcollation_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._vindex_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vindex_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._vindex_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vindex_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._vpriv_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vpriv_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._vpriv_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vpriv_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._vspace_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vspace_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._vspace_sequence_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vspace_sequence_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._vspace_sequence_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vspace_sequence_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._vspace_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vspace_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._vuser_info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vuser_info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space._vuser_tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias _vuser_tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/datetime.interval.adjust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias adjust
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/array/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias array
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/uuid.byte_order/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias byte_order
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space.collation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias collation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/fun.comparator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias comparator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/compound/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias compound
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/decimal_like/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias decimal_like
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.cfg.election_mode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias election_mode
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.iproto.feature/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias feature
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space.field_format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias field_format
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.tuple.field_format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias field_format
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/flags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias flags
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/float64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias float64
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space.foreign_key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias foreign_key
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space.format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias format
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.index_part_def/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias index_part_def
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.index_type/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias index_type
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/integer64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias integer64
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space.iterator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias iterator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.iterator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias iterator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.cfg.log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias log
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.cfg.log_format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias log_format
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.cfg.log_level/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias log_level
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/map/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias map
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/mode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias mode
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space.nullable_action/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias nullable_action
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.schema.privileges.object_type/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias object_type
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.on_commit_iterator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias on_commit_iterator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.on_commit_trigger_func/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias on_commit_trigger_func
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.schema.privileges.permissions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias permissions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/fun.predicate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias predicate
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.schema.privileges/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias privileges
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.ctl.recovery_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias recovery_state
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space.replace_trigger/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias replace_trigger
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/scalar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias scalar
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/seek/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias seek
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/config.info.status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias status
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/tuple_type/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias tuple_type
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/tuple_type_name/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias tuple_type_name
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.txn_isolation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias txn_isolation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.session.type/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias type
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/datetime.interval.units/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias units
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/datetime.units/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias units
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.update_operation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias update_operation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/uri_like/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias uri_like
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.cfg.wal_mode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    alias wal_mode
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/config.alert/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class alert
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space.alter_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class alter_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.begin_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class begin_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/buffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class buffer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/net.box.call_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class call_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/yaml.cfg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class cfg
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/json.cfg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class cfg
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.cfg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class cfg
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/fiber.channel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class channel
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.info.gc.checkpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class checkpoint
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.info.cluster/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class cluster
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/fiber.cond/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class cond
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/net.box.conn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class conn
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/net.box.connect_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class connect_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.schema.func.create_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class create_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.schema.sequence.create_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class create_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.schema.create_space_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class create_space_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/datetime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class datetime
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/decimal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class decimal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.stat.default/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class default
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.stat.default_with_current/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class default_with_current
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.info.downstream/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class downstream
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.info.election/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class election
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/uri.encoding_opt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class encoding_opt
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/errno/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class errno
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.error/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class error
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/fiber/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class fiber
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/fio.file/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class file
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.tuple.format/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class format
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.info.gc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class gc
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/iconv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class iconv
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.index_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class index_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.index_part/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class index_part
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.slab.info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/config.info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.stat.info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/fiber.info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class info
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/int64_t/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class int64_t
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/datetime.interval/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class interval
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/fun.iterator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class iterator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class log
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.info.memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class memory
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/config.info.meta/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class meta
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.stat.net/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class net
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/http.client.request.options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/http.client.options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/csv.options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.info.synchro.queue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class queue
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.info.replica/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class replica
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/net.box.request_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class request_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/http.response/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class response
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.savepoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class savepoint
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space.select_options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class select_options
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.sequence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class sequence
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/fiber.slice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class slice
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/socket/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class socket
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/socket_module/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class socket_module
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.space/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class space
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.spaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class spaces
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/fio.stat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class stat
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/http.client.stat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class stat
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.stat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class stat
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.info.syncho/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class syncho
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.error.table/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class table
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/socket.tcp_server_handler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class tcp_server_handler
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/fiber.top/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class top
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.error.trace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class trace
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.tuple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class tuple
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/uint64_t/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class uint64_t
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.info.upstream/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class upstream
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/uri/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class uri
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/uuid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class uuid
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/config.info.v2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class v2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/config.info.meta.v2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class v2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.watcher/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    class watcher
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.iproto.ballot_key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    enum ballot_key
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.iproto.flag/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    enum flag
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.index.iterator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    enum iterator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.iproto.key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    enum key
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.iproto.metadata_key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    enum metadata_key
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.iproto.raft_key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    enum raft_key
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/box.iproto.type/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    enum type
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Modules
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Modules
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/buffer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    buffer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/clock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    clock
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    config
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/console/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    console
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/csv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    csv
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/datetime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    datetime
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/decimal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    decimal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/errno/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    errno
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/fiber/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    fiber
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/fio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    fio
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/fun/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    fun
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/http.client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    http.client
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/iconv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    iconv
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/jit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    jit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/jit.bc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    jit.bc
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/jit.dis_x64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    jit.dis_x64
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/jit.dis_x86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    jit.dis_x86
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/jit.dump/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    jit.dump
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/jit.v/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    jit.v
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    json
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    log
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/net.box/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    net.box
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/socket/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    socket
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/strict/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    strict
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/uri/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    uri
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/uuid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    uuid
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/xlog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    xlog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/yaml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    yaml
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Globals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Globals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../_TARANTOOL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    _TARANTOOL
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    box
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    box
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boxerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxerror_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxis_in_txn" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.is_in_txn
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxbegin" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.begin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxcommit" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.commit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxrollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.rollback
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxsavepoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.savepoint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxrollback_to_savepoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.rollback_to_savepoint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxatomic" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.atomic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxon_commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.on_commit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxon_commit_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.on_commit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxonce" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.once
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxsnapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.snapshot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxbroadcast" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.broadcast
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxwatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.watch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxwatch_once" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.watch_once
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxexecute" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.execute
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      fields
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boxnull" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.NULL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxnull_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.NULL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxschema" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.schema
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxtuple" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.tuple
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxcfg" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.cfg
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.space
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxbackup" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.backup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxslab" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.slab
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxsession" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.session
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxstat" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.stat
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxerror_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.info
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxiproto" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.iproto
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxctl" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.ctl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.index
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dostring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    dostring
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tonumber64/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    tonumber64
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boxerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxerror_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxis_in_txn" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.is_in_txn
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxbegin" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.begin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxcommit" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.commit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxrollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.rollback
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxsavepoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.savepoint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxrollback_to_savepoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.rollback_to_savepoint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxatomic" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.atomic
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxon_commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.on_commit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxon_commit_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.on_commit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxonce" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.once
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxsnapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.snapshot
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxbroadcast" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.broadcast
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxwatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.watch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxwatch_once" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.watch_once
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxexecute" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.execute
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      fields
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boxnull" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.NULL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxnull_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.NULL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxschema" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.schema
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxtuple" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.tuple
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxcfg" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.cfg
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.space
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxbackup" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.backup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxslab" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.slab
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxsession" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.session
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxstat" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.stat
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxerror_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.error
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxinfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.info
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxiproto" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.iproto
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxctl" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.ctl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boxindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      box.index
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="global-box">global box</h1>
+<p>Builtin <code>box</code> module</p>
+<p>As well as executing Lua chunks or defining your own functions, you can exploit Tarantool's storage functionality with the <code>box</code> module and its submodules.</p>
+<p>Every submodule contains one or more Lua functions. A few submodules contain members as well as functions. The functions allow data definition (create alter drop), data manipulation (insert delete update upsert select replace), an introspection (inspecting contents of spaces, accessing server configuration).</p>
+<p>To catch errors that functions in <code>box</code> submodules may throw, use <code>pcall()</code>.</p>
+<hr />
+<h2 id="methods">methods</h2>
+<hr />
+<h3 id="boxerror">box.error</h3>
+<hr />
+<pre><code class="language-lua">function box.error(err: { code: number?, reason: string }) -&gt;  box.error
+</code></pre>
+<p>@param <code>err</code> - reason is description of an error, defined by user; code is numeric code for this error, defined by user</p>
+<p>Throw an error. When called with a Lua-table argument, the code and reason have any user-desired values. The result will be those values.</p>
+<h3 id="boxerror_1">box.error</h3>
+<hr />
+<pre><code class="language-lua">function box.error(
+  code: number,
+  errtext: string,
+  ...: string
+)
+</code></pre>
+<p>@param <code>code</code> - number of a pre-defined error</p>
+<p>@param <code>errtext</code> - part of the message which will accompany the error</p>
+<p>@param <code>...</code> - part of the message which will accompany the error</p>
+<p>Throw an error. This method emulates a request error, with text based on one of the pre-defined Tarantool errors defined in the file errcode.h in the source tree.</p>
+<h3 id="boxis_in_txn">box.is_in_txn</h3>
+<hr />
+<pre><code class="language-lua">function box.is_in_txn() -&gt; is_in_txn boolean
+</code></pre>
+<p>If a transaction is in progress (for example the user has called <a href="lua://box.begin"><code>box.begin()</code></a> and has not yet called either <a href="lua://box.begin"><code>box.begin()</code></a> or <a href="lua://box.rollback"><code>box.rollback()</code></a>, return <code>true</code>. Otherwise return <code>false</code>.</p>
+<h3 id="boxbegin">box.begin</h3>
+<hr />
+<pre><code class="language-lua">function box.begin(opts: box.begin_options?)
+</code></pre>
+<p>Begin the transaction.</p>
+<p>Disable implicit yields until the transaction ends.
+Signal that writes to the write-ahead log will be deferred until the transaction ends.
+In effect the fiber which executes <code>box.begin()</code> is starting an "active multi-request transaction", blocking all other fibers.</p>
+<p><strong>Possible errors:</strong>
+* Error if this operation is not permitted because there is already an active transaction.
+* Error if for some reason memory cannot be allocated.
+* Error and abort the transaction if the timeout is exceeded.</p>
+<h3 id="boxcommit">box.commit</h3>
+<hr />
+<pre><code class="language-lua">function box.commit()
+</code></pre>
+<p>End the transaction, and make all its data-change operations permanent.</p>
+<p><strong>Possible errors:</strong>
+* Error and abort the transaction in case of a conflict.
+* Error if the operation fails to write to disk.
+* Error if for some reason memory cannot be allocated.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-lua"> -- Insert test data --
+ box.space.bands:insert { 1, 'Roxette', 1986 }
+ box.space.bands:insert { 2, 'Scorpions', 1965 }
+ box.space.bands:insert { 3, 'Ace of Base', 1987 }
+
+ -- Begin and commit the transaction explicitly --
+ box.begin()
+ box.space.bands:insert { 4, 'The Beatles', 1960 }
+ box.space.bands:replace { 1, 'Pink Floyd', 1965 }
+ box.commit()
+
+ -- Begin the transaction with the specified isolation level --
+ box.begin({ txn_isolation = 'read-committed' })
+ box.space.bands:insert { 5, 'The Rolling Stones', 1962 }
+ box.space.bands:replace { 1, 'The Doors', 1965 }
+ box.commit()
+</code></pre>
+<h3 id="boxrollback">box.rollback</h3>
+<hr />
+<pre><code class="language-lua">function box.rollback()
+</code></pre>
+<p>End the transaction, but cancel all its data-change operations.</p>
+<p>An explicit call to functions outside <code>box.space</code> that always yield, such as <code>fiber.sleep()</code> or <code>fiber.yield()</code>, will have the same effect.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-lua"> -- Insert test data --
+ box.space.bands:insert { 1, 'Roxette', 1986 }
+ box.space.bands:insert { 2, 'Scorpions', 1965 }
+ box.space.bands:insert { 3, 'Ace of Base', 1987 }
+
+ -- Rollback the transaction --
+ box.begin()
+ box.space.bands:insert { 4, 'The Beatles', 1960 }
+ box.space.bands:replace { 1, 'Pink Floyd', 1965 }
+ box.rollback()
+</code></pre>
+<h3 id="boxsavepoint">box.savepoint</h3>
+<hr />
+<pre><code class="language-lua">function box.savepoint() -&gt; savepoint (box.savepoint|box.error)
+</code></pre>
+<p>Return a descriptor of a savepoint, which can be used later by <code>box.rollback_to_savepoint(savepoint)</code>.</p>
+<p>Savepoints can only be created while a transaction is active, and they are destroyed when a transaction ends</p>
+<p><strong>Possible errors:</strong>
+* Error if for some reason memory cannot be allocated.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-lua"> -- Insert test data --
+ box.space.bands:insert { 1, 'Roxette', 1986 }
+ box.space.bands:insert { 2, 'Scorpions', 1965 }
+ box.space.bands:insert { 3, 'Ace of Base', 1987 }
+
+ -- Rollback the transaction to a savepoint --
+ box.begin()
+ box.space.bands:insert { 4, 'The Beatles', 1960 }
+ save1 = box.savepoint()
+ box.space.bands:replace { 1, 'Pink Floyd', 1965 }
+ box.rollback_to_savepoint(save1)
+ box.commit()
+</code></pre>
+<h3 id="boxrollback_to_savepoint">box.rollback_to_savepoint</h3>
+<hr />
+<pre><code class="language-lua">function box.rollback_to_savepoint(savepoint: box.savepoint) -&gt; error box.error?
+</code></pre>
+<p>Do not end the transaction, but cancel all its data-change and <a href="lua://box.savepoint"><code>box.savepoint()</code></a> operations that were done after the specified savepoint.</p>
+<p><strong>Possible errors:</strong>
+* Error if the savepoint does not exist.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-lua"> -- Insert test data --
+ box.space.bands:insert { 1, 'Roxette', 1986 }
+ box.space.bands:insert { 2, 'Scorpions', 1965 }
+ box.space.bands:insert { 3, 'Ace of Base', 1987 }
+
+ -- Rollback the transaction to a savepoint --
+ box.begin()
+ box.space.bands:insert { 4, 'The Beatles', 1960 }
+ save1 = box.savepoint()
+ box.space.bands:replace { 1, 'Pink Floyd', 1965 }
+ box.rollback_to_savepoint(save1)
+ box.commit()
+</code></pre>
+<h3 id="boxatomic">box.atomic</h3>
+<hr />
+<pre><code class="language-lua">function box.atomic(
+  opts: { txn_isolation: box.txn_isolation? },
+  tx_function: fun(...: T ...) -&gt; R ...?,
+  ...: T ...
+) -&gt; retvals R ...
+</code></pre>
+<p>@return <code>retvals</code> - The result of the function passed to <code>atomic()</code> as an argument.</p>
+<p>Execute a function, acting as if the function starts with an implicit <a href="lua://box.begin"><code>box.begin()</code></a> and ends with an implicit <a href="lua://box.commit"><code>box.commit()</code></a> if successful, or ends with an implicit <a href="lua://box.rollback"><code>box.rollback()</code></a> if there is an error.</p>
+<p><em>Since 2.10.1</em></p>
+<p><strong>Possible errors:</strong>
+* Error and abort the transaction in case of a conflict.
+* Error and abort the transaction if the timeout is exceeded.
+* Error if the operation fails to write to disk.
+* Error if for some reason memory cannot be allocated.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-lua"> -- Create an index with the specified sequence --
+ box.schema.sequence.create('id_sequence', { min = 1 })
+ box.space.bands:create_index('primary', { parts = { 'id' }, sequence = 'id_sequence' })
+
+ -- Insert test data --
+ box.space.bands:insert { 1, 'Roxette', 1986 }
+ box.space.bands:insert { 2, 'Scorpions', 1965 }
+ box.space.bands:insert { 3, 'Ace of Base', 1987 }
+
+ -- Define a function --
+ local function insert_band(band_name, year)
+     box.space.bands:insert { nil, band_name, year }
+ end
+
+ -- Begin and commit the transaction implicitly --
+ box.atomic(insert_band, 'The Beatles', 1960)
+
+ -- Begin the transaction with the specified isolation level --
+ box.atomic({ txn_isolation = 'read-committed' },
+         insert_band, 'The Rolling Stones', 1962)
+</code></pre>
+<h3 id="boxon_commit">box.on_commit</h3>
+<hr />
+<pre><code class="language-lua">function box.on_commit(
+  trigger_func: box.on_commit_trigger_func,
+  old_trigger_func: box.on_commit_trigger_func?
+)
+</code></pre>
+<p>Define a trigger for execution when a transaction ends due to an event such as <a href="lua://box.commit"><code>box.commit()</code></a>.</p>
+<p>The trigger function may take an iterator parameter, as described in an example for this section.</p>
+<p>The trigger function should not access any database spaces.</p>
+<p>If the trigger execution fails and raises an error, the effect is severe and should be avoided -- use Lua's <code>pcall()</code> mechanism around code that might fail.</p>
+<p><code>box.on_commit()</code> must be invoked within a transaction, and the trigger ceases to exist when the transaction ends.</p>
+<p>If the parameters are <code>(nil, old-trigger-function)</code>, then the old trigger is deleted.</p>
+<p>Details about trigger characteristics are in the <a href="doc://triggers-box_triggers">triggers</a> section.</p>
+<p><strong>Examples:</strong></p>
+<pre><code class="language-lua"> -- Insert test data --
+ box.space.bands:insert { 1, 'Roxette', 1986 }
+ box.space.bands:insert { 2, 'Scorpions', 1965 }
+ box.space.bands:insert { 3, 'Ace of Base', 1987 }
+
+ -- Define a function called on commit --
+ function print_commit_result()
+     print('Commit happened')
+ end
+
+ -- Commit the transaction --
+ box.begin()
+ box.space.bands:insert { 4, 'The Beatles', 1960 }
+ box.on_commit(print_commit_result)
+ box.commit()
+</code></pre>
+<p>The function parameter can be an iterator.</p>
+<p>The iterator goes through the effects of every request that changed a space
+during the transaction.</p>
+<p>The iterator has:
+* An ordinal request number.
+* The old value of the tuple before the request (<code>nil</code> for an <code>insert</code> request).
+* The new value of the tuple after the request (<code>nil</code> for a <code>delete</code> request).
+* The ID of the space.</p>
+<p>The example below displays the effects of two <code>replace</code> requests:</p>
+<pre><code class="language-lua"> -- Insert test data --
+ box.space.bands:insert { 1, 'Roxette', 1986 }
+ box.space.bands:insert { 2, 'Scorpions', 1965 }
+ box.space.bands:insert { 3, 'Ace of Base', 1987 }
+
+ -- Define a function called on commit --
+ function print_replace_details(iterator)
+     for request_number, old_tuple, new_tuple, space_id in iterator() do
+         print('request_number: ' .. tostring(request_number))
+         print('old_tuple: ' .. tostring(old_tuple))
+         print('new_tuple: ' .. tostring(new_tuple))
+         print('space_id: ' .. tostring(space_id))
+     end
+ end
+
+ -- Commit the transaction --
+ box.begin()
+ box.space.bands:replace { 1, 'The Beatles', 1960 }
+ box.space.bands:replace { 2, 'The Rolling Stones', 1965 }
+ box.on_commit(print_replace_details)
+ box.commit()
+</code></pre>
+<p>The output might look like this:</p>
+<pre><code class="language-console"> request_number: 1
+ old_tuple: [1, 'Roxette', 1986]
+ new_tuple: [1, 'The Beatles', 1960]
+ space_id: 512
+ request_number: 2
+ old_tuple: [2, 'Scorpions', 1965]
+ new_tuple: [2, 'The Rolling Stones', 1965]
+ space_id: 512
+</code></pre>
+<h3 id="boxon_commit_1">box.on_commit</h3>
+<hr />
+<pre><code class="language-lua">function box.on_commit(
+  trigger_func: box.on_commit_trigger_func,
+  old_trigger_func: box.on_commit_trigger_func?
+)
+</code></pre>
+<p>Define a trigger for execution when a transaction ends due to an event such as <a href="lua://box.rollback"><code>box.rollback()</code></a>.</p>
+<p>The parameters and warnings are exactly the same as for <a href="lua://box.on_commit"><code>box.on_commit</code></a>.</p>
+<p>@see box.on_commit</p>
+<h3 id="boxonce">box.once</h3>
+<hr />
+<pre><code class="language-lua">function box.once(
+  key: string,
+  fnc: fun(...: T ...) -&gt; R ...,
+  ...: T ...
+) -&gt;  R ...
+</code></pre>
+<p>@param <code>key</code> - a value that will be checked</p>
+<p>@param <code>fnc</code> - function to be executed</p>
+<p>@param <code>...</code> - arguments to the function</p>
+<p>Execute a function, provided it has not been executed before.</p>
+<p>A passed value is checked to see whether the function has already been executed. If it has been executed before, nothing happens. If it has not been executed before, the function is invoked.</p>
+<p>See an example of using <code>box.once()</code> <a href="doc://vshard-quick-start-storage-code">vshard quick start storage code</a>.</p>
+<p><strong>Warning:</strong> If an error occurs inside <code>box.once()</code> when initializing a database, you can re-execute the failed <code>box.once()</code> block without stopping the database. The solution is to delete the <code>once</code> object from the system space <a href="lua://box.space._schema">`box.space._schema</a>.</p>
+<p>Say <code>box.space._schema:select{}</code>, find your <code>once</code> object there and delete it.</p>
+<p>When <code>box.once()</code> is used for initialization, it may be useful to wait until the database is in an appropriate state (read-only or read-write). In that case, see the functions in the <a href="lua://box.ctl"><code>box.ctl</code></a>.</p>
+<p><strong>Note:</strong></p>
+<p>The parameter <code>key</code> will be stored in the <a href="lua://box.space._schema"><code>_schema</code></a> system space after <code>box.once()</code> is called in order to prevent a double run.</p>
+<p>These keys are global per replica set. So a simultaneous call of <code>box.once()</code> with the same key on two instances of the same replica set may succeed on both of them, but it'll lead to a transaction conflict.</p>
+<p><strong>Example:</strong></p>
+<p>The example shows how to re-execute the <code>box.once()</code> block that contains the <code>hello</code> key.</p>
+<p>First, check the <code>_schema</code> system space.
+The <code>_schema</code> space in the example contains two <code>box.once</code> objects -- <code>oncebye</code> and <code>oncehello</code>:</p>
+<pre><code class="language-tarantoolsession"> app:instance001&gt; box.space._schema:select{}
+ ---
+ - - ['oncebye']
+ - ['oncehello']
+ - ['replicaset_name', 'replicaset001']
+ - ['replicaset_uuid', '72d2d9bf-5d9f-48c4-ba80-9d657e128fee']
+ - ['version', 3, 1, 0]
+</code></pre>
+<p>Delete the <code>oncehello</code> object:</p>
+<pre><code class="language-tarantoolsession"> app:instance001&gt; box.space._schema:delete('oncehello')
+ ---
+ - ['oncehello']
+ ...
+</code></pre>
+<p>After that, check the <code>_schema</code> space again:</p>
+<pre><code class="language-tarantoolsession"> app:instance001&gt; box.space._schema:select{}
+ ---
+ - - ['oncebye']
+ - ['replicaset_name', 'replicaset001']
+ - ['replicaset_uuid', '72d2d9bf-5d9f-48c4-ba80-9d657e128fee']
+ - ['version', 3, 1, 0]
+ ...
+</code></pre>
+<p>To re-execute the function, call the <code>box.once()</code> method again:</p>
+<pre><code class="language-tarantoolsession"> app:instance001&gt; box.once('hello', function() end)
+ ---
+ ...
+
+ app:instance001&gt; box.space._schema:select{}
+ ---
+ - - ['oncebye']
+ - ['oncehello']
+ - ['replicaset_name', 'replicaset001']
+ - ['replicaset_uuid', '72d2d9bf-5d9f-48c4-ba80-9d657e128fee']
+ - ['version', 3, 1, 0]
+ ...
+</code></pre>
+<h3 id="boxsnapshot">box.snapshot</h3>
+<hr />
+<pre><code class="language-lua">async function box.snapshot()
+</code></pre>
+<p>Creates new snapshot of the data and executes checkpoint.gc process</p>
+<p>Take a snapshot of all data and store it in <a href="doc://configuration_reference_snapshot_dir"><code>snapshot.dir</code></a></p>
+<p>To take a snapshot, Tarantool first enters the delayed garbage collection mode for all data. In this mode, the <a href="doc://cfg_checkpoint_daemon-garbage-collector">Tarantool garbage collector</a> will not remove files which were created before the snapshot started, it will not remove them until the snapshot has finished. To preserve consistency of the primary key, used to iterate over tuples, a copy-on-write technique is employed. If the master process changes part of a primary key, the corresponding process page is split, and the snapshot process obtains an old copy of the page.</p>
+<p>In effect, the snapshot process uses multi-version concurrency control in order to avoid copying changes which are superseded while it is running.</p>
+<p>Since a snapshot is written sequentially, you can expect a very high write performance (averaging to 80MB/second on modern disks), which means an average database instance gets saved in a matter of minutes.</p>
+<p>You may restrict the speed by changing <a href="doc://configuration_reference_snapshot_snap_io_rate_limit"><code>snapshot.snap_io_rate_limit</code></a>.</p>
+<p><strong>Note:</strong></p>
+<p>As long as there are any changes to the parent index memory through concurrent updates, there are going to be page splits, and therefore you need to have some extra free memory to run this command. 10% of <a href="doc://cfg_storage-memtx_memory"><code>memtx_memory</code></a> is, on average, sufficient.</p>
+<p>This statement waits until a snapshot is taken and returns operation result.</p>
+<p><strong>Note:</strong></p>
+<p><strong>Change notice:</strong> Prior to Tarantool version 1.6.6, the snapshot process caused a fork, which could cause occasional latency spikes. Starting with Tarantool version 1.6.6, the snapshot process creates a consistent read view and this view is written to the snapshot file by a separate thread (the "Write Ahead Log" thread).</p>
+<p>Although <code>box.snapshot()</code> does not cause a fork, there is a separate fiber which may produce snapshots at regular intervals -- see the discussion of the <a href="doc://configuration_persistence_checkpoint_daemon">checkpoint daemon</a>.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-tarantoolsession"> tarantool&gt; box.info.version
+ ---
+ - 1.7.0-1216-g73f7154
+ ...
+ tarantool&gt; box.snapshot()
+ ---
+ - ok
+ ...
+ tarantool&gt; box.snapshot()
+ ---
+ - error: can't save snapshot, errno 17 (File exists)
+ ...
+</code></pre>
+<p>Taking a snapshot does not cause the server to start a new write-ahead log.</p>
+<p>Once a snapshot is taken, old WALs can be deleted as long as all replicated data is up to date. But the WAL which was current at the time <code>box.snapshot()</code> started must be kept for recovery, since it still contains log records written after the start of <code>box.snapshot()</code>.</p>
+<p>An alternative way to save a snapshot is to send a SIGUSR1 signal to the instance.</p>
+<p>While this approach could be handy, it is not recommended for use in automation: a signal provides no way to find out whether the snapshot was taken successfully or not.</p>
+<p><strong>Vinyl:</strong></p>
+<p>In vinyl, inserted data is stacked in memory until the limit, set in the <a href="cfg_storage-vinyl_memory"><code>vinyl_memory</code></a> parameter, is reached. Then vinyl automatically dumps it to the disc. <code>box.snapshot()</code> forces this dump in order to have the ability to recover from this checkpoint.</p>
+<p>The snapshot files are stored in <code>{space_id}/{index_id}/*.run</code>.</p>
+<p>Thus, strictly all the data that was written at the time of LSN of the checkpoint is in the <code>*.run</code> files on the disk, and all operations that happened after the checkpoint will be written in the <code>*.xlog</code>. All dump files created by <code>box.snapshot()</code> are consistent and have the same LSN as checkpoint.</p>
+<p>At the checkpoint vinyl also rotates the metadata log <code>*.vylog</code>, containing data manipulation operations like "create file" and "delete file". It goes through the log, removes duplicating operations from the memory and creates a new <code>*.vylog</code> file, giving it the name according to the <a href="doc://box_introspection-box_info">vclock</a> of the new checkpoint, with "create" operations only. This procedure cleans <code>*.vylog</code> and is useful for recovery because the name of the log is the same as the checkpoint signature.</p>
+<h3 id="boxbroadcast">box.broadcast</h3>
+<hr />
+<pre><code class="language-lua">function box.broadcast(
+  key: string,
+  value: any
+)
+</code></pre>
+<p>Update the value of a particular key and notify all key watchers of the update.</p>
+<p><em>Since 2.10.0</em></p>
+<p><strong>Possible errors:</strong></p>
+<ul>
+<li>The value can't be encoded as MsgPack.</li>
+<li>The key refers to a <code>box.</code> system event</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre><code> -- Broadcast value 42 for the 'foo' key.
+ box.broadcast('foo', 42)
+</code></pre>
+<h3 id="boxwatch">box.watch</h3>
+<hr />
+<pre><code class="language-lua">function box.watch(
+  key: string,
+  func: fun(key: string, value: any)
+) -&gt;  box.watcher
+</code></pre>
+<p>Subscribe to events broadcast by a local host.</p>
+<p><em>Since 2.10.0</em></p>
+<p>To read more about watchers, see the <a href="doc://box-watchers">Functions for watchers</a> section.</p>
+<p><strong>Note:</strong></p>
+<p>Keep in mind that garbage collection of a watcher handle doesn't lead to the watcher's destruction. In this case, the watcher remains registered.</p>
+<p>It is okay to discard the result of <code>watch</code> function if the watcher will never be unregistered.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-lua"> -- Broadcast value 42 for the 'foo' key.
+ box.broadcast('foo', 42)
+
+ local log = require('log')
+ -- Subscribe to updates of the 'foo' key.
+ local w = box.watch('foo', function(key, value)
+     assert(key == 'foo')
+     log.info(&quot;The box.id value is '%d'&quot;, value)
+ end)
+</code></pre>
+<p>If you don't need the watcher anymore, you can unregister it using the command below:</p>
+<pre><code class="language-lua"> w:unregister()
+</code></pre>
+<h3 id="boxwatch_once">box.watch_once</h3>
+<hr />
+<pre><code class="language-lua">function box.watch_once(
+  key: string,
+  func: fun(key: string, value: any)
+) -&gt;  box.watcher
+</code></pre>
+<p>Subscribe once to events broadcast by a local host.</p>
+<p><em>Since 2.10.0</em></p>
+<p>Returns the current value of a given notification key.</p>
+<p>The function can be used as an alternative to <a href="lua://box-watch"><code>box.watch()</code></a> when the caller only needs the current value without subscribing to future changes.</p>
+<p>To read more about watchers, see the <a href="lua://box.watchers">box.watchers</a> section.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-lua">
+ -- Broadcast value 42 for the 'foo' key.
+ box.broadcast('foo', 42)
+
+ -- Get the value of this key
+ tarantool&gt; box.watch_once('foo')
+ ---
+ - 42
+ ...
+
+ -- Non-existent keys' values are empty
+ tarantool&gt; box.watch_once('none')
+ ---
+ ...
+</code></pre>
+<h3 id="boxexecute">box.execute</h3>
+<hr />
+<pre><code class="language-lua">function box.execute(
+  sql_statement: string,
+  extra_parameters: table
+) -&gt; query_result any
+</code></pre>
+<p>@param <code>sql_statement</code> - statement, which should conform to</p>
+<p>@param <code>extra_parameters</code> - optional table for placeholders in the statement <a href="doc://sql_statements_and_clauses">the rules for SQL grammar</a></p>
+<p>@return <code>query_result</code> - depends on statement</p>
+<p>Execute the SQL statement.</p>
+<p>There are two ways to pass extra parameters to <code>box.execute()</code>:</p>
+<ul>
+<li>The first way, which is the preferred way, is to put placeholders in the string, and pass a second argument, an <code>extra-parameters</code> table. A placeholder is either a question mark "?", or a colon ":" followed by a name. An extra parameter is any Lua expression.</li>
+</ul>
+<p>If placeholders are question marks, then they are replaced by <code>extra-parameters</code> values in corresponding positions. That is, the first <code>?</code> is replaced by the first extra parameter, the second <code>?</code> is replaced by the second extra parameter, and so on.</p>
+<p>If placeholders are <code>:names</code>, then they are replaced by <code>extra-parameters</code> values with corresponding names.</p>
+<p><strong>Examples:</strong></p>
+<p>For example, this request that contains literal values <code>1</code> and <code>'x'</code>:</p>
+<pre><code class="language-lua"> box.execute([[INSERT INTO tt VALUES (1, 'x');]]);
+</code></pre>
+<p>... is the same as the request below containing two question-mark placeholders (<code>?</code> and <code>?</code>) and a two-element <code>extra-parameters</code> table:</p>
+<pre><code class="language-lua"> x = {1,'x'}
+ box.execute([[INSERT INTO tt VALUES (?, ?);]], x);
+</code></pre>
+<p>... and is the same as this request containing two <code>:name</code> placeholders (<code>:a</code> and <code>:b</code>) and a two-element <code>extra-parameters</code> table with elements named "a" and "b":</p>
+<pre><code class="language-lua"> box.execute([[INSERT INTO tt VALUES (:a, :b);]], {{[':a']=1},{[':b']='x'}})
+</code></pre>
+<ul>
+<li>The second way is to concatenate strings. For example, the Lua script below inserts 10 rows with different primary-key values into table <code>t</code>:</li>
+</ul>
+<pre><code class="language-lua"> for i=1,10,1 do
+     box.execute(&quot;insert into t values (&quot; .. i .. &quot;)&quot;)
+ end
+</code></pre>
+<p>When creating SQL statements based on user input, application developers should beware of <code>SQL injection &lt;https://en.wikipedia.org/wiki/SQL_injection&gt;</code>_.</p>
+<p>Since <code>box.execute()</code> is an invocation of a Lua function, it either causes an error message or returns a value.</p>
+<p>For some statements the returned value contains a field named <code>rowcount</code>, for example:</p>
+<pre><code class="language-tarantoolsession"> tarantool&gt; box.execute([[CREATE TABLE table1 (column1 INT PRIMARY key, column2 VARCHAR(10));]])
+ ---
+ - rowcount: 1
+ ...
+ tarantool&gt; box.execute([[INSERT INTO table1 VALUES (55,'Hello SQL world!');]])
+ ---
+ - rowcount: 1
+ ...
+</code></pre>
+<p>For statements that cause generation of values for PRIMARY KEY AUTOINCREMENT columns, there is a field named <code>autoincrement_id</code>.</p>
+<p>For SELECT or PRAGMA statements, the returned value is a <em>result set</em>, containing a field named <code>metadata</code> (a table with column names and Tarantool/NoSQL type names) and a field named <code>rows</code> (a table with the contents of each row).</p>
+<p>For example, for a statement <code>SELECT "x" FROM t WHERE "x"=5;</code> where <code>"x"</code> is an INTEGER column and there is one row, a display on the Tarantool client might look like this:</p>
+<pre><code class="language-tarantoolsession"> tarantool&gt; box.execute([[SELECT &quot;x&quot; FROM t WHERE &quot;x&quot;=5;]])
+ ---
+ - metadata:
+   - name: x
+     type: integer
+   rows:
+   - [5]
+ ...
+</code></pre>
+<p>For a look at raw format of SELECT results, see <a href="doc://box_protocol-sql_protocol">Binary protocol -- responses for SQL</a>.</p>
+<p>The order of components within a map is not guaranteed.</p>
+<p>If <code>sql_full_metadata</code> in the <a href="doc://box_space-session_settings">_session_settings</a> system table is TRUE, then result set metadata may include these things in addition to <code>name</code> and <code>type</code>:</p>
+<ul>
+<li><code>collation</code> (present only if COLLATE clause is specified for a STRING) =</li>
+<li><code>is_nullable</code> (present only if the <a href="doc://sql_select_list">select list</a> specified a base table column and nothing else) = false if column was defined as <a href="doc://sql_nulls">NOT NULL</a>, otherwise true.</li>
+<li><code>is_autoincrement</code> (present only if the select list specified a base table column and nothing else) = true if column was defined as <a href="doc://sql_table_constraint_def">PRIMARY KEY AUTOINCREMENT</a>,</li>
+<li><code>span</code> (always present) = the original expression in a select list, which often is the same as <code>name</code> if the select list specifies a column name and nothing else, but otherwise differs, for example, after <code>SELECT x+55 AS x FROM t;</code> the <code>name</code> is X and the <code>span</code> is x+55. If <code>span</code> and <code>name</code> are the same then the content is MP_NIL.</li>
+</ul>
+<p>Alternative: if you are using the Tarantool server as a client, you can switch languages as follows:</p>
+<pre><code class="language-none"> \set language sql
+ \set delimiter ;
+</code></pre>
+<p>Afterwards, you can enter any SQL statement directly without needing <code>box.execute()</code>.</p>
+<h2 id="fields">fields</h2>
+<hr />
+<h3 id="boxnull">box.NULL</h3>
+<hr />
+<pre><code class="language-lua">box.NULL : ffi.cdata*
+</code></pre>
+<p>Constant <code>box.NULL</code></p>
+<p>There are some major problems with using Lua <code>nil</code> values in tables. For example: you can't correctly assess the length of a table that is not a sequence. (Learn more about data types in <a href="https://www.lua.org/manual/5.1/manual.html#2.2">Lua</a> and <a href="http://luajit.org/ext_ffi_semantics.html">LuaJIT</a>)</p>
+<pre><code class="language-tarantoolsession"> tarantool&gt; t = {0, nil, 1, 2, nil}
+ ---
+ ...
+
+ tarantool&gt; t
+ ---
+ - - 0
+ - null
+ - 1
+ - 2
+ ...
+
+ tarantool&gt; #t
+ ---
+ - 4
+ ...
+
+</code></pre>
+<p>The console output of <code>t</code> processes <code>nil</code> values in the middle and at the end of the table differently. This is due to undefined behavior.</p>
+<p><strong>Note:</strong> Trying to find the length for sparse arrays in LuaJIT leads to another scenario of <a href="https://www.lua.org/manual/5.1/manual.html#2.5.5">undefined behavior</a>. To avoid this problem, use Tarantool's <code>box.NULL</code> constant instead of <code>nil</code>. <code>box.NULL</code> is a placeholder for a <code>nil</code> value in tables to preserve a key without a value.</p>
+<p><strong>Using <code>box.NULL</code>:</strong></p>
+<p><code>box.NULL</code> is a value of the <a href="http://luajit.org/ext_ffi_semantics.html">cdata</a> type representing a NULL pointer. It is similar to <code>msgpack.NULL</code>, <code>json.NULL</code> and <code>yaml.NULL</code>. So it is some not <code>nil</code> value, even if it is a pointer to NULL.</p>
+<p>Use <code>box.NULL</code> only with capitalized NULL (<code>box.null</code> is incorrect).</p>
+<p><strong>Note:</strong> Technically speaking, <code>box.NULL</code> equals to <code>ffi.cast('void *', 0)</code>.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-tarantoolsession"> tarantool&gt; t = {0, box.NULL, 1, 2, box.NULL}
+ ---
+ ...
+
+ tarantool&gt; t
+ ---
+ - - 0
+ - null # cdata
+ - 1
+ - 2
+ - null # cdata
+ ...
+
+ tarantool&gt; #t
+ ---
+ - 5
+ ...
+
+</code></pre>
+<p><strong>Note:</strong> Notice that <code>t[2]</code> shows the same <code>null</code> output in both examples. However in this example <code>t[2]</code> and <code>t[5]</code> are of the cdata type, while in the previous example their type was <code>nil</code>.</p>
+<p><strong>Important:</strong></p>
+<p>Avoid using implicit comparisons with nullable values when using <code>box.NULL</code>. Due to <a href="https://www.lua.org/manual/5.1/manual.html#2.4.4">Lua behavior</a> returning anything except <code>false</code> or <code>nil</code> from a condition expression is considered as <code>true</code>. And, as it was mentioned earlier, <code>box.NULL</code> is a pointer by design.</p>
+<p>That is why the expression <code>box.NULL</code> will always be considered <code>true</code> in case it is used as a condition in a comparison. This means that the code</p>
+<p><code>if box.NULL then func() end</code></p>
+<p>will always execute the function <code>func()</code> (because the condition <code>box.NULL</code> will always be neither <code>false</code> nor <code>nil</code>).</p>
+<p><strong>Distinction of <code>nil</code> and <code>box.NULL</code>:</strong></p>
+<p>Use the expression <code>if x == nil</code> to check if the <code>x</code> is either a <code>nil</code> or a <code>box.NULL</code>.</p>
+<p>To check whether <code>x</code> is a <strong>nil</strong> but not a <code>box.NULL</code>, use the following condition expression:</p>
+<pre><code class="language-lua"> type(x) == 'nil'
+</code></pre>
+<p>If it's <code>true</code>, then <code>x</code> is a <code>nil</code>, but not a <code>box.NULL</code>.</p>
+<p>You can use the following for <code>box.NULL</code>:</p>
+<pre><code class="language-lua">
+ x == nil and type(x) == 'cdata'
+
+</code></pre>
+<p>If the expression above is <strong>true</strong>, then <code>x</code> is a <code>box.NULL</code>.</p>
+<p><strong>Note:</strong></p>
+<p>By converting data to different formats (JSON, YAML, msgpack), you shall expect that it is possible that <strong>nil</strong> in sparse arrays will be converted to <code>box.NULL</code>. And it is worth mentioning that such conversion might be unexpected (for example: by sending data via :ref:<code>net.box &lt;net_box-module&gt; or by obtaining data from [</code>spaces`](box.space) etc.).</p>
+<pre><code class="language-tarantoolsession"> tarantool&gt; type(({1, nil, 2})[2])
+ ---
+ - nil
+ ...
+
+ tarantool&gt; type(json.decode(json.encode({1, nil, 2}))[2])
+ ---
+ - cdata
+ ...
+</code></pre>
+<p>You must anticipate such behavior and use a proper condition expression. Use the explicit comparison <code>x == nil</code> for checking for NULL in nullable values. It will detect both <strong>nil</strong> and <code>box.NULL</code>.</p>
+<h3 id="boxnull_1">box.NULL</h3>
+<hr />
+<pre><code class="language-lua">box.NULL : unknown
+</code></pre>
+<h3 id="boxschema">box.schema</h3>
+<hr />
+<pre><code class="language-lua">box.schema: {
+    space: { create = fun&lt;T, U&gt;(space_name: string, options: box.schema.create_space_options?) -&gt; space&lt;T,U&gt;, ... },
+    create_space: fun&lt;T, U&gt;(space_name: string, options: box.schema.create_space_options?) -&gt; space&lt;T,U&gt;,
+    upgrade: fun(),
+    downgrade: fun(version: string),
+    downgrade_versions: fun(),
+    downgrade_issues: fun(version: string),
+    user: { create = fun(username: string, options: {...}?), drop = fun(username: string, options: {...}?), ... },
+    role: { create = fun(role_name: string, options: {...}?), drop = fun(role_name: string, options: {...}?), ... },
+    sequence: { create = fun(name: string, options: box.schema.sequence.create_options?) -&gt; box.sequence, ... },
+    func: { create = fun(func_name: string, options: box.schema.func.create_options?), ... },
+}
+</code></pre>
+<p>Builtin <code>box.schema</code> submodule</p>
+<p>The <code>box.schema</code> submodule has data-definition functions for spaces, users, roles, function tuples, and sequences.</p>
+<h3 id="boxtuple">box.tuple</h3>
+<hr />
+<pre><code class="language-lua">box.tuple: {
+    new: fun(value: tuple_type[], options: {...}?) -&gt; tuple&lt;any,any&gt;,
+    is: fun(object: any) -&gt; boolean,
+    format: { new = fun(tuple_format: box.tuple.field_format[]) -&gt; box.tuple.format, ... },
+}
+</code></pre>
+<p>Builtin <code>box.tuple</code> submodule</p>
+<p>The <code>box.tuple</code> submodule provides read-only access for the <code>tuple</code> userdata type. It allows, for a single <a href="lua://box.tuple">tuple</a>: selective retrieval of the field contents, retrieval of information about size, iteration over all the fields, and conversion to a <a href="https://www.lua.org/pil/2.5.html">Lua table</a>.</p>
+<p><strong>How to convert tuples to/from Lua tables:</strong></p>
+<p>This function illustrates how to convert tuples to/from Lua tables and lists of scalars:</p>
+<pre><code class="language-lua"> tuple = box.tuple.new({scalar1, scalar2, ... scalar_n}) -- scalars to tuple
+ lua_table = {tuple:unpack()}                            -- tuple to Lua table
+ lua_table = tuple:totable()                             -- tuple to Lua table
+ scalar1, scalar2, ... scalar_n = tuple:unpack()         -- tuple to scalars
+ tuple = box.tuple.new(lua_table)                        -- Lua table to tuple
+</code></pre>
+<p>Then it will find the field that contains 'b', remove that field from the tuple,
+and display how many bytes remain in the tuple. The function uses Tarantool
+<code>box.tuple</code> functions <code>new()</code>, <code>unpack()</code>, <code>find()</code>, <code>transform()</code>,
+<code>bsize()</code>.</p>
+<pre><code class="language-lua"> function example()
+     local tuple1, tuple2, lua_table_1, scalar1, scalar2, scalar3, field_number
+     local luatable1 = {}
+     tuple1 = box.tuple.new({'a', 'b', 'c'})
+     luatable1 = tuple1:totable()
+     scalar1, scalar2, scalar3 = tuple1:unpack()
+     tuple2 = box.tuple.new(luatable1[1],luatable1[2],luatable1[3])
+     field_number = tuple2:find('b')
+     tuple2 = tuple2:transform(field_number, 1)
+     return 'tuple2 = ' , tuple2 , ' # of bytes = ' , tuple2:bsize()
+ end
+</code></pre>
+<p>... And here is what happens when one invokes the function:</p>
+<pre><code class="language-tarantoolsession"> tarantool&gt; example()
+ ---
+ - tuple2 =
+ - ['a', 'c']
+ - ' # of bytes = '
+ - 5
+ ...
+</code></pre>
+<h3 id="boxcfg">box.cfg</h3>
+<hr />
+<pre><code class="language-lua">box.cfg : box.cfg {
+    background: boolean?,
+    checkpoint_count: integer?,
+    checkpoint_interval: number?,
+    checkpoint_wal_threshold: number?,
+    coredump: boolean?,
+    custom_proc_title: string?,
+    box.cfg.election_mode: box.cfg.election_mode?,
+    feedback_enabled: boolean?,
+    feedback_host: string?,
+    feedback_interval: number?,
+    force_recovery: boolean?,
+    hot_standby: boolean?,
+    ...(+53)
+}
+</code></pre>
+<p>Builtin <code>box.cfg</code> submodule</p>
+<p>The <code>box.cfg</code> submodule is used for specifying <a href="lua://box.cfg">server configuration parameters</a>.</p>
+<p>To view the current configuration, say <code>box.cfg</code> without braces.</p>
+<pre><code class="language-tarantoolsession"> tarantool&gt; box.cfg
+ ---
+ - checkpoint_count: 2
+   too_long_threshold: 0.5
+   slab_alloc_factor: 1.05
+   memtx_max_tuple_size: 1048576
+   background: false
+   &lt;...&gt;
+ ...
+</code></pre>
+<p>To set particular parameters, use the following syntax: <code>box.cfg{key = value [, key = value ...]}</code> (further referred to as <code>box.cfg{...}</code> for short). For example:</p>
+<pre><code class="language-tarantoolsession"> tarantool&gt; box.cfg{listen = 3301}
+</code></pre>
+<p>Parameters that are not specified in the <code>box.cfg{...}</code> call explicitly will be set to the <a href="doc://box_cfg_default">default values</a>.</p>
+<p>The first call to <code>box.cfg{...}</code> (with or without parameters) initiates Tarantool's database module <a href="lua://box"><code>box</code></a>.</p>
+<p><code>box.cfg{...}</code> is also the command that reloads <a href="doc://index-box_persistence">persistent data files</a> into RAM upon restart once we have data.</p>
+<h3 id="boxspace">box.space</h3>
+<hr />
+<pre><code class="language-lua">box.space : box.spaces {
+    _user: space&lt;box.space._user_tuple,box.space._user_info&gt;,
+    _cluster: unknown,
+    _func: unknown,
+    _space: space&lt;box.space._space_tuple,box.space._space_info&gt;,
+    _index: space&lt;box.space._index_tuple,box.space._index_info&gt;,
+    _vindex: space&lt;box.space._vindex_tuple,box.space._vindex_info&gt;,
+    _priv: space&lt;box.space._priv_tuple,box.space._priv_info&gt;,
+    _vpriv: space&lt;box.space._vpriv_tuple,box.space._vpriv_info&gt;,
+    _schema: space&lt;box.space._schema_tuple,box.space._schema_info&gt;,
+    _sequence: space&lt;box.space._sequence_tuple,box.space._sequence_info&gt;,
+    _sequence_data: space&lt;box.space._sequence_data_tuple,box.space._sequence_data_info&gt;,
+    _vspace: space&lt;box.space._vspace_tuple,box.space._vspace_info&gt;,
+    ...(+7)
+}
+</code></pre>
+<p>Builtin <code>box.space</code> submodule.</p>
+<p><strong>CRUD operations</strong> in Tarantool are implemented by the <code>box.space</code> submodule.</p>
+<p>It has the data-manipulation functions <code>select</code>, <code>insert</code>, <code>replace</code>, <code>update</code>, <code>upsert</code>, <code>delete</code>, <code>get</code>, <code>put</code>. It also has members, such as id, and whether or not a space is enabled.</p>
+<h3 id="boxbackup">box.backup</h3>
+<hr />
+<pre><code class="language-lua">box.backup: {
+    start: fun(n: number?) -&gt; string[],
+    stop: fun(),
+}
+</code></pre>
+<p>Builtin <code>box.backup</code> submodule</p>
+<p>The <code>box.backup</code> submodule contains two functions that are helpful for <a href="doc://admin-backups">backup</a> in certain situations.</p>
+<h3 id="boxslab">box.slab</h3>
+<hr />
+<pre><code class="language-lua">box.slab: {
+    info: fun() -&gt; box.slab.info,
+}
+</code></pre>
+<p>Builtin <code>box.slab</code> submodule</p>
+<p>The <code>box.slab</code> submodule provides access to slab allocator statistics.</p>
+<p>The slab allocator is the main allocator used to store <a href="lua://box.tuple">tuples</a>.</p>
+<p>This can be used to monitor the total memory usage and memory fragmentation.</p>
+<h3 id="boxsession">box.session</h3>
+<hr />
+<pre><code class="language-lua">box.session: {
+    id: fun() -&gt; number,
+    exists: fun(id: number) -&gt; boolean,
+    peer: fun(id: number?) -&gt; string?,
+    sync: fun() -&gt; number,
+    user: fun() -&gt; string,
+    type: fun() -&gt; box.session.type,
+    su: fun(user: string, func: string?) -&gt; any ...,
+    uid: fun() -&gt; number,
+    euid: fun() -&gt; number,
+    storage: table&lt;(number|string),any&gt;,
+    on_connect: fun(trigger_func: fun(...) -&gt; ...?, old_trigger_func: fun(...) -&gt; ...?) -&gt; fun(...) -&gt; ...?,
+    on_disconnect: fun(trigger_func: fun(...) -&gt; ...?, old_trigger_func: fun(...) -&gt; ...?) -&gt; fun(...) -&gt; ...?,
+    ...
+}
+</code></pre>
+<p>Builtin <code>box.session</code> submodule</p>
+<p>The <code>box.session</code> submodule allows querying the session state, writing to a session-specific temporary Lua table, or sending out-of-band messages, or setting up triggers which will fire when a session starts or ends.</p>
+<p>A <em>session</em> is an object associated with each client connection.</p>
+<h3 id="boxstat">box.stat</h3>
+<hr />
+<pre><code class="language-lua">box.stat : box.stat {
+    reset: function,
+    net: function,
+}
+</code></pre>
+<h3 id="boxerror_2">box.error</h3>
+<hr />
+<pre><code class="language-lua">box.error: {
+    new: fun(err: { code: number?, reason: string, type: string? }) -&gt; box.error,
+    last: fun() -&gt; box.error,
+}
+</code></pre>
+<p>Builtin <code>box.error</code> submodule.</p>
+<p>The <code>box.error</code> submodule can be used to work with errors in your application.</p>
+<p>For example, you can get the information about the last error raised by Tarantool or raise custom errors manually.</p>
+<p>The difference between raising an error using <code>box.error</code> and a Lua's built-in <a href="https://www.lua.org/pil/8.3.html">error</a> function is that when the error reaches the client, its error code is preserved.</p>
+<p>In contrast, a Lua error would always be presented to the client as <code>ER_PROC_LUA</code>.</p>
+<p><strong>Note:</strong></p>
+<p>To learn how to handle errors in your application, see the <a href="doc://error_handling">handling errors</a> section.</p>
+<p>When called without arguments, box.error() re-throws whatever the last error was.</p>
+<h3 id="boxinfo">box.info</h3>
+<hr />
+<pre><code class="language-lua">box.info : box.info {
+    id: integer,
+    uuid: string,
+    pid: integer,
+    uptime: integer,
+    status: (&quot;unconfigured&quot;|&quot;running&quot;|&quot;loading&quot;|&quot;orphan&quot;|&quot;hot_standby&quot;),
+    lsn: integer,
+    version: string,
+    ro: boolean,
+    package: string,
+    vclock: integer[],
+    replication: table&lt;integer,box.info.replica&gt;,
+    election: box.info.election,
+    memory: function,
+    ...(+6)
+}
+</code></pre>
+<p>Builtin <code>box.info</code> submodule</p>
+<p>The <code>box.info</code> submodule provides access to information about a running Tarantool instance.</p>
+<h3 id="boxiproto">box.iproto</h3>
+<hr />
+<pre><code class="language-lua">box.iproto: {
+    send: fun(sid: number, header: (table|string), body: (table|string)?) -&gt; integer,
+    ballot_key: box.iproto.ballot_key,
+    feature: table&lt;box.iproto.feature,integer&gt;,
+    flag: box.iproto.flag,
+    key: box.iproto.key,
+    metadata_key: box.iproto.metadata_key,
+    override: fun(request_type: box.iproto.type, handler: fun(...) -&gt; ...?),
+    protocol_features: table&lt;box.iproto.feature,boolean&gt;,
+    protocol_version: integer,
+    raft_key: box.iproto.raft_key,
+    type: box.iproto.type,
+}
+</code></pre>
+<p>Builtin <code>box.iproto</code> submodule</p>
+<p><em>Since 2.11.0</em></p>
+<p>The <code>box.iproto</code> submodule provides the ability to work with the network subsystem of Tarantool.
+It allows you to extend the <a href="doc://box_protocol"><code>IPROTO</code></a> functionality from Lua.</p>
+<p>With this submodule, you can:</p>
+<ul>
+<li><a href="doc://reference_lua-box_iproto_override">Parse unknown IPROTO request types</a></li>
+<li><a href="doc://reference_lua-box_iproto_send">Send arbitrary IPROTO packets</a></li>
+<li><a href="doc://reference_lua-box_iproto_override">Override the behavior</a> of the existing and unknown request types in the binary protocol</li>
+</ul>
+<p>The submodule exports all IPROTO <a href="doc://internals-box_protocol">constants</a> and <a href="internals-iproto-keys-features">doc://features</a> to Lua.</p>
+<h3 id="boxctl">box.ctl</h3>
+<hr />
+<pre><code class="language-lua">box.ctl: {
+    promote: fun(),
+    demote: fun(),
+    wait_rw: fun(timeout: number?),
+    wait_ro: fun(timeout: number?),
+    on_shutdown: fun(trigger_function: fun(...) -&gt; ...?, old_trigger_function: fun(...) -&gt; ...?) -&gt; fun(...) -&gt; ...?,
+    on_election: fun(trigger: function),
+    is_recovery_finished: fun() -&gt; boolean,
+    make_bootstrap_leader: fun(),
+    on_recovery_state: fun(trigger_function: fun(state: box.ctl.recovery_state)) -&gt; function?,
+    on_schema_init: fun(trigger_function: fun(...) -&gt; ...?, old_trigger_function: fun(...) -&gt; ...?) -&gt; function?,
+}
+</code></pre>
+<p>Builtin <code>box.ctl</code> submodule</p>
+<p>The <code>wait_ro</code> (wait until read-only) and <code>wait_rw</code> (wait until read-write) functions are useful during server initialization.</p>
+<p>To see whether a function is already in read-only or read-write mode, check :ref:<code>box.info.ro &lt;box_introspection-box_info&gt;</code>.</p>
+<p>A particular use is for :doc:<code>box.once() &lt;/reference/reference_lua/box_once&gt;</code>.</p>
+<p>For example, when a replica is initializing, it may call a <code>box.once()</code> function while the server is still in read-only mode, and fail to make changes that are necessary only once before the replica is fully initialized.</p>
+<p>This could cause conflicts between a master and a replica if the master is in read-write mode and the replica is in read-only mode. Waiting until "read only mode = false" solves this problem.</p>
+<h3 id="boxindex">box.index</h3>
+<hr />
+<pre><code class="language-lua">box.index : box.index.iterator {
+    EQ: integer = 0,
+    REQ: integer = 1,
+    ALL: integer = 2,
+    LT: integer = 3,
+    LE: integer = 4,
+    GE: integer = 5,
+    GT: integer = 6,
+    BITS_ALL_SET: integer = 7,
+    BITS_ANY_SET: integer = 8,
+    BITS_ALL_NOT_SET: integer = 9,
+    OVERLAPS: integer = 10,
+    NEIGHBOR: integer = 11,
+    ...(+2)
+}
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["quick-links", "navigation", "search", "toc", "fullscreen", "bookmarks", "tabs", "code", "edit-on-github", "language-selector", "code", "cover", "footer", "social-share", "theme-switcher"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
