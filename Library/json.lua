@@ -1,5 +1,11 @@
 ---@meta
 
+---# Builtin `json` module
+---
+---The `json` module provides JSON manipulation routines. It is based on the
+---[Lua-CJSON module by Mark Pulford](http://www.kyne.com.au/~mark/software/lua-cjson.php).
+---For a complete manual on Lua-CJSON please read
+---[the official documentation](http://www.kyne.com.au/~mark/software/lua-cjson-manual.html).
 local json = {}
 
 ---@class json.cfg
@@ -25,6 +31,14 @@ local json = {}
 function json.cfg(cfg) end
 
 ---Convert a Lua object to a JSON string.
+---
+---**`__serialize` parameter:**
+---
+---The JSON output structure can be specified with `__serialize`:
+---
+---* 'seq', 'sequence', 'array' - table encoded as an array
+---* 'map', 'mapping' - table encoded as a map
+---* function - the meta-method called to unpack serializable representation of table, cdata or userdata objects
 ---
 ---**Example:**
 ---

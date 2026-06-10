@@ -289,7 +289,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [x] `http.client`
     - [x] `iconv`
     - [x] `jit`
-    - [x] `json` (partial)
+    - [x] `json`
     - [x] `key_def`
     - [x] `log`
     - [x] `merger`

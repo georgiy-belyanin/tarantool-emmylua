@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `box.tuple:transform()` method.
 * `config:reload()` method.
 * `datetime` arithmetic operators: `datetime + interval`, `datetime - interval`, and `datetime - datetime`.
+* Completed `json`: module overview header and `__serialize` parameter documentation.
 
 ### Fixed
 
