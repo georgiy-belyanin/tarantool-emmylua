@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `experimental.connpool` submodule declarations.
 * `box.prepare()`, `box.unprepare()`, the prepared statement object, and the `box.NULL` constant.
 * Enterprise Edition `box.cfg` options: audit logging, flight recorder, authentication and password policy, `wal_ext`, and `secure_erasing`.
+* Documented `box.error.*` database error code constants.
 
 ### Fixed
 

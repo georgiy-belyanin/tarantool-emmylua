@@ -134,3 +134,57 @@ function box.error.new(err) end
 ---
 ---@return box.error
 function box.error.last() end
+
+-- Database error codes.
+--
+-- The constants below are some popular errors that can be raised by Tarantool.
+-- A complete list of errors is in the
+-- `errcode.h <https://github.com/tarantool/tarantool/blob/master/src/box/errcode.h>`_ file.
+
+---(In replication) A server instance cannot modify data unless it is a master.
+---@type integer
+box.error.NONMASTER = nil
+
+---Illegal parameters. Malformed protocol message.
+---@type integer
+box.error.ILLEGAL_PARAMS = nil
+
+---Out of memory: [memtx_memory](lua://box.cfg.memtx_memory) limit has been reached.
+---@type integer
+box.error.MEMORY_ISSUE = nil
+
+---Failed to write to disk. May mean: failed to record a change in the write-ahead log.
+---@type integer
+box.error.WAL_IO = nil
+
+---Can't modify data on a read-only instance.
+---@type integer
+box.error.READONLY = nil
+
+---Key part count is not the same as index part count.
+---@type integer
+box.error.KEY_PART_COUNT = nil
+
+---The specified space does not exist.
+---@type integer
+box.error.NO_SUCH_SPACE = nil
+
+---The specified index in the specified space does not exist.
+---@type integer
+box.error.NO_SUCH_INDEX = nil
+
+---An error occurred inside a Lua procedure.
+---@type integer
+box.error.PROC_LUA = nil
+
+---The recursion limit was reached when creating a new fiber. This usually indicates that a stored procedure is recursively invoking itself too often.
+---@type integer
+box.error.FIBER_STACK = nil
+
+---An error occurred during update of a field.
+---@type integer
+box.error.UPDATE_FIELD = nil
+
+---A duplicate key exists in a unique index.
+---@type integer
+box.error.TUPLE_FOUND = nil

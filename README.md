@@ -258,7 +258,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
         + [x] `backup`
         + [x] `cfg` (incl. **(EE)** audit, flight recorder, authentication, `wal_ext`, `secure_erasing` options)
         + [x] `ctl`
-        + [x] `error`
+        + [x] `error` (incl. `box.error.*` codes)
         + [x] `index` (partial)
         + [x] `info`
         + [x] `iproto`
