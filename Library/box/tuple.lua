@@ -256,6 +256,26 @@ function tuple_object:tomap(options) end
 ---@return box.tuple
 function tuple_object:update(update_operations) end
 
+---Return a new tuple derived from this one by removing `length` fields starting at `start`
+---and inserting the given fields in their place.
+---
+---`start` and `length` may be negative to count from the end of the tuple.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> box.tuple.new({1, 'x', 3}):transform(2, 1, 'y', 'z')
+--- ---
+--- - [1, 'y', 'z', 3]
+--- ...
+--- ```
+---
+---@param start integer the position (1-based) at which to begin removing/inserting; may be negative
+---@param length integer the number of fields to remove (0 to only insert)
+---@param ... tuple_type the fields to insert at `start`
+---@return box.tuple
+function tuple_object:transform(start, length, ...) end
+
 ---Get information about the tuple memory usage.
 ---
 ---**Note:** `waste_size` is provided for reference only and can be inaccurate. Avoid using it for memory usage calculations.

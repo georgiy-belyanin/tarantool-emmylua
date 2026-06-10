@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Documented `box.error.*` database error code constants.
 * Completed `box.index`: added `compact`, `drop`, `random`, `rename`, and `stat` methods.
 * Completed `box.stat`: `box.stat.memtx()`, `box.stat.vinyl()`, `box.stat.net.thread`, and the full set of request-type and network statistics fields.
+* `box.tuple:transform()` method.
 
 ### Fixed
 
