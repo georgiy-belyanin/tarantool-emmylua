@@ -282,7 +282,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [x] `decimal`
     - [x] `digest`
     - [x] `errno`
-    - [ ] `experimental.connpool`
+    - [x] `experimental.connpool`
     - [x] `fiber`
     - [x] `fio`
     - [x] `fun` (partial)

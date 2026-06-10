@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Builtin `compress` module declarations with `zlib`, `zstd`, and `lz4` submodules (Enterprise Edition).
 * Builtin `box.read_view` submodule declarations (Enterprise Edition).
 * `config.storage` submodule declarations (Enterprise Edition).
+* `experimental.connpool` submodule declarations.
 
 ### Fixed
 
