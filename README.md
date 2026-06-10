@@ -300,6 +300,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [x] `strict`
     - [x] `string` (Tarantool extensions)
     - [x] `table` (Tarantool extensions)
+    - [x] `tap`
     - [ ] `tarantool`
     - [x] `uri`
     - [x] `utf8`
