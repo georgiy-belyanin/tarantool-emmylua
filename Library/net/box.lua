@@ -13,6 +13,8 @@ local net_box = {}
 ---@field public state 'active' | 'fetch_schema' | 'error' | 'error_reconnect' | 'closed' | 'initial' | 'graceful_shutdown'
 ---@field public error string
 ---@field public peer_uuid? string
+---@field public schema_version? integer
+---@field public space box.spaces A collection of remote spaces. Each remote space is accessed by name, e.g. `conn.space.<space-name>`, and supports the data-manipulation methods (`select`/`get`/`insert`/`replace`/`update`/`upsert`/`delete`).
 ---@field public _fiber? Fiber
 local conn = {}
 
@@ -122,6 +124,38 @@ function conn:on_connect(new_callback, old_callback) end
 ---@param old_callback? fun(conn: net.box.conn)
 function conn:on_disconnect(new_callback, old_callback) end
 
+---Define a trigger for shutdown when a [box.shutdown](doc://system-events_box-shutdown) event is received.
+---
+---The trigger starts in a new fiber. While the `on_shutdown()` trigger is running, the connection stays active. It means that the trigger callback is allowed to send new requests.
+---
+---After the trigger return, the `net.box` connection goes to the `graceful_shutdown` state (check [the state diagram](doc://net_box-state_diagram) for details). In this state, no new requests are allowed. The connection waits for all pending requests to be completed.
+---
+---Once all in-progress requests have been processed, the connection is closed. The state changes to `error` or `error_reconnect` (if the `reconnect_after` option is defined).
+---
+---Servers that do not support the `box.shutdown` event or [IPROTO_WATCH](doc://box_protocol-watch) just close the connection abruptly. In this case, the `on_shutdown()` trigger is not executed.
+---
+---@param new_callback? fun(conn: net.box.conn) the trigger function. Takes the `conn` object as the first argument.
+---@param old_callback? fun(conn: net.box.conn) an existing trigger function to replace with `trigger-function`
+---@return fun(conn: net.box.conn) | nil
+function conn:on_shutdown(new_callback, old_callback) end
+
+---Define a trigger executed when some operation has been performed on the remote server after schema has been updated. So, if a server request fails due to a schema version mismatch error, schema reload is triggered.
+---
+---If a trigger function issues `net_box` requests, they must be [asynchronous](lua://net.box.future) (`{is_async = true}`). An attempt to wait for request completion with `future:pairs()` or `future:wait_result()` in the trigger function will result in an error.
+---
+---**Note:**
+---
+---If the parameters are `(nil, old-trigger-function)`, then the old trigger is deleted.
+---
+---If both parameters are omitted, then the response is a list of existing trigger functions.
+---
+---Find the detailed information about triggers in the [triggers](doc://triggers-box_triggers) section.
+---
+---@param new_callback? fun(conn: net.box.conn) the trigger function. Takes the `conn` object as the first argument.
+---@param old_callback? fun(conn: net.box.conn) an existing trigger function to replace with `trigger-function`
+---@return fun(conn: net.box.conn) | nil
+function conn:on_schema_reload(new_callback, old_callback) end
+
 ---Wait for connection to be active or closed.
 ---
 ---**Example:**
@@ -151,6 +185,226 @@ function conn:close() end
 ---
 ---@return boolean
 function conn:is_connected() end
+
+---Wait for a target state.
+---
+---*Since 1.7.2*
+---
+---`states` is a target state name or a set of target state names.
+---
+---**Examples:**
+---
+--- ```lua
+--- -- wait infinitely for 'active' state:
+--- conn:wait_state('active')
+---
+--- -- wait for 1.5 secs at most:
+--- conn:wait_state('active', 1.5)
+---
+--- -- wait infinitely for either `active` or `fetch_schema` state:
+--- conn:wait_state({active=true, fetch_schema=true})
+--- ```
+---
+---@async
+---@param states string | table<string, boolean> target states
+---@param timeout? number in seconds
+---@return boolean reached true when a target state is reached, false on timeout or connection closure
+function conn:wait_state(states, timeout) end
+
+---Subscribe to events broadcast by a remote host.
+---
+---To read more about watchers, see the [Functions for watchers](doc://box-watchers) section.
+---
+---The method has the same syntax as the [box.watch()](lua://box.watch) function, which is used for subscribing to events locally.
+---
+---Watchers survive reconnection (see the `reconnect_after` connection [option](lua://net.box.connect)). All registered watchers are automatically resubscribed when the connection is reestablished.
+---
+---If a remote host supports watchers, the `watchers` key will be set in the connection `peer_protocol_features`. For details, check the [net.box features table](lua://net.box.connect).
+---
+---**Note:**
+---
+---Keep in mind that garbage collection of a watcher handle doesn't lead to the watcher's destruction. In this case, the watcher remains registered. It is okay to discard the result of `watch` function if the watcher will never be unregistered.
+---
+---**Example 1:**
+---
+---Server:
+---
+--- ```lua
+--- -- Broadcast value 42 for the 'foo' key.
+--- box.broadcast('foo', 42)
+--- ```
+---
+---Client:
+---
+--- ```lua
+--- conn = net.box.connect(URI)
+--- local log = require('log')
+--- -- Subscribe to updates of the 'foo' key.
+--- w = conn:watch('foo', function(key, value)
+---     assert(key == 'foo')
+---     log.info("The box.id value is '%d'", value)
+--- end)
+--- ```
+---
+---If you don't need the watcher anymore, you can unregister it using the command below:
+---
+--- ```lua
+--- w:unregister()
+--- ```
+---
+---@param key string a key name of an event to subscribe to
+---@param func fun(key: string, value: any) a callback to invoke when the key value is updated
+---@return box.watcher watcher a watcher handle. The handle consists of one method -- `unregister()`, which unregisters the watcher.
+function conn:watch(key, func) end
+
+---Create a stream.
+---
+---**Example:**
+---
+--- ```lua
+--- -- Start a server to create a new stream
+--- local conn = net_box.connect('localhost:3301')
+--- local conn_space = conn.space.test
+--- local stream = conn:new_stream()
+--- local stream_space = stream.space.test
+--- ```
+---
+---@return net.box.stream
+function conn:new_stream() end
+
+---A stream object provides transactional access to a remote Tarantool instance over a `net.box` connection. Like a connection, it exposes a `space` collection (`stream.space.<space-name>`) and the data-manipulation methods, but all requests sent over a single stream are processed sequentially and can be wrapped into an interactive transaction with [`begin()`](lua://net.box.stream.begin)/[`commit()`](lua://net.box.stream.commit)/[`rollback()`](lua://net.box.stream.rollback).
+---
+---@class net.box.stream
+---@field public space box.spaces A collection of remote spaces accessible over the stream. Each remote space is accessed by name, e.g. `stream.space.<space-name>`.
+local stream = {}
+
+---Begin a stream transaction. Instead of the direct method, you can also use the `call`, `eval` or execute methods with SQL transaction.
+---
+---@async
+---@param txn_isolation? box.txn_isolation [transaction isolation level](doc://txn_mode_mvcc-options)
+function stream:begin(txn_isolation) end
+
+---Commit a stream transaction. Instead of the direct method, you can also use the `call`, `eval` or execute methods with SQL transaction.
+---
+---**Examples:**
+---
+--- ```lua
+--- -- Begin stream transaction
+--- stream:begin()
+--- -- In the previously created ``accounts`` space with the primary key ``test``, modify the fields 2 and 3
+--- stream.space.accounts:update(test_1, {{'-', 2, 370}, {'+', 3, 100}})
+--- -- Commit stream transaction
+--- stream:commit()
+--- ```
+---
+---@async
+function stream:commit() end
+
+---Rollback a stream transaction. Instead of the direct method, you can also use the `call`, `eval` or execute methods with SQL transaction.
+---
+---**Example:**
+---
+--- ```lua
+--- -- Test rollback for memtx space
+--- space:replace({1})
+--- -- Select return tuple that was previously inserted, because this select belongs to stream transaction
+--- space:select({})
+--- stream:rollback()
+--- -- Select is empty, stream transaction rollback
+--- space:select({})
+--- ```
+---
+---@async
+function stream:rollback() end
+
+---An object returned by a `net.box` request made with the `{is_async = true}` option (applicable to all `net_box` requests including `conn:call`, `conn:eval`, and the `conn.space.space-name` requests).
+---
+---The default is `is_async=false`, meaning requests are synchronous for the fiber. The fiber is blocked, waiting until there is a reply to the request or until timeout expires. Before Tarantool version 1.10, the only way to make asynchronous requests was to put them in separate fibers.
+---
+---The non-default is `is_async=true`, meaning requests are asynchronous for the fiber. The request causes a yield but there is no waiting. The immediate return is not the result of the request, instead it is an object that the calling program can use later to get the result of the request.
+---
+---Typically a user would say `future=request-name(...{is_async=true})`, then either loop checking `future:is_ready()` until it is true and then say `request_result=future:result()`, or say `request_result=future:wait_result(...)`. Alternatively the client could check for "out-of-band" messages from the server by calling `pairs()` in a loop -- see [box.session.push](doc://box_session_push).
+---
+---A user would say `future:discard()` to make a connection forget about the response -- if a response for a discarded object is received then it will be ignored, so that the size of the requests table will be reduced and other requests will be faster.
+---
+---**Note:**
+---
+---Although the final result of an async request is the same as the result of a sync request, it is structured differently: as a table, instead of as the unpacked values.
+---
+---**Examples:**
+---
+--- ```tarantoolsession
+--- -- Insert a tuple asynchronously --
+--- tarantool> future = conn.space.bands:insert({10, 'Queen', 1970}, {is_async=true})
+--- ---
+--- ...
+--- tarantool> future:is_ready()
+--- ---
+--- - true
+--- ...
+--- tarantool> future:result()
+--- ---
+--- - [10, 'Queen', 1970]
+--- ...
+---
+--- -- Iterate through a space with 10 records to get data in chunks of 3 records --
+--- tarantool> while true do
+---                future = conn.space.bands:select({}, {limit=3, after=position, fetch_pos=true, is_async=true})
+---                result = future:wait_result()
+---                tuples = result[1]
+---                position = result[2]
+---                if position == nil then
+---                    break
+---                end
+---                print('Chunk size: '..#tuples)
+---            end
+--- Chunk size: 3
+--- Chunk size: 3
+--- Chunk size: 3
+--- Chunk size: 1
+--- ---
+--- ...
+--- ```
+---
+---@class net.box.future
+local future = {}
+
+---Return `true` when the result of the request is available.
+---
+---@return boolean
+function future:is_ready() end
+
+---Get the result of the request (returns the response or `nil` in case it's not ready yet or there has been an error).
+---
+---@return table? result
+---@return any? error
+function future:result() end
+
+---Wait until the result of the request is available and then get it, or throw an error if there is no result after the timeout exceeded.
+---
+---@async
+---@param timeout? number
+---@return table? result
+---@return any? error
+function future:wait_result(timeout) end
+
+---Abandon the object.
+---
+---A user would say `future:discard()` to make a connection forget about the response -- if a response for a discarded object is received then it will be ignored, so that the size of the requests table will be reduced and other requests will be faster.
+function future:discard() end
+
+---Check for "out-of-band" messages from the server by calling `pairs()` in a loop.
+---
+---`pairs()` is subject to timeout. So there is an optional argument = timeout per iteration. If timeout occurs before there is a new message or a final response, there is an error return.
+---
+---To check for an error one can use the first loop parameter (if the loop starts with `for i, message in future:pairs()` then the first loop parameter is `i`). If it is `box.NULL` then the second parameter (in our example, `message`) is the error object.
+---
+---See [box.session.push](doc://box_session_push).
+---
+---@async
+---@param timeout? number timeout per iteration
+---@return fun(): integer, any iterator
+function future:pairs(timeout) end
 
 ---@class net.box.connect_options
 ---@field public wait_connected? boolean|number
@@ -244,5 +498,16 @@ function net_box.connect(endpoint, options) end
 ---@param options? net.box.connect_options
 ---@return net.box.conn
 function net_box.new(endpoint, options) end
+
+---For a local Tarantool server, there is a pre-created always-established connection object named `net_box.self`. Its purpose is to make polymorphic use of the `net_box` API easier. Therefore `conn = net_box.connect('localhost:3301')` can be replaced by `conn = net_box.self`.
+---
+---However, there is an important difference between the embedded connection and a remote one:
+---
+---* With the embedded connection, requests which do not modify data do not yield. When using a remote connection, due to [the implicit rules](doc://app-implicit-yields) any request can yield, and the database state may have changed by the time it regains control.
+---
+---* All the options passed to a request (as `is_async`, `on_push`, `timeout`) will be ignored.
+---
+---@type net.box.conn
+net_box.self = conn
 
 return net_box

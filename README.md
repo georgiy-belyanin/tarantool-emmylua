@@ -294,7 +294,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [x] `log`
     - [x] `merger`
     - [x] `msgpack`
-    - [x] `net.box` (partial)
+    - [x] `net.box`
     - [x] `pickle`
     - [x] `popen`
     - [x] `os` (Tarantool extensions)
