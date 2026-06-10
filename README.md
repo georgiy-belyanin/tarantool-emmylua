@@ -286,6 +286,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [x] `iconv`
     - [x] `jit`
     - [x] `json` (partial)
+    - [x] `key_def`
     - [x] `log`
     - [ ] `merger`
     - [x] `msgpack`

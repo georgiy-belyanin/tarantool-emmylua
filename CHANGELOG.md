@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Builtin `msgpack` module declarations.
 * Builtin `digest` module declarations.
 * Builtin `crypto` module declarations.
+* Builtin `key_def` module declarations.
 
 ### Fixed
 

@@ -1,0 +1,363 @@
+---@meta
+
+---# Builtin `key_def` module
+---
+---The `key_def` module has a function for defining the field numbers and types of a tuple.
+---The definition is usually used with an index definition
+---to extract or compare the index key values.
+local key_def = {}
+
+---A descriptor of a single part of a key definition.
+---
+---The `parts` table has components which are the same as the `parts` option in [Options for space_object:create_index()](doc://index_opts_object).
+---
+---`fieldno` (integer), for example, `fieldno = 1`. It is legal to use `field` instead of `fieldno`.
+---
+---`type` (string), for example, `type = 'string'`.
+---
+---Other components are optional.
+---@class key_def.part
+---@field fieldno? integer Field number. It is legal to use `field` instead of `fieldno`.
+---@field field? integer | string Field number or name. It is legal to use `field` instead of `fieldno`.
+---@field type tuple_type_name (Default: scalar) Field type.
+---@field collation? string Collation used to compare field values.
+---@field is_nullable? boolean (Default: false) Whether `nil` (or its equivalent such as `msgpack.NULL`) can be used as a field value.
+---@field exclude_null? boolean (Default: false) Whether an index can skip tuples with null at this key part.
+---@field path? string Path string for a map field.
+
+---@class key_def: ffi.cdata*
+local key_def_object = {}
+
+---Create a new key_def instance.
+---
+---The parts table has components which are the same as the `parts` option in [Options for space_object:create_index()](doc://index_opts_object).
+---
+---`fieldno` (integer), for example, `fieldno = 1`. It is legal to use `field` instead of `fieldno`.
+---
+---`type` (string), for example, `type = 'string'`.
+---
+---Other components are optional.
+---
+---Example: `key_def.new({{type = 'unsigned', fieldno = 1}})`
+---
+---Example: `key_def.new({{type = 'string', collation = 'unicode', field = 2}})`
+---
+---Since version 3.2.0, you can use the standard lua operator `#` (__len metamethod) to check the `key_def` length (parts count).
+---
+---**Example**
+---
+--- ```lua
+--- function is_full_pkey(space, key)
+--- return #space.index[0].parts == #key
+--- end
+--- ```
+---
+---@param parts key_def.part[] field numbers and types. There must be at least one part. Every part must contain the attributes `type` and `fieldno`/`field`. Other attributes are optional.
+---@return key_def key_def a key_def object
+function key_def.new(parts) end
+
+---Return a tuple containing only the fields of the `key_def` object.
+---
+---**Example #1:**
+---
+--- ```tarantoolsession
+--- -- Suppose an item has five fields
+--- -- 1, 99.5, 'X', nil, 99.5
+--- -- and the fields that we care about are
+--- -- #3 (a string) and #1 (an integer).
+--- -- We can define those fields with k = key_def.new
+--- -- and extract the values with k:extract_key.
+---
+--- tarantool> key_def = require('key_def')
+--- ---
+--- ...
+---
+--- tarantool> k = key_def.new({{type = 'string', fieldno = 3},
+--- >                           {type = 'unsigned', fieldno = 1}})
+--- ---
+--- ...
+---
+--- tarantool> k:extract_key({1, 99.5, 'X', nil, 99.5})
+--- ---
+--- - ['X', 1]
+--- ...
+--- ```
+---
+---**Example #2**
+---
+--- ```lua
+--- -- Now suppose the item is a tuple in a space with
+--- -- an index on field #3 plus field #1.
+--- -- We can use key_def.new with the index definition
+--- -- instead of filling it out (Example #1).
+--- -- The result will be the same.
+--- key_def = require('key_def')
+--- box.schema.space.create('T')
+--- i = box.space.T:create_index('I', {parts={3, 'string', 1, 'unsigned'}})
+--- box.space.T:insert{1, 99.5, 'X', nil, 99.5}
+--- k = key_def.new(i.parts)
+--- k:extract_key(box.space.T:get({'X', 1}))
+--- ```
+---
+---**Example #3**
+---
+--- ```lua
+--- -- Iterate through the tuples in a secondary non-unique index
+--- -- extracting the tuples' primary-key values, so they could be deleted
+--- -- using a unique index. This code should be a part of a Lua function.
+--- local key_def_lib = require('key_def')
+--- local s = box.schema.space.create('test')
+--- local pk = s:create_index('pk')
+--- local sk = s:create_index('test', {unique = false, parts = {
+---     {2, 'number', path = 'a'}, {2, 'number', path = 'b'}}})
+--- s:insert{1, {a = 1, b = 1}}
+--- s:insert{2, {a = 1, b = 2}}
+--- local key_def = key_def_lib.new(pk.parts)
+--- for _, tuple in sk:pairs({1}) do
+---     local key = key_def:extract_key(tuple)
+---     pk:delete(key)
+--- end
+--- ```
+---
+---@param tuple table tuple or Lua table with field contents
+---@return box.tuple key the fields defined for the `key_def` object
+function key_def_object:extract_key(tuple) end
+
+---Compare the key fields of `tuple_1` with the key fields of `tuple_2`.
+---It is a tuple-by-tuple comparison so users do not have to
+---write code that compares one field at a time.
+---Each field's type and collation will be taken into account.
+---In effect it is a comparison of `extract_key(tuple_1)` with `extract_key(tuple_2)`.
+---
+---**Example:**
+---
+--- ```lua
+--- -- This will return 0
+--- key_def = require('key_def')
+--- k = key_def.new({{type = 'string', fieldno = 3, collation = 'unicode_ci'},
+---                  {type = 'unsigned', fieldno = 1}})
+--- k:compare({1, 99.5, 'X', nil, 99.5}, {1, 99.5, 'x', nil, 99.5})
+--- ```
+---
+---@param tuple_1 table tuple or Lua table with field contents
+---@param tuple_2 table tuple or Lua table with field contents
+---@return integer result > 0 if tuple_1 key fields > tuple_2 key fields, = 0 if tuple_1 key fields = tuple_2 key fields, < 0 if tuple_1 key fields < tuple_2 key fields
+function key_def_object:compare(tuple_1, tuple_2) end
+
+---Compare the key fields of `tuple_1` with all the fields of `tuple_2`.
+---This is the same as [key_def_object:compare()](lua://key_def.compare)
+---except that `tuple_2` contains only the key fields.
+---In effect it is a comparison of `extract_key(tuple_1)` with `tuple_2`.
+---
+---**Example:**
+---
+--- ```lua
+--- -- Returns 0
+--- key_def = require('key_def')
+--- k = key_def.new({{type = 'string', fieldno = 3, collation = 'unicode_ci'},
+---                  {type = 'unsigned', fieldno = 1}})
+--- k:compare_with_key({1, 99.5, 'X', nil, 99.5}, {'x', 1})
+--- ```
+---
+---@param tuple_1 table tuple or Lua table with field contents
+---@param tuple_2 table tuple or Lua table with field contents
+---@return integer result > 0 if tuple_1 key fields > tuple_2 fields, = 0 if tuple_1 key fields = tuple_2 fields, < 0 if tuple_1 key fields < tuple_2 fields
+function key_def_object:compare_with_key(tuple_1, tuple_2) end
+
+---Combine the main `key_def_object` with `other_key_def_object`.
+---The return value is a new `key_def_object` containing all the fields of
+---the main `key_def_object`, then all the fields of `other_key_def_object` which
+---are not in the main `key_def_object`.
+---
+---**Example:**
+---
+--- ```lua
+--- -- Returns a key definition with fieldno = 3 and fieldno = 1.
+--- key_def = require('key_def')
+--- k = key_def.new({{type = 'string', fieldno = 3}})
+--- k2= key_def.new({{type = 'unsigned', fieldno = 1},
+---                  {type = 'string', fieldno = 3}})
+--- k:merge(k2)
+--- ```
+---
+---@param other_key_def_object key_def definition of fields to add
+---@return key_def key_def
+function key_def_object:merge(other_key_def_object) end
+
+---Returns a table containing the fields of the `key_def_object`.
+---This is the reverse of `key_def.new()`:
+---
+---* `key_def.new()` takes a table and returns a `key_def` object,
+---* `key_def_object:totable()` takes a `key_def` object and returns a table.
+---
+---This is useful for input to `_serialize` methods.
+---
+---**Example:**
+---
+--- ```lua
+--- -- Returns a table with type = 'string', fieldno = 3
+--- key_def = require('key_def')
+--- k = key_def.new({{type = 'string', fieldno = 3}})
+--- k:totable()
+--- ```
+---
+---@return table
+function key_def_object:totable() end
+
+---Validates all parts of the specified key match the key definition. Partial keys are considered valid.
+---Returns nothing on success.
+---
+---*Since 3.1.0*
+---
+---If the key fails the validation, a `box.error` type exception is raised.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- -- Create a rule: key = {1 ('unsigned'), 2 (string)}
+--- -- Validate key {1001} (only id data type). Returns nothing
+--- -- Validate key {'x'}. ER_KEY_PART_TYPE is raised
+--- -- Validate key ({1000, 2000}). ER_KEY_PART_TYPE is raised
+--- -- Validate key ({1000, 'abc', 'xyz'}). ER_KEY_PART_COUNT is raised
+---
+--- tarantool> key_def = require('key_def').new({{fieldno = 1, type = 'unsigned'},
+--- >                           {fieldno = 2, type = 'string'}})
+--- ---
+--- ...
+---
+--- tarantool> key_def:validate_key({1001})
+--- ---
+--- ...
+---
+--- tarantool> key_def:validate_key({'x'})
+--- ---
+--- - error: 'Supplied key type of part 0 does not match index part type: expected unsigned'
+--- ...
+---
+--- tarantool> key_def:validate_key({1000, 2000})
+--- ---
+--- - error: 'Supplied key type of part 1 does not match index part type: expected string'
+--- ...
+---
+--- tarantool> key_def:validate_key({1000, 'abc', 'xyz'})
+--- ---
+--- - error: 'Invalid key part count: (expected [0..2], got 3)
+--- ...
+--- ```
+---
+---@param key table key to validate
+function key_def_object:validate_key(key) end
+
+---Validates whether the input `key` contains all fields and matches the rules of the key definition object.
+---Returns nothing on success.
+---
+---*Since 3.1.0*
+---
+---If the key fails the validation, a `box.error` type exception is raised.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- -- Create a rule: key = {1 ('unsigned'), 2 (string)}
+--- -- Validate key {100, "Testuser"}. Returns nothing
+--- -- Validate key ({100}). ER_EXACT_MATCH is raised
+---
+--- tarantool> key_def = require('key_def').new({{fieldno = 1, type = 'unsigned'},
+--- >                           {fieldno = 2, type = 'string'}})
+--- ---
+--- ...
+---
+--- tarantool> key_def:validate_full_key({100, "Testuser"})
+--- ---
+--- ...
+---
+--- tarantool> key_def:validate_full_key({100})
+--- ---
+--- - error: 'Invalid key part count in an exact match: (expected 2, got 1)
+--- ...
+--- ```
+---
+---@param key table key to validate
+function key_def_object:validate_full_key(key) end
+
+---Validates whether the `tuple` matches the rules of the key definition object
+---Returns nothing on success.
+---
+---*Since 3.1.0*
+---
+---If the key fails the validation, a `box.error` type exception is raised.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- -- Create a rule: tuple = {id (number), name (string), age (number)}
+--- -- Validate tuple {1001, "Testuser", 28}. Returns nothing
+---
+--- tarantool> key_def = require('key_def').new({
+--- >                           {fieldno = 1, type = 'number'},
+--- >                           {fieldno = 2, type = 'string'},
+--- >                           {fieldno = 3, type = 'number'})
+--- ---
+--- ...
+---
+--- tarantool> key_def:validate_tuple({1001, "Testuser", 28})
+--- ---
+--- ...
+--- ```
+---
+---@param tuple table tuple to validate
+function key_def_object:validate_tuple(tuple) end
+
+---Compares two keys against each other and according to the key definition object.
+---
+---*Since 3.1.0*
+---
+---On success, returns:
+---
+---* `<0` if `key_a` parts are less than `key_b` parts
+---* `0` if `key_a` parts are equal to `key_b` parts
+---* `>0` if `key_a` parts are greater than `key_b` parts
+---
+---If any key does not match the key definition rules, a `box.error` type exception is raised.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- -- Create a rule: key = {1 ('unsigned'), 2 (string)}
+--- -- Validate keys ({1000, 'x'}, {1000, 'y'}). Returns -1
+--- -- Validate keys ({1000, 'x'}, {1000, 'x'}). Returns 0
+--- -- Validate keys ({1000, 'x'}, {1000}). Returns 0
+--- -- Validate keys ({2000, 'x'}, {1000, 'x'}). Returns 1
+---
+--- tarantool> key_def = require('key_def').new({{fieldno = 1, type = 'unsigned'},
+--- >                           {fieldno = 2, type = 'string'}})
+--- ---
+--- ...
+---
+--- tarantool> key_def:compare_keys({1000, 'x'}, {1000, 'y'})
+--- ---
+--- - -1
+--- ...
+---
+--- tarantool> key_def:compare_keys({1000, 'x'}, {1000, 'x'})
+--- ---
+--- - 0
+--- ...
+---
+--- tarantool> key_def:compare_keys({1000, 'x'}, {1000})
+--- ---
+--- - 0
+--- ...
+---
+--- tarantool> key_def:compare_keys({2000, 'x'}, {1000, 'x'})
+--- ---
+--- - 1
+--- ...
+--- ```
+---
+---@param key_a table first key to compare
+---@param key_b table second key to compare
+---@return integer result `<0` if `key_a` parts are less than `key_b` parts, `0` if `key_a` parts are equal to `key_b` parts, `>0` if `key_a` parts are greater than `key_b` parts
+function key_def_object:compare_keys(key_a, key_b) end
+
+return key_def
