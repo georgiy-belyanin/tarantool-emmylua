@@ -276,7 +276,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [x] `csv`
     - [x] `datetime`
     - [x] `decimal`
-    - [ ] `digest`
+    - [x] `digest`
     - [x] `errno`
     - [ ] `experimental.connpool`
     - [x] `fiber`
