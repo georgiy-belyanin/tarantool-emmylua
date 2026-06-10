@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Builtin `merger` module declarations.
 * Builtin `popen` module declarations.
 * Builtin `swim` module declarations.
+* Builtin `varbinary` module declarations.
 
 ### Fixed
 
