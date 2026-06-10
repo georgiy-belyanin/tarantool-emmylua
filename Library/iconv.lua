@@ -8,6 +8,9 @@
 local iconv = {}
 
 ---@class iconv
+---Calling an iconv instance converts a string from the `from` encoding to the `to` encoding.
+---If anything in the input string cannot be converted, an error is raised.
+---@overload fun(input_string: string): string
 local iconv_mt = {}
 
 ---Construct a new iconv instance.
