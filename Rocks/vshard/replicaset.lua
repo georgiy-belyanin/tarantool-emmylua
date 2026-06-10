@@ -7,7 +7,7 @@
 ---@field conn net.box.conn
 ---@field zone integer
 ---@field next_by_priority vshard.replica replica object of the same type
----@field weight dinteger
+---@field weight integer
 ---@field down_ts number timestamp of disconnect from the replica
 ---@field backoff_ts number timestamp when was sent into backoff state
 ---@field backoff_err table error object caused the backoff
@@ -20,7 +20,7 @@
 ---@field replicas vshard.replica[]
 ---@field master vshard.replica Master server from the array above
 ---@field master_cond fiber.cond Condition variable signaled when the replicaset finds or changes its master
----@field is_auto_master boolead true when is configured to find the master on its own
+---@field is_auto_master boolean true when is configured to find the master on its own
 ---@field replica vshard.replica nearest available replica object
 ---@field balance_i integer index of a next replica in priority_list to use for a load-balanced request
 ---@field replica_up_ts number timestamp updated on each attempt to connect to the nearest replica, and on each connect event

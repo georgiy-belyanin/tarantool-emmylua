@@ -45,8 +45,8 @@ local config = {}
 ---
 ---`config.get()` can also be used in [application code](doc://configuration_application) to get the value of a custom configuration option.
 ---
----@param param string | string[]
----@param opts { instance?: string }
+---@param param? string | string[]
+---@param opts? { instance?: string }
 ---@return any
 function config:get(param, opts) end
 
@@ -188,8 +188,17 @@ function config:info(version) end
 --- ```
 ---
 ---@param uri_type 'peer' | 'sharding'
----@param opts { instance?: string }
+---@param opts? { instance?: string }
 ---@return uri
 function config:instance_uri(uri_type, opts) end
+
+---Reload the current instance's configuration.
+---
+---Below are a few use cases when this function can be used:
+---
+---* A configuration option value specific to this instance is changed in a cluster's configuration.
+---* A new instance is [added to a replica set](doc://replication-add_instances).
+---* A centralized configuration with turned-off configuration reloading is updated. Learn more at [etcd_reloading_configuration](doc://etcd_reloading_configuration).
+function config:reload() end
 
 return config

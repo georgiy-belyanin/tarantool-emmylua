@@ -1,0 +1,91 @@
+---@meta
+
+---# Builtin global functions and `package` extensions
+---
+---This file declares miscellaneous global functions added by Tarantool
+---(`tonumber64`, `dostring`) and the Tarantool extensions to the `package` module.
+
+---Convert a string or a Lua number to a 64-bit integer.
+---
+---The input value can be expressed in decimal, binary (for example 0b1010),
+---or hexadecimal (for example -0xffff). The result can be
+---used in arithmetic, and the arithmetic will be 64-bit integer arithmetic
+---rather than floating-point arithmetic. (Operations on an unconverted Lua
+---number use floating-point arithmetic.) The `tonumber64()` function is
+---added by Tarantool; the name is global.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> type(123456789012345), type(tonumber64(123456789012345))
+--- ---
+--- - number
+--- - number
+--- ...
+--- tarantool> i = tonumber64('1000000000')
+--- ---
+--- ...
+--- tarantool> type(i), i / 2, i - 2, i * 2, i + 2, i % 2, i ^ 2
+--- ---
+--- - number
+--- - 500000000
+--- - 999999998
+--- - 2000000000
+--- - 1000000002
+--- - 0
+--- - 1000000000000000000
+--- ...
+--- ```
+---
+---**Warning:**
+---There is an underlying LuaJIT library that operates with C rules.
+---Therefore you should expect odd results if you compare unsigned and signed
+---(for example `0ULL > -1LL` is false), or if you use numbers outside the
+---64-bit integer range (for example `9223372036854775808LL` is negative).
+---
+---@param value string | number
+---@return number value the converted 64-bit integer
+function tonumber64(value) end
+
+---Parse and execute an arbitrary chunk of Lua code. This function is mainly
+---useful to define and run Lua code without having to introduce changes to
+---the global Lua environment.
+---
+---Possible errors: If there is a compilation error, it is raised as a Lua error.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> dostring('abc')
+--- ---
+--- error: '[string "abc"]:1: ''='' expected near ''<eof>'''
+--- ...
+--- tarantool> dostring('return 1')
+--- ---
+--- - 1
+--- ...
+--- tarantool> dostring('return ...', 'hello', 'world')
+--- ---
+--- - hello
+--- - world
+--- ...
+--- ```
+---
+---@param lua_chunk_string string Lua code
+---@param ... any zero or more scalar values which will be appended to, or substitute for, items in the Lua chunk
+---@return any result whatever is returned by the Lua code chunk
+function dostring(lua_chunk_string, ...) end
+
+---Return the current search root, which defines the path to the root directory from which dependencies are loaded.
+---By default, the search root is the current directory.
+---
+---**Note:** The current directory is obtained using [`debug.sourcedir()`](lua://debug.sourcedir).
+---
+---@return string search_root the current search root
+function package.searchroot() end
+
+---Set the search root, which defines the path to the root directory from which dependencies are loaded.
+---By default, the search root is the current directory (see [`package.searchroot()`](lua://package.searchroot)).
+---
+---@param search_root? string a relative or absolute path to the search root. If `search_root` is a relative path, it is expanded to an absolute path. You can omit this argument or set it to [`box.NULL`](lua://box.NULL) to reset the search root to the current directory.
+function package.setsearchroot(search_root) end

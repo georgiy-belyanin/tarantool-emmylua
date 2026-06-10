@@ -13,10 +13,57 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Trigger functions to `box.ctl` and functions for managing the cluster.
 * `box.schema.func` definitions.
 * `box.schema.sequence` definitions.
+* Builtin `msgpack` module declarations.
+* Builtin `digest` module declarations.
+* Builtin `crypto` module declarations.
+* Builtin `key_def` module declarations.
+* Builtin `merger` module declarations.
+* Builtin `popen` module declarations.
+* Builtin `swim` module declarations.
+* Builtin `varbinary` module declarations.
+* Builtin `pickle` module declarations.
+* Builtin `compat` module declarations.
+* Tarantool stdlib extensions: `table.deepcopy`/`table.copy`, `os.environ`/`os.setenv`, `debug.sourcedir`/`debug.sourcefile`, and the `utf8` module.
+* Builtin `tap` module declarations.
+* Builtin `ulid` module declarations.
+* Global `tonumber64`/`dostring` and `package.searchroot`/`package.setsearchroot`.
+* Builtin `compress` module declarations with `zlib`, `zstd`, and `lz4` submodules (Enterprise Edition).
+* Builtin `box.read_view` submodule declarations (Enterprise Edition).
+* `config.storage` submodule declarations (Enterprise Edition).
+* `experimental.connpool` submodule declarations.
+* `box.prepare()`, `box.unprepare()`, the prepared statement object, and the `box.NULL` constant.
+* Enterprise Edition `box.cfg` options: audit logging, flight recorder, authentication and password policy, `wal_ext`, and `secure_erasing`.
+* Documented `box.error.*` database error code constants.
+* Completed `box.index`: added `compact`, `drop`, `random`, `rename`, and `stat` methods.
+* Completed `box.stat`: `box.stat.memtx()`, `box.stat.vinyl()`, `box.stat.net.thread`, and the full set of request-type and network statistics fields.
+* `box.tuple:transform()` method.
+* `config:reload()` method.
+* `datetime` arithmetic operators: `datetime + interval`, `datetime - interval`, and `datetime - datetime`.
+* Completed `json`: module overview header and `__serialize` parameter documentation.
+* Completed `net.box`: remote spaces (`conn.space`), streams (`new_stream`/`begin`/`commit`/`rollback`), futures (`is_async` results), `wait_state`, `watch`, `on_schema_reload`/`on_shutdown`, and `net_box.self`.
+* Completed the `vshard.storage` API (`cfg`/`info`/`call`/`sync`, bucket pin/ref/management, introspection, `on_bucket_event`, `recovery_wakeup`) and exposed `vshard.storage` from the rock.
+* `metrics` rock declarations (core collectors API) and the `metrics.plugins.graphite`/`json`/`prometheus` exporters.
+* `membership` rock declarations (SWIM-based gossip mesh) and the tunable `membership.options`.
+* `mysql` SQL connector rock declarations.
+* `pg` SQL connector rock declarations.
+* `crud` rock declarations (CRUD operations over a `vshard` cluster).
+* `expirationd` rock declarations (TTL background tasks).
+* Builtin `checks` module declarations.
+* `samples/` usage test suite with `check` (emmylua_check) and `validate` (tarantool) harnesses, run in CI.
 
 ### Fixed
 
 * `box.schema.role.grant()` missing a parameter.
+* `box.on_rollback()` was mistakenly declared as a second `box.on_commit()`.
+* The `box.iterator` alias is now the iterator-direction union (it was modelled as a table), so `select`/`pairs`/`count` accept directions such as `"GE"`; `after`/`fetch_pos` moved to `box.space.select_options`.
+* `box.iproto.override()` handler return type (`boolean`) and a couple of `box.iproto` doc-comment artifacts.
+* `csv.options` fields are now optional.
+* `datetime.parse()` now has an optional `opts` argument and a `datetime` return type.
+* `http.client` connection methods now resolve (the connection class was unlinked from `http.new`), and a stray character in the `http.request` signature is removed.
+* `iconv` converter instances are now callable.
+* `uri.escape` and `uri.unescape` options are now optional.
+* `uuid:isnil()` is now the documented object method (the module-level `uuid.is_nil` it replaced does not exist at runtime).
+* `xlog.pairs()` name typo (was `xlog.paris()`) and its iterator return type.
 
 ## [0.2.0] - 28.05.25
 

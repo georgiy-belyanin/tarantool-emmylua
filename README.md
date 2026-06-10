@@ -251,63 +251,78 @@ For more information on using LSP refer to the [project's documentation](https:/
 
 ## Progress
 
-* Builtin Tarantool CE modules
-    - [x] `box` (partial)
+Legend: `(partial)` — present but not yet covering the whole documented API; **(EE)** — [Enterprise Edition](https://www.tarantool.io/compare/) only API (marked as such in the annotations).
+
+* Builtin Tarantool modules
+    - [x] `box`
         + [x] `backup`
-        + [x] `cfg`
+        + [x] `cfg` (incl. **(EE)** audit, flight recorder, authentication, `wal_ext`, `secure_erasing` options)
         + [x] `ctl`
-        + [x] `error`
-        + [x] `index` (partial)
+        + [x] `error` (incl. `box.error.*` codes)
+        + [x] `index`
         + [x] `info`
         + [x] `iproto`
+        + [x] `read_view` (`open()` is **(EE)**)
         + [x] `schema`
         + [x] `session`
         + [x] `slab`
         + [x] `space`
-        + [x] `stat` (partial)
+        + [x] `stat`
         + [x] `tuple`
     - [x] `buffer`
     - [x] `clock`
+    - [x] `compat`
+    - [x] `compress` **(EE)**
     - [x] `console`
-    - [x] `config`
-    - [ ] `crypto`
+    - [x] `config` (incl. **(EE)** `config.storage`)
+    - [x] `crypto`
     - [x] `csv`
     - [x] `datetime`
+    - [x] `debug` (Tarantool extensions)
     - [x] `decimal`
-    - [ ] `digest`
+    - [x] `digest`
     - [x] `errno`
-    - [ ] `experimental.connpool`
+    - [x] `experimental.connpool`
     - [x] `fiber`
     - [x] `fio`
     - [x] `fun` (partial)
     - [x] `http.client`
     - [x] `iconv`
     - [x] `jit`
-    - [x] `json` (partial)
+    - [x] `json`
+    - [x] `key_def`
     - [x] `log`
-    - [ ] `merger`
-    - [ ] `msgpack`
-    - [x] `net.box` (partial)
-    - [ ] `pickle`
-    - [ ] `popen`
+    - [x] `merger`
+    - [x] `msgpack`
+    - [x] `net.box`
+    - [x] `pickle`
+    - [x] `popen`
+    - [x] `os` (Tarantool extensions)
     - [x] `socket`
     - [x] `strict`
-    - [x] `string`
-    - [ ] `tarantool`
+    - [x] `string` (Tarantool extensions)
+    - [x] `table` (Tarantool extensions)
+    - [x] `tap`
+    - [x] `tarantool`
+    - [x] `ulid`
     - [x] `uri`
-    - [ ] `utf8`
+    - [x] `utf8`
     - [x] `uuid`
     - [x] `xlog`
     - [x] `yaml`
+    - [x] global functions (`tonumber64`, `dostring`, `package.searchroot`/`setsearchroot`)
 
 * Popular Tarantool rocks
-    - [ ] `checks`
-    - [ ] `crud`
-    - [ ] `exprationd`
+    - [x] `checks`
+    - [x] `crud`
+    - [x] `expirationd`
     - [ ] `luatest`
-    - [ ] `metrics`
+    - [x] `membership`
+    - [x] `metrics`
+    - [x] `mysql`
+    - [x] `pg`
     - [ ] `queue`
-    - [x] `vshard` (partial)
+    - [x] `vshard`
 
 ## Contributing
 

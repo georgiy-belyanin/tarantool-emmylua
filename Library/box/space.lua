@@ -602,6 +602,8 @@ function space_methods:run_triggers(flag) end
 ---@field iterator? box.iterator type of the iterator
 ---@field limit? integer maximum number of tuples
 ---@field offset? integer number of tuples to skip
+---@field after? string | table A tuple or the position (as returned by `fetch_pos`) after which to start iterating. Supported for the `TREE` index only.
+---@field fetch_pos? boolean If `true`, `select` returns a base64-encoded string with the position of the last selected tuple as the second value. Supported for the `TREE` index only.
 
 ---Search for a tuple or a set of tuples in the given space by the primary key.
 ---

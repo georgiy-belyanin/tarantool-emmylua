@@ -449,3 +449,94 @@ function index_methods:alter(opts) end
 ---@param tuple scalar | table
 ---@return string # base64-encoded string (a tuple’s position in a space)
 function index_methods:tuple_pos(tuple) end
+
+---Remove unused index space.
+---
+---For the memtx storage engine this method does nothing; `index_object:compact()` is only for the
+---vinyl storage engine. For example, with vinyl, if a tuple is deleted, the space is not immediately
+---reclaimed. There is a scheduler for reclaiming space automatically based on factors such as lsm shape
+---and amplification as discussed in the section [Storing data with vinyl](doc://engines-vinyl),
+---so calling `index_object:compact()` manually is not always necessary.
+---
+---@return nil # Tarantool returns without waiting for compaction to complete
+function index_methods:compact() end
+
+---Drop an index. Dropping a primary-key index has a side effect: all tuples are deleted.
+---
+---**Possible errors:**
+---
+---* index does not exist,
+---* a primary-key index cannot be dropped while a secondary-key index exists.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> box.space.space55.index.primary:drop()
+--- ---
+--- ...
+--- ```
+---
+---@return nil
+function index_methods:drop() end
+
+---Find a random value in the specified index. This method is useful when it's important to get insight
+---into data distribution in an index without having to iterate over the entire data set.
+---
+---**Complexity factors:** Index size, Index type.
+---
+---**Note regarding storage engine:** vinyl does not support `random()`.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> box.space.tester.index.secondary:random(1)
+--- ---
+--- - ['Beta!', 66, 'This is the second tuple!']
+--- ...
+--- ```
+---
+---@param seed number an arbitrary non-negative integer
+---@return box.tuple<T, U> tuple the tuple for the random key in the index
+function index_methods:random(seed) end
+
+---Rename an index.
+---
+---**Possible errors:** `index_object` does not exist.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> box.space.space55.index.primary:rename('secondary')
+--- ---
+--- ...
+--- ```
+---
+---**Complexity factors:** Index size, Index type, Number of tuples accessed.
+---
+---@param index_name string new name for index
+---@return nil
+function index_methods:rename(index_name) end
+
+---Return statistics about actions taken that affect the index.
+---
+---This is for use with the vinyl engine.
+---
+---Some detail items in the output from `index_object:stat()` are:
+---
+---* `index_object:stat().latency` -- timings subdivided by percentages;
+---* `index_object:stat().bytes` -- the number of bytes total;
+---* `index_object:stat().disk.rows` -- the approximate number of tuples in each range;
+---* `index_object:stat().disk.statement` -- counts of inserts|updates|upserts|deletes;
+---* `index_object:stat().disk.compaction` -- counts of compactions and their amounts;
+---* `index_object:stat().disk.dump` -- counts of dumps and their amounts;
+---* `index_object:stat().disk.iterator.bloom` -- counts of bloom filter hits|misses;
+---* `index_object:stat().disk.pages` -- the size in pages;
+---* `index_object:stat().disk.last_level` -- size of data in the last LSM tree level;
+---* `index_object:stat().cache.evict` -- number of evictions from the cache;
+---* `index_object:stat().range_size` -- maximum number of bytes in a range;
+---* `index_object:stat().dumps_per_compaction` -- average number of dumps required to trigger major compaction in any range of the LSM tree.
+---
+---Summary index statistics are also available via [`box.stat.vinyl()`](lua://box.stat.vinyl).
+---
+---@return table statistics
+function index_methods:stat() end

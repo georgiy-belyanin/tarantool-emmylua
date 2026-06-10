@@ -100,9 +100,9 @@ local error = {}
 ---@class vshard.error.non_master: vshard.error
 ---@field name "NON_MASTER"
 ---@field code 2
----@field replica_uuid UUID
----@field replicaset_uuid UUID
----@field master_uuid UUID
+---@field replica_uuid vshard.uuid
+---@field replicaset_uuid vshard.uuid
+---@field master_uuid vshard.uuid
 
 ---@class vshard.error.bucket_already_exists: vshard.error
 ---@field name "BUCKET_ALREADY_EXISTS"
@@ -112,18 +112,18 @@ local error = {}
 ---@class vshard.error.no_such_replicaset: vshard.error
 ---@field name "NO_SUCH_REPLICASET"
 ---@field code 4
----@field replicaset_uuid UUID
+---@field replicaset_uuid vshard.uuid
 
 ---@class vshard.error.move_to_self: vshard.error
 ---@field name "MOVE_TO_SELF"
 ---@field code 5
 ---@field bucket_id number
----@field replicaset_uuid UUID
+---@field replicaset_uuid vshard.uuid
 
 ---@class vshard.error.missing_master: vshard.error
 ---@field name "MISSING_MASTER"
 ---@field code 6
----@field replicaset_uuid UUID
+---@field replicaset_uuid vshard.uuid
 
 ---@class vshard.error.transfer_is_in_progress: vshard.error
 ---@field name "TRANSFER_IS_IN_PROGRESS"
@@ -134,7 +134,7 @@ local error = {}
 ---@class vshard.error.unreachable_replicaset: vshard.error
 ---@field name "UNREACHABLE_REPLICASET"
 ---@field code 8
----@field unreachable_uuid UUID
+---@field unreachable_uuid vshard.uuid
 ---@field bucket_id number
 
 ---@class vshard.error.no_route_to_bucket: vshard.error
@@ -150,7 +150,7 @@ local error = {}
 ---@field name "UNREACHABLE_MASTER"
 ---@field code 11
 ---@field reason string
----@field uuid UUID
+---@field uuid vshard.uuid
 
 ---@class vshard.error.out_of_sync: vshard.error
 ---@field name "OUT_OF_SYNC"
@@ -164,7 +164,7 @@ local error = {}
 ---@class vshard.error.unreachable_replica: vshard.error
 ---@field name "UNREACHABLE_REPLICA"
 ---@field code 14
----@field unreachable_uuid UUID
+---@field unreachable_uuid vshard.uuid
 
 ---@class vshard.error.low_redundancy: vshard.error
 ---@field name "LOW_REDUNDANCY"
@@ -245,14 +245,14 @@ local error = {}
 ---@class vshard.error.multiple_masters_found: vshard.error
 ---@field name "MULTIPLE_MASTERS_FOUND"
 ---@field code 31
----@field replicaset_uuid UUID
+---@field replicaset_uuid vshard.uuid
 ---@field master1 string
 ---@field master2 string
 
 ---@class vshard.error.replicaset_in_backoff: vshard.error
 ---@field name "REPLICASET_IN_BACKOFF"
 ---@field code 32
----@field replicaset_uuid UUID
+---@field replicaset_uuid vshard.uuid
 ---@field error table
 
 ---@class vshard.error.storage_is_disabled: vshard.error

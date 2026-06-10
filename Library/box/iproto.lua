@@ -37,7 +37,7 @@ box.iproto = {}
 ---
 ---The function works for binary sessions only. For details, see [box.session.type()](doc://box_session-type).
 ---
----For details, see `src/box/errcode.h <https://github.com/tarantool/tarantool/blob/master/src/box/errcode.h>`__.
+---For details, see [src/box/errcode.h](https://github.com/tarantool/tarantool/blob/master/src/box/errcode.h).
 ---
 ---**Examples:**
 ---
@@ -71,7 +71,7 @@ box.iproto = {}
 --- ```
 ---
 ---@param sid number the IPROTO session identifier (see [box.session.id()](doc://box_session-id))
----@param header table | string ader: a request header encoded as MsgPack
+---@param header table | string a request header encoded as MsgPack
 ---@param body? table | string a request body encoded as MsgPack
 ---@return integer 0 on success, otherwise an error is raised
 function box.iproto.send(sid, header, body) end
@@ -317,7 +317,7 @@ box.iproto.metadata_key = {
 --- ```
 ---
 ---@param request_type box.iproto.type
----@param handler? fun(sid, header: userdata, body: userdata): bool request handler that returns `true` on success, otherwise `false`. On `false`, there is a fallback
+---@param handler? fun(sid: number, header: userdata, body: userdata): boolean request handler that returns `true` on success, otherwise `false`. On `false`, there is a fallback
 function box.iproto.override(request_type, handler) end
 
 ---The set of IPROTO protocol features supported by the server.

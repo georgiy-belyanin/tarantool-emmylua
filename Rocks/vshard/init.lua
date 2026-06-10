@@ -9,7 +9,7 @@
 ---You can also check out the [Quick start guide](doc://vshard-quick-start) -- or dive into the `vshard` reference.
 local vshard = {
     router = require('vshard.router'),
-    --storage = require('vshard.storage'),
+    storage = require('vshard.storage'),
     consts = require('vshard.consts'),
     error = require('vshard.error'),
 }

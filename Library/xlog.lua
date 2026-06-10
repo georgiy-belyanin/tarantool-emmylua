@@ -42,7 +42,7 @@ local xlog = {}
 --- ```
 ---
 ---@param file string
----@return fun.iterator<any, nil>
-function xlog.paris(file) end
+---@return fun(tbl: any): (any, any)
+function xlog.pairs(file) end
 
 return xlog

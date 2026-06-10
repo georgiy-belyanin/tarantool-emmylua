@@ -10,6 +10,9 @@ local datetime = {}
 ---@alias datetime.units { nsec?: integer, sec?: integer, min?: integer?, hour?: integer, day?: integer, year?: integer, timestamp?: number, tzoffset?: integer, tz?: string }
 
 ---@class datetime: ffi.cdata*
+---@operator add(datetime.interval): datetime
+---@operator sub(datetime.interval): datetime
+---@operator sub(datetime): datetime.interval
 ---@field nsec integer (Default: 0) (usec, msec) Fractional part of the last second. You can specify either nanoseconds (nsec), or microseconds (usec), or milliseconds (msec). Specifying two of these units simultaneously or all three ones lead to an error
 ---@field sec integer (Default: 0) Seconds. Value range: 0 - 60
 ---@field min integer (Default: 0) Minutes. Value range: 0 - 59
@@ -244,7 +247,8 @@ function datetime_obj:set(units) end
 --- ```
 ---
 ---@param input_string string string with the date and time information.
----@param opts { format: 'iso8601' | 'rfc3339' | string, tzoffset: integer, tz: string }
+---@param opts? { format?: 'iso8601' | 'rfc3339' | string, tzoffset?: integer, tz?: string }
+---@return datetime
 function datetime.parse(input_string, opts) end
 
 ---# Builtin `datetime.interval` submodule

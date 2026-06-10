@@ -96,7 +96,7 @@ function uri.format(uri_format, include_password) end
 --- ```
 ---
 ---@param str string
----@param uri_encoding_opts uri.encoding_opt
+---@param uri_encoding_opts? uri.encoding_opt
 ---@return string
 function uri.escape(str, uri_encoding_opts) end
 
@@ -144,7 +144,7 @@ function uri.escape(str, uri_encoding_opts) end
 --- ```
 ---
 ---@param str string
----@param uri_encoding_opts uri.encoding_opt
+---@param uri_encoding_opts? uri.encoding_opt
 ---@return string
 function uri.unescape(str, uri_encoding_opts) end
 

@@ -1,0 +1,469 @@
+---@meta
+
+---# Builtin `checks` module
+---
+---*Since 2.11.0*
+---
+---The `checks` module provides the ability to check the types of arguments passed to a Lua function.
+---You need to call the [`checks(type_1, ...)`](lua://checks) function inside the target Lua function and pass [one or more](doc://checks_number_of_arguments) type qualifiers to check the corresponding argument types.
+---There are two types of type qualifiers:
+---
+---- A [string type qualifier](doc://checks_string_type_qualifier) checks whether a function's argument conforms to the specified type. Example: `'string'`.
+---- A [table type qualifier](doc://checks_table_type_qualifiers) checks whether the values of a table passed as an argument conform to the specified types. Example: `{ 'string', 'number' }`.
+---
+---**Note:**
+---
+---For earlier versions, you can install the `checks` module from the [Tarantool rocks repository](https://www.tarantool.io/en/download/rocks).
+---
+---## Loading checks
+---
+---In Tarantool [2.11.0](doc://2.11.0) and later versions, the [checks API](doc://checks_api_reference) is available in a script without loading the module.
+---
+---For earlier versions, you need to install the `checks` module from the Tarantool rocks repository and load the module using the `require()` directive:
+---
+--- ```lua
+--- local checks = require('checks')
+--- ```
+---
+---## Number of arguments to check
+---
+---For each argument to check, you need to specify its own type qualifier in the [`checks(type_1, ...)`](lua://checks) function.
+---
+---### One argument
+---
+---In the example below, the `checks` function accepts a `string` type qualifier to verify that only a string value can be passed to the `greet` function.
+---Otherwise, an error is raised.
+---
+--- ```lua
+--- function greet(name)
+---     checks('string')
+---     return 'Hello, ' .. name
+--- end
+--- --[[
+--- greet('John')
+--- -- returns 'Hello, John'
+---
+--- greet(123)
+--- -- raises an error: bad argument #1 to nil (string expected, got number)
+--- --]]
+--- ```
+---
+---### Multiple arguments
+---
+---To check the types of several arguments, you need to pass the corresponding type qualifiers to the `checks` function.
+---In the example below, both arguments should be string values.
+---
+--- ```lua
+--- function greet_fullname(firstname, lastname)
+---     checks('string', 'string')
+---     return 'Hello, ' .. firstname .. ' ' .. lastname
+--- end
+--- --[[
+--- greet_fullname('John', 'Smith')
+--- -- returns 'Hello, John Smith'
+---
+--- greet_fullname('John', 1)
+--- -- raises an error: bad argument #2 to nil (string expected, got number)
+--- --]]
+--- ```
+---
+---To skip checking specific arguments, use the [? placeholder](doc://checks_any_type).
+---
+---### Variable number of arguments
+---
+---You can check the types of explicitly specified arguments for functions that accept a variable number of arguments.
+---
+--- ```lua
+--- function extra_arguments_num(a, b, ...)
+---     checks('string', 'number')
+---     return select('#', ...)
+--- end
+--- --[[
+--- extra_arguments_num('a', 2, 'c')
+--- -- returns 1
+---
+--- extra_arguments_num('a', 'b', 'c')
+--- -- raises an error: bad argument #1 to nil (string expected, got number)
+--- --]]
+--- ```
+---
+---## String type qualifier
+---
+---This section describes how to check a specific argument type using a string type qualifier:
+---
+---- The [Supported types](doc://checks_string_supported_types) section describes all the types supported by the `checks` module.
+---- If required, you can make a [union type](doc://checks_union_type) to allow an argument to accept several types.
+---- You can make any of the supported types [optional](doc://checks_optional_type).
+---- To skip checking specific arguments, use the [? placeholder](doc://checks_any_type).
+---
+---### Supported types
+---
+---#### Lua types
+---
+---A string type qualifier can accept any of the [Lua types](https://www.lua.org/pil/2.html), for example, `string`, `number`, `table`, or `nil`.
+---In the example below, the `checks` function accepts `string` to validate that only a string value can be passed to the `greet` function.
+---
+--- ```lua
+--- function greet(name)
+---     checks('string')
+---     return 'Hello, ' .. name
+--- end
+--- --[[
+--- greet('John')
+--- -- returns 'Hello, John'
+---
+--- greet(123)
+--- -- raises an error: bad argument #1 to nil (string expected, got number)
+--- --]]
+--- ```
+---
+---#### Tarantool types
+---
+---You can use [Tarantool-specific types](doc://index_box_field_type_details) in a string qualifier.
+---The example below shows how to check that a function argument is a decimal value.
+---
+--- ```lua
+--- local decimal = require('decimal')
+--- function sqrt(value)
+---     checks('decimal')
+---     return decimal.sqrt(value)
+--- end
+--- --[[
+--- sqrt(decimal.new(16))
+--- -- returns 4
+---
+--- sqrt(16)
+--- -- raises an error: bad argument #1 to nil (decimal expected, got number)
+--- --]]
+--- ```
+---
+---This table lists all the checks available for Tarantool types:
+---
+---| Check | Description | See also |
+---|---|---|---|
+---| `checks('datetime')` | Check whether the specified value is [datetime_object](doc://datetime_obj) | [`checkers.datetime(value)`](lua://checkers.datetime) |
+---| `checks('decimal')` | Check whether the specified value has the [decimal](doc://decimal) type | [`checkers.decimal(value)`](lua://checkers.decimal) |
+---| `checks('error')` | Check whether the specified value is [error_object](doc://box_error-error_object) | [`checkers.error(value)`](lua://checkers.error) |
+---| `checks('int64')` | Check whether the specified value is an `int64` value | [`checkers.int64(value)`](lua://checkers.int64) |
+---| `checks('interval')` | Check whether the specified value is [interval_object](doc://interval_obj) | [`checkers.interval(value)`](lua://checkers.interval) |
+---| `checks('tuple')` | Check whether the specified value is a [tuple](doc://box_tuple-new) | [`checkers.tuple(value)`](lua://checkers.tuple) |
+---| `checks('uint64')` | Check whether the specified value is a `uint64` value | [`checkers.uint64(value)`](lua://checkers.uint64) |
+---| `checks('uuid')` | Check whether the specified value is [uuid_object](doc://uuid-module) | [`checkers.uuid(value)`](lua://checkers.uuid) |
+---| `checks('uuid_bin')` | Check whether the specified value is [uuid](doc://uuid-module) represented by a 16-byte binary string | [`checkers.uuid_bin(value)`](lua://checkers.uuid_bin) |
+---| `checks('uuid_str')` | Check whether the specified value is [uuid](doc://uuid-module) represented by a 36-byte hexadecimal string | [`checkers.uuid_str(value)`](lua://checkers.uuid_str) |
+---
+---#### Custom function
+---
+---A string type qualifier can accept the name of a custom function that performs arbitrary validations.
+---To achieve this, create a function returning `true` if the value is valid and add this function to the [checkers](lua://checkers) table.
+---
+---The example below shows how to use the `positive` function to check that an argument value is a positive number.
+---
+--- ```lua
+--- function checkers.positive(value)
+---     return (type(value) == 'number') and (value > 0)
+--- end
+---
+--- function get_doubled_number(value)
+---     checks('positive')
+---     return value * 2
+--- end
+--- --[[
+--- get_doubled_number(10)
+--- -- returns 20
+---
+--- get_doubled_number(-5)
+--- -- raises an error: bad argument #1 to nil (positive expected, got number)
+--- --]]
+--- ```
+---
+---#### Metatable type
+---
+---A string qualifier can accept a value stored in the `__type` field of the argument [metatable](https://www.lua.org/pil/13.html).
+---
+--- ```lua
+--- local blue = setmetatable({ 0, 0, 255 }, { __type = 'color' })
+--- function get_blue_value(color)
+---     checks('color')
+---     return color[3]
+--- end
+--- --[[
+--- get_blue_value(blue)
+--- -- returns 255
+---
+--- get_blue_value({0, 0, 255})
+--- -- raises an error: bad argument #1 to nil (color expected, got table)
+--- --]]
+--- ```
+---
+---### Union types
+---
+---To allow an argument to accept several types (a union type), concatenate type names with a pipe (`|`).
+---In the example below, the argument can be both a `number` and `string` value.
+---
+--- ```lua
+--- function get_argument_type(value)
+---     checks('number|string')
+---     return type(value)
+--- end
+--- --[[
+--- get_argument_type(1)
+--- -- returns 'number'
+---
+--- get_argument_type('key1')
+--- -- returns 'string'
+---
+--- get_argument_type(true)
+--- -- raises an error: bad argument #1 to nil (number|string expected, got boolean)
+--- --]]
+--- ```
+---
+---### Optional types
+---
+---To make any of the supported types optional, prefix its name with a question mark (`?`).
+---In the example below, the `name` argument is optional.
+---This means that the `greet` function can accept `string` and `nil` values.
+---
+--- ```lua
+--- function greet(name)
+---     checks('?string')
+---     if name ~= nil then
+---         return 'Hello, ' .. name
+---     else
+---         return 'Hello from Tarantool'
+---     end
+--- end
+--- --[[
+--- greet('John')
+--- -- returns 'Hello, John'
+---
+--- greet()
+--- -- returns 'Hello from Tarantool'
+---
+--- greet(123)
+--- -- raises an error: bad argument #1 to nil (string expected, got number)
+--- --]]
+--- ```
+---
+---As for a specific type, you can make a [union type](doc://checks_union_type) value optional: `?number|string`.
+---
+---### Skipping argument checking
+---
+---You can skip checking of the specified arguments using the question mark (`?`) placeholder.
+---In this case, the argument can be any type.
+---
+--- ```lua
+--- function greet_fullname_any(firstname, lastname)
+---     checks('string', '?')
+---     return 'Hello, ' .. firstname .. ' ' .. tostring(lastname)
+--- end
+--- --[[
+--- greet_fullname_any('John', 'Doe')
+--- -- returns 'Hello, John Doe'
+---
+--- greet_fullname_any('John', 1)
+--- -- returns 'Hello, John 1'
+--- --]]
+--- ```
+---
+---## Table type qualifier
+---
+---A table type qualifier checks whether the values of a table passed as an argument conform to the specified types.
+---In this case, the following checks are made:
+---
+---- The argument is checked to conform to the `?table` type, and its content is validated.
+---- Table values are validated against the specified [string type qualifiers](doc://checks_string_type_qualifier).
+---- Table keys missing in `checks` are validated against the `nil` type.
+---
+---The code below checks that the first and second table values have the `string` and `number` types.
+---
+--- ```lua
+--- function configure_connection(options)
+---     checks({ 'string', 'number' })
+---     local ip_address = options[1] or '127.0.0.1'
+---     local port = options[2] or 3301
+---     return ip_address .. ':' .. port
+--- end
+--- --[[
+--- configure_connection({'0.0.0.0', 3303})
+--- -- returns '0.0.0.0:3303'
+---
+--- configure_connection({'0.0.0.0', '3303'})
+--- -- raises an error: bad argument options[2] to nil (number expected, got string)
+--- --]]
+--- ```
+---
+---In the next example, the same checks are made for the specified keys.
+---
+--- ```lua
+--- function configure_connection_opts(options)
+---     checks({ ip_address = 'string', port = 'number' })
+---     local ip_address = options.ip_address or '127.0.0.1'
+---     local port = options.port or 3301
+---     return ip_address .. ':' .. port
+--- end
+--- --[[
+--- configure_connection_opts({ip_address = '0.0.0.0', port = 3303})
+--- -- returns '0.0.0.0:3303'
+---
+--- configure_connection_opts({ip_address = '0.0.0.0', port = '3303'})
+--- -- raises an error: bad argument options.port to nil (number expected, got string)
+---
+--- configure_connection_opts({login = 'testuser', ip_address = '0.0.0.0', port = 3303})
+--- -- raises an error: unexpected argument options.login to nil
+--- --]]
+--- ```
+---
+---**Note:**
+---
+---Table qualifiers can be nested and use tables, too.
+---
+---When called inside a function, checks that the function's arguments conform to the specified types.
+---
+---@param type_1 string a [string](doc://checks_string_type_qualifier) or [table](doc://checks_table_type_qualifiers) type qualifier used to check the argument type
+---@param ... string optional type qualifiers used to check the types of [other arguments](doc://checks_number_of_arguments)
+---@overload fun(type_qualifiers: table)
+function checks(type_1, ...) end
+
+---The `checkers` global variable provides access to checkers for different types.
+---You can use this variable to add a [custom checker](doc://checks_custom_function) that performs arbitrary validations.
+---
+---**Note:**
+---
+---The `checkers` variable also provides access to checkers for Tarantool-specific types.
+---These checkers can be used in a custom checker.
+---@class checkers
+checkers = {}
+
+---Check whether the specified value is [datetime_object](doc://datetime_obj).
+---
+---**Example:**
+---
+--- ```lua
+--- local datetime = require('datetime')
+--- local is_datetime = checkers.datetime(datetime.new { day = 1, month = 6, year = 2023 })
+--- local is_interval = checkers.interval(datetime.interval.new { day = 1 })
+--- ```
+---
+---@param value any the value to check the type for
+---@return boolean # `true` if the specified value is `datetime_object`; otherwise, `false`
+function checkers.datetime(value) end
+
+---Check whether the specified value has the [decimal](doc://decimal) type.
+---
+---**Example:**
+---
+--- ```lua
+--- local decimal = require('decimal')
+--- local is_decimal = checkers.decimal(decimal.new(16))
+--- ```
+---
+---@param value any the value to check the type for
+---@return boolean # `true` if the specified value has the `decimal` type; otherwise, `false`
+function checkers.decimal(value) end
+
+---Check whether the specified value is [error_object](doc://box_error-error_object).
+---
+---**Example:**
+---
+--- ```lua
+--- local server_error = box.error.new({ code = 500, reason = 'Server error' })
+--- local is_error = checkers.error(server_error)
+--- ```
+---
+---@param value any the value to check the type for
+---@return boolean # `true` if the specified value is `error_object`; otherwise, `false`
+function checkers.error(value) end
+
+---Check whether the specified value is one of the following `int64` values:
+---
+---* a Lua number in a range from -2^53+1 to 2^53-1 (inclusive)
+---* Lua cdata `ctype<uint64_t>` in a range from 0 to `LLONG_MAX`
+---* Lua cdata `ctype<int64_t>`
+---
+---**Example:**
+---
+--- ```lua
+--- local is_int64 = checkers.int64(-1024)
+--- local is_uint64 = checkers.uint64(2048)
+--- ```
+---
+---@param value any the value to check the type for
+---@return boolean # `true` if the specified value is an `int64` value; otherwise, `false`
+function checkers.int64(value) end
+
+---Check whether the specified value is [interval_object](doc://interval_obj).
+---
+---**Example:**
+---
+--- ```lua
+--- local datetime = require('datetime')
+--- local is_datetime = checkers.datetime(datetime.new { day = 1, month = 6, year = 2023 })
+--- local is_interval = checkers.interval(datetime.interval.new { day = 1 })
+--- ```
+---
+---@param value any the value to check the type for
+---@return boolean # `true` if the specified value is `interval_object`; otherwise, `false`
+function checkers.interval(value) end
+
+---Check whether the specified value is a [tuple](doc://box_tuple-new).
+---
+---**Example:**
+---
+--- ```lua
+--- local is_tuple = checkers.tuple(box.tuple.new{1, 'The Beatles', 1960})
+--- ```
+---
+---@param value any the value to check the type for
+---@return boolean # `true` if the specified value is a tuple; otherwise, `false`
+function checkers.tuple(value) end
+
+---Check whether the specified value is one of the following `uint64` values:
+---
+---* a Lua number in a range from 0 to 2^53-1 (inclusive)
+---* Lua cdata `ctype<uint64_t>`
+---* Lua cdata `ctype<int64_t>` in range from 0 to `LLONG_MAX`
+---
+---**Example:**
+---
+--- ```lua
+--- local is_int64 = checkers.int64(-1024)
+--- local is_uint64 = checkers.uint64(2048)
+--- ```
+---
+---@param value any the value to check the type for
+---@return boolean # `true` if the specified value is an `uint64` value; otherwise, `false`
+function checkers.uint64(value) end
+
+---Check whether the specified value is [uuid_object](doc://uuid-module).
+---
+---**Example:**
+---
+--- ```lua
+--- local uuid = require('uuid')
+--- local is_uuid = checkers.uuid(uuid())
+--- local is_uuid_bin = checkers.uuid_bin(uuid.bin())
+--- local is_uuid_str = checkers.uuid_str(uuid.str())
+--- ```
+---
+---@param value any the value to check the type for
+---@return boolean # `true` if the specified value is `uuid_object`; otherwise, `false`
+function checkers.uuid(value) end
+
+---Check whether the specified value is [uuid](doc://uuid-module) represented by a 16-byte binary string.
+---
+---**See also:** [`uuid(value)`](lua://checkers.uuid)
+---
+---@param value any the value to check the type for
+---@return boolean # `true` if the specified value is `uuid` represented by a 16-byte binary string; otherwise, `false`
+function checkers.uuid_bin(value) end
+
+---Check whether the specified value is [uuid](doc://uuid-module) represented by a 36-byte hexadecimal string.
+---
+---**See also:** [`uuid(value)`](lua://checkers.uuid)
+---
+---@param value any the value to check the type for
+---@return boolean # `true` if the specified value is `uuid` represented by a 36-byte hexadecimal string; otherwise, `false`
+function checkers.uuid_str(value) end
+
+return checks

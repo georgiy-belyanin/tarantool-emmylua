@@ -1,0 +1,67 @@
+#!/usr/bin/env sh
+# Runtime-validate the samples by executing each one with Tarantool.
+#
+# This complements `samples/check` (which statically type-checks the samples
+# with emmylua_check). Here we actually RUN every sample to prove the code
+# works against a real Tarantool, not just that it type-checks.
+#
+# Each sample runs in its own temporary working directory (box.cfg writes
+# snapshot/WAL files to the cwd) and is force-exited after its top-level code
+# finishes, so instances started via box.cfg do not keep the process alive.
+#
+# Usage:
+#   samples/validate            # run every samples/*.lua
+set -u
+
+SAMPLES_DIR=$(cd "$(dirname "$0")" && pwd)
+
+if ! command -v tarantool >/dev/null 2>&1; then
+    echo "error: tarantool is not on PATH." >&2
+    exit 127
+fi
+
+# Detect Tarantool Enterprise. Community builds lack EE-only modules (e.g.
+# `compress`), so samples marked `validate: enterprise` are skipped on them.
+IS_EE=0
+if tarantool --version 2>/dev/null | grep -qi 'Tarantool Enterprise'; then
+    IS_EE=1
+fi
+
+fail=0
+for f in "$SAMPLES_DIR"/*.lua; do
+    [ -e "$f" ] || continue
+    name=$(basename "$f")
+    # Samples that need an external server/cluster are type-checked only; they
+    # opt out of runtime validation with a `validate: skip` marker near the top.
+    if head -n 5 "$f" | grep -q 'validate: skip'; then
+        printf "  skip  %s (type-check only)\n" "$name"
+        continue
+    fi
+    # Samples that need Enterprise-only modules run only on an EE build.
+    if [ "$IS_EE" -ne 1 ] && head -n 5 "$f" | grep -q 'validate: enterprise'; then
+        printf "  skip  %s (Enterprise Edition only)\n" "$name"
+        continue
+    fi
+    work=$(mktemp -d)
+    out=$(cd "$work" && tarantool -e "
+        local ok, err = pcall(dofile, [[$f]])
+        if not ok then io.stderr:write(tostring(err)) os.exit(1) end
+        os.exit(0)
+    " 2>&1)
+    rc=$?
+    if [ "$rc" -eq 0 ]; then
+        printf "  ok    %s\n" "$name"
+    else
+        printf "  FAIL  %s\n" "$name"
+        printf "%s\n" "$out" | sed 's/^/        /'
+        fail=1
+    fi
+    rm -rf "$work"
+done
+
+if [ "$fail" -eq 0 ]; then
+    echo "All samples ran successfully."
+else
+    echo "Some samples failed."
+fi
+exit "$fail"

@@ -3,6 +3,8 @@
 ---# Builtin `box.schema` submodule
 ---
 ---The `box.schema` submodule has data-definition functions for spaces, users, roles, function tuples, and sequences.
+---
+---@module box.schema
 box.schema = {}
 
 box.schema.space = {}

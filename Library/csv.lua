@@ -14,10 +14,10 @@
 local csv = {}
 
 ---@class csv.options
----@field delimiter string (default: comma) single-byte character to designate encloser of string
----@field quote_char string (default: quote mark) single-byte character to designate encloser of string
----@field chunk_size integer (default: 4096) number of characters to read at once (usually for file-IO efficiency)
----@field skip_head_lines string (default: 0) number of lines to skip at the start (usually for a header)
+---@field delimiter? string (default: comma) single-byte character to designate encloser of string
+---@field quote_char? string (default: quote mark) single-byte character to designate encloser of string
+---@field chunk_size? integer (default: 4096) number of characters to read at once (usually for file-IO efficiency)
+---@field skip_head_lines? integer (default: 0) number of lines to skip at the start (usually for a header)
 
 
 ---Get CSV-formatted input from `readable` and return a table as output. 

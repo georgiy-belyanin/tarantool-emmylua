@@ -1,0 +1,286 @@
+---@meta
+
+---# Builtin `utf8` module
+---
+---`utf8` is Tarantool's module for handling UTF-8 strings.
+---It includes some functions which are compatible with ones in
+---[Lua 5.3](https://www.lua.org/manual/5.3/manual.html#6.5)
+---but Tarantool has much more. For example, because internally
+---Tarantool contains a complete copy of the
+---"International Components For Unicode" library,
+---there are comparison functions which understand the default ordering
+---for Cyrillic (Capital Letter Zhe Ж = Small Letter Zhe ж)
+---and Japanese (Hiragana A = Katakana A).
+
+---Compare two strings with the Default Unicode Collation Element Table
+---(DUCET) for the
+---[Unicode Collation Algorithm](http://www.unicode.org/Public/UCA/10.0.0/allkeys.txt).
+---Thus 'å' is less than 'B', even though the code-point value of å (229) is greater
+---than the code-point value of B (66), because the algorithm depends on
+---the values in the Collation Element Table, not the code-point values.
+---
+---The comparison is done with primary weights. Therefore the
+---elements which affect secondary or later weights (such as "case"
+---in Latin or Cyrillic alphabets, or "kana differentiation" in Japanese)
+---are ignored. If asked "is this like a Microsoft case-insensitive
+---accent-insensitive collation" we tend to answer "yes", though the
+---Unicode Collation Algorithm is far more sophisticated than those
+---terms imply.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> utf8.casecmp('é','e'),utf8.casecmp('E','e')
+--- ---
+--- - 0
+--- - 0
+--- ...
+--- ```
+---
+---@param s1 string a string encoded with UTF-8
+---@param s2 string a string encoded with UTF-8
+---@return number # -1 meaning "less", 0 meaning "equal", +1 meaning "greater"
+function utf8.casecmp(s1, s2) end
+
+---The code-point number is the value that corresponds to a character
+---in the
+---[Unicode Character Database](http://www.unicode.org/Public/5.2.0/ucd/UnicodeData.txt)
+---This is not the same as the byte values of the encoded character,
+---because the UTF-8 encoding scheme is more complex than a simple
+---copy of the code-point number.
+---
+---Another way to construct a string with Unicode characters is
+---with the \u{hex-digits} escape mechanism, for example
+---'\u{41}\u{42}' and `utf8.char(65,66)` both produce the string 'AB'.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> utf8.char(229)
+--- ---
+--- - å
+--- ...
+--- ```
+---
+---@param code_point number a Unicode code point value, repeatable
+---@param ... number a Unicode code point value, repeatable
+---@return string # a UTF-8 string
+function utf8.char(code_point, ...) end
+
+---Compare two strings with the Default Unicode Collation Element Table
+---(DUCET) for the
+---[Unicode Collation Algorithm](http://www.unicode.org/Public/UCA/10.0.0/allkeys.txt).
+---Thus 'å' is less than 'B', even though the code-point value of å (229) is greater
+---than the code-point value of B (66), because the algorithm depends on
+---the values in the Collation Element Table, not the code values.
+---
+---The comparison is done with at least three weights. Therefore the
+---elements which affect secondary or later weights (such as "case"
+---in Latin or Cyrillic alphabets, or "kana differentiation" in Japanese)
+---are not ignored. and upper case comes after lower case.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> utf8.cmp('é','e'),utf8.cmp('E','e')
+--- ---
+--- - 1
+--- - 1
+--- ...
+--- ```
+---
+---@param s1 string a string encoded with UTF-8
+---@param s2 string a string encoded with UTF-8
+---@return number # -1 meaning "less", 0 meaning "equal", +1 meaning "greater"
+function utf8.cmp(s1, s2) end
+
+---Return true if the input character is an "alphabetic-like" character, otherwise return false.
+---Generally speaking a character will be considered alphabetic-like provided it
+---is typically used within a word, as opposed to a digit or punctuation.
+---It does not have to be a character in an alphabet.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> utf8.isalpha('Ж'),utf8.isalpha('å'),utf8.isalpha('9')
+--- ---
+--- - true
+--- - true
+--- - false
+--- ...
+--- ```
+---
+---@param character string | number a single UTF8 character, expressed as a one-byte string or a code point value
+---@return boolean # true or false
+function utf8.isalpha(character) end
+
+---Return true if the input character is a digit, otherwise return false.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> utf8.isdigit('Ж'),utf8.isdigit('å'),utf8.isdigit('9')
+--- ---
+--- - false
+--- - false
+--- - true
+--- ...
+--- ```
+---
+---@param character string | number a single UTF8 character, expressed as a one-byte string or a code point value
+---@return boolean # true or false
+function utf8.isdigit(character) end
+
+---Return true if the input character is lower case, otherwise return false.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> utf8.islower('Ж'),utf8.islower('å'),utf8.islower('9')
+--- ---
+--- - false
+--- - true
+--- - false
+--- ...
+--- ```
+---
+---@param character string | number a single UTF8 character, expressed as a one-byte string or a code point value
+---@return boolean # true or false
+function utf8.islower(character) end
+
+---Return true if the input character is upper case, otherwise return false.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> utf8.isupper('Ж'),utf8.isupper('å'),utf8.isupper('9')
+--- ---
+--- - true
+--- - false
+--- - false
+--- ...
+--- ```
+---
+---@param character string | number a single UTF8 character, expressed as a one-byte string or a code point value
+---@return boolean # true or false
+function utf8.isupper(character) end
+
+---Byte positions for start and end can be negative, which indicates
+---"calculate from end of string" rather than "calculate from start of string".
+---
+---If the string contains a byte sequence which is not valid in UTF-8,
+---each byte in the invalid byte sequence will be counted as one character.
+---
+---UTF-8 is a variable-size encoding scheme. Typically
+---a simple Latin letter takes one byte, a Cyrillic letter
+---takes two bytes, a Chinese/Japanese character takes three
+---bytes, and the maximum is four bytes.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> utf8.len('G'),utf8.len('ж')
+--- ---
+--- - 1
+--- - 1
+--- ...
+---
+--- tarantool> string.len('G'),string.len('ж')
+--- ---
+--- - 1
+--- - 2
+--- ...
+--- ```
+---
+---@param s string a string encoded with UTF-8
+---@param start_byte? integer byte position of the first character
+---@param end_byte? integer byte position where to stop
+---@return number # the number of characters in the string, or between start and end
+function utf8.len(s, start_byte, end_byte) end
+
+---Return the same string, lower case.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> utf8.lower('ÅΓÞЖABCDEFG')
+--- ---
+--- - åγþжabcdefg
+--- ...
+--- ```
+---
+---@param s string a string encoded with UTF-8
+---@return string # the same string, lower case
+function utf8.lower(s) end
+
+---The `next` function is often used in a loop to get one character
+---at a time from a UTF-8 string.
+---
+---**Example:**
+---
+---In the string 'åa' the first character is 'å', it starts
+---at position 1, it takes two bytes to store so the
+---character after it will be at position 3, its Unicode
+---code point value is (decimal) 229.
+---
+--- ```tarantoolsession
+--- tarantool> -- show next-character position + first-character codepoint
+--- tarantool> utf8.next('åa', 1)
+--- ---
+--- - 3
+--- - 229
+--- ...
+--- tarantool> -- (loop) show codepoint of every character
+--- tarantool> for position,codepoint in utf8.next,'åa' do print(codepoint) end
+--- 229
+--- 97
+--- ...
+--- ```
+---
+---@param s string a string encoded with UTF-8
+---@param start_byte? integer byte position where to start within the string, default is 1
+---@return number byte_position byte position of the next character
+---@return number code_point the code point value of the next character
+function utf8.next(s, start_byte) end
+
+---Character positions for start and end can be negative, which indicates
+---"calculate from end of string" rather than "calculate from start of string".
+---
+---The default value
+---for end-character is the length of the input string. Therefore, saying
+---`utf8.sub(1, 'abc')` will return 'abc', the same as the input string.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> utf8.sub('åγþжabcdefg', 5, 8)
+--- ---
+--- - abcd
+--- ...
+--- ```
+---
+---@param s string a string encoded as UTF-8
+---@param start_character number the position of the first character
+---@param end_character? number the position of the last character
+---@return string # a UTF-8 string, the "substring" of the input value
+function utf8.sub(s, start_character, end_character) end
+
+---Return the same string, upper case.
+---
+---**Note:**
+---
+---In rare cases the upper-case result may be longer
+---than the lower-case input, for example `utf8.upper('ß')` is 'SS'.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> utf8.upper('åγþжabcdefg')
+--- ---
+--- - ÅΓÞЖABCDEFG
+--- ...
+--- ```
+---
+---@param s string a string encoded with UTF-8
+---@return string # the same string, upper case
+function utf8.upper(s) end
