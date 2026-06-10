@@ -48,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `box.iproto.override()` handler return type (`boolean`) and a couple of `box.iproto` doc-comment artifacts.
 * `csv.options` fields are now optional.
 * `datetime.parse()` now has an optional `opts` argument and a `datetime` return type.
+* `http.client` connection methods now resolve (the connection class was unlinked from `http.new`), and a stray character in the `http.request` signature is removed.
 
 ## [0.2.0] - 28.05.25
 

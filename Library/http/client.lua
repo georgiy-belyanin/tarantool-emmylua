@@ -7,6 +7,7 @@
 ---The HTTP client uses the [`libcurl`](https://curl.haxx.se/libcurl/) library under the hood and takes into account the [environment variables](https://curl.haxx.se/libcurl/c/libcurl-env.html) libcurl understands.
 local http = {}
 
+---@class http.client
 local http_client = {}
 
 ---@class http.client.options
@@ -154,7 +155,7 @@ function http_client:stat() end
 ---@param opts? http.client.request.options
 ---@return http.response
 ---@async
-function http.request(method, url, body, opts)` end
+function http.request(method, url, body, opts) end
 
 ---Shortcut for `http.request("PATCH", url, body, opts)`
 ---
