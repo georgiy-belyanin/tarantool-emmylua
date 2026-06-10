@@ -302,6 +302,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [x] `table` (Tarantool extensions)
     - [x] `tap`
     - [ ] `tarantool`
+    - [x] `ulid`
     - [x] `uri`
     - [x] `utf8`
     - [x] `uuid`

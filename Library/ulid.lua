@@ -1,0 +1,292 @@
+---@meta
+
+---# Builtin `ulid` module
+---
+---*Since 3.6.0*
+---
+---The `ulid` module implements ULID (Universally Unique Lexicographically
+---Sortable Identifier) support in Tarantool. A ULID is a 128-bit identifier
+---consisting of:
+---
+---* a 48-bit timestamp in milliseconds since the Unix epoch
+---* an 80-bit random (entropy) component
+---
+---ULID strings are encoded using **Crockford Base32**, a compact and
+---human-friendly alphabet that excludes visually ambiguous characters.
+---
+---In binary form, ULIDs are represented as 16-byte values in **big-endian**
+---byte order. This ensures that the lexicographical order of binary ULIDs
+---matches their chronological order, in accordance with the ULID specification.
+---
+---ULIDs have several useful properties:
+---
+---* They are lexicographically sortable by creation time.
+---* They fit entirely into 26 ASCII characters.
+---* They avoid visually ambiguous symbols (`I`, `L`, `O`, `U`).
+---* They have 128 bits of total uniqueness-same as UUID v4.
+---
+---Tarantool uses a *monotonic* ULID generator. This ensures that multiple ULIDs
+---created within the same millisecond are strictly increasing and preserve
+---sort order: for any two ULIDs generated in the same millisecond, the one
+---created later is greater than the earlier one.
+---
+---Internally, the monotonic generator keeps the last generated ULID for the
+---current millisecond and increments the 80-bit random part for each subsequent
+---ULID. A real overflow of the random part can happen only after generating
+---`2^80` ULIDs within the same millisecond, which is practically impossible
+---on real hardware. However, for strict correctness of the ULID specification
+---and to avoid silent wrap-around, the implementation detects this overflow
+---and fails the next generation attempt with a Lua error
+---(`ULID random component overflow`).
+---
+---To use this module, run the following command:
+---
+--- ```lua
+--- ulid = require('ulid')
+--- ```
+---@overload fun(): ulid
+local ulid = {}
+
+---A ULID object returned by [`ulid.new()`](lua://ulid.new), [`ulid.fromstr()`](lua://ulid.fromstr),
+---or [`ulid.frombin()`](lua://ulid.frombin).
+---
+---ULID objects support the full set of Lua comparison operators:
+---
+---* `==` and `~=` - equality and inequality.
+---* `<` and `<=` - lexicographical comparison.
+---* `>` and `>=` - lexicographical comparison.
+---
+---The comparison is based on the internal 16-byte representation in
+---big-endian order and is consistent with the ULID specification:
+---for ULIDs created by the monotonic generator, later ULIDs are greater
+---than earlier ones, including ULIDs generated within the same millisecond.
+---
+---Comparison works both between ULID objects and between a ULID object
+---and a ULID string:
+---
+---* `u1 == u2` compares two ULID objects directly.
+---* `u1 == "01..."` converts the string to ULID and compares values.
+---* `u1 < "01..."` or `"01..." < u1` convert the string argument to ULID
+---  and perform lexicographical comparison.
+---
+---Examples:
+---
+--- ```tarantoolsession
+--- tarantool> u1 = ulid.new()
+--- tarantool> u2 = ulid.new()
+--- tarantool> u1 < u2, u1 <= u2, u1 == u2, u1 ~= u2, u1 > u2, u1 >= u2
+--- ---
+--- - true
+--- - true
+--- - false
+--- - true
+--- - false
+--- - false
+--- ...
+---
+--- tarantool> u = ulid.new()
+--- tarantool> s = u:str()
+--- tarantool> u == s, u < s, u > s
+--- ---
+--- - true
+--- - false
+--- - false
+--- ...
+---
+--- tarantool> u == "not-a-valid-ulid"
+--- ---
+--- - false
+--- ...
+---
+--- tarantool> u < "not-a-valid-ulid"
+--- ---
+--- - error: '[string "return u < "not-a-valid-ulid""]:1: incorrect value to convert to
+---     ulid as 2 argument'
+--- ...
+--- ```
+---@class ulid: ffi.cdata*
+local ulid_obj = {}
+
+---Create a new ULID object.
+---
+---This function uses the monotonic generator described in the overview.
+---Multiple ULIDs created within the same millisecond are strictly increasing.
+---
+---Example:
+---
+--- ```tarantoolsession
+--- tarantool> ulid.new()
+--- ---
+--- - 06DGE3YNDCM2PPWJT3SKTTRNZR
+--- ...
+--- ```
+---
+---@return ulid ulid a new ULID object
+function ulid.new() end
+
+---Create a new ULID and return its **string** representation.
+---
+---This is a shortcut for `ulid.new():str()`.
+---
+---The result is always 26 characters, encoded using Crockford Base32.
+---
+---Example:
+---
+--- ```tarantoolsession
+--- tarantool> ulid.str()
+--- ---
+--- - 06DGE480BWZ6H5BKX0KS3Q8S2G
+--- ...
+--- ```
+---
+---@return string ulid a 26-byte ULID string
+function ulid.str() end
+
+---Create a new ULID and return its **binary** representation
+---as a 16-byte string.
+---
+---This is a shortcut for `ulid.new():bin()`.
+---
+---Example:
+---
+--- ```tarantoolsession
+--- tarantool> #ulid.bin()
+--- ---
+--- - 16
+--- ...
+--- ```
+---
+---@return string ulid a 16-byte ULID in binary form
+function ulid.bin() end
+
+---Create a ULID object from a 26-character string.
+---
+---The input must be a valid ULID string encoded using Crockford Base32.
+---If the string is invalid (wrong length or invalid symbols), `nil`
+---is returned.
+---
+---Example:
+---
+--- ```tarantoolsession
+--- tarantool> u = ulid.fromstr('06DGE4FH80PHA28YZVV5Z473T4')
+--- tarantool> u
+--- ---
+--- - 06DGE4FH80PHA28YZVV5Z473T4
+--- ...
+--- ```
+---
+---@param ulid_string string ULID in 26-character string form
+---@return ulid? ulid converted ULID or `nil`
+function ulid.fromstr(ulid_string) end
+
+---Create a ULID object from a 16-byte binary string.
+---
+---Example:
+---
+--- ```tarantoolsession
+--- tarantool> u1 = ulid.new()
+--- tarantool> b = u1:bin()
+--- tarantool> u2 = ulid.frombin(b)
+--- tarantool> u1 == u2
+--- ---
+--- - true
+--- ...
+--- ```
+---
+---@param ulid_bin string ULID in 16-byte binary string form
+---@return ulid ulid converted ULID
+function ulid.frombin(ulid_bin) end
+
+---Check if the given value is a ULID cdata object.
+---
+---Example:
+---
+--- ```tarantoolsession
+--- tarantool> ulid.is_ulid(ulid.new())
+--- ---
+--- - true
+--- ...
+---
+--- tarantool> ulid.is_ulid("string")
+--- ---
+--- - false
+--- ...
+--- ```
+---
+---@param value any a value of any type
+---@return boolean is_ulid `true` if the value is a ULID, otherwise `false`
+function ulid.is_ulid(value) end
+
+---Return the ULID as a 16-byte binary string.
+---
+---Example:
+---
+--- ```tarantoolsession
+--- tarantool> u = ulid.new()
+--- tarantool> b = u:bin()
+--- tarantool> #b, b
+--- ---
+--- - 16
+--- - "\x01\x9B\a\xAD==\x81u۶-\x93hPa\xAE"
+--- ...
+--- ```
+---
+---@return string ulid ULID in binary form (16-byte string)
+function ulid_obj:bin() end
+
+---Return the ULID as a 26-character string.
+---
+---ULID objects also implement the standard Lua `__tostring` metamethod.
+---This means that calling `tostring(u)` for a ULID object `u` returns
+---the same value as `u:str()`, and ULID objects are automatically
+---converted to their 26-character string representation when needed
+---in string context.
+---
+---Example:
+---
+--- ```tarantoolsession
+--- tarantool> u = ulid.new()
+--- tarantool> u:str(), tostring(u)
+--- ---
+--- - 06DGFBE3J07B7DB5A3JP4WQ9CM
+--- - 06DGFBE3J07B7DB5A3JP4WQ9CM
+--- ...
+--- ```
+---
+---@return string ulid ULID in string form (26-byte string)
+function ulid_obj:str() end
+
+---Check if the ULID is the nil ULID (all 16 bytes are zero).
+---
+---Example:
+---
+--- ```tarantoolsession
+--- tarantool> ulid.NULL:isnil()
+--- ---
+--- - true
+--- ...
+---
+--- tarantool> ulid.new():isnil()
+--- ---
+--- - false
+--- ...
+--- ```
+---
+---@return boolean is_nil `true` for [`ulid.NULL`](lua://ulid.NULL), otherwise `false`
+function ulid_obj:isnil() end
+
+---A nil ULID object - a ULID that contains 16 zero bytes.
+---
+---Example:
+---
+--- ```tarantoolsession
+--- tarantool> ulid.NULL
+--- ---
+--- - 00000000000000000000000000
+--- ...
+--- ```
+---
+---@type ulid
+ulid.NULL = nil
+
+return ulid

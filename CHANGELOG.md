@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Builtin `compat` module declarations.
 * Tarantool stdlib extensions: `table.deepcopy`/`table.copy`, `os.environ`/`os.setenv`, `debug.sourcedir`/`debug.sourcefile`, and the `utf8` module.
 * Builtin `tap` module declarations.
+* Builtin `ulid` module declarations.
 
 ### Fixed
 
