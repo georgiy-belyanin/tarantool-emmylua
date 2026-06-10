@@ -52,6 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `datetime.parse()` now has an optional `opts` argument and a `datetime` return type.
 * `http.client` connection methods now resolve (the connection class was unlinked from `http.new`), and a stray character in the `http.request` signature is removed.
 * `iconv` converter instances are now callable.
+* `uri.escape` and `uri.unescape` options are now optional.
 
 ## [0.2.0] - 28.05.25
 
