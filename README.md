@@ -262,6 +262,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
         + [x] `index` (partial)
         + [x] `info`
         + [x] `iproto`
+        + [x] `read_view` (`open()` is **(EE)**)
         + [x] `schema`
         + [x] `session`
         + [x] `slab`
