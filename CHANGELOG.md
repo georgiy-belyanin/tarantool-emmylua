@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Trigger functions to `box.ctl` and functions for managing the cluster.
 * `box.schema.func` definitions.
 * `box.schema.sequence` definitions.
+* Builtin `msgpack` module declarations.
 
 ### Fixed
 

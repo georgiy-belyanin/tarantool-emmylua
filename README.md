@@ -288,7 +288,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [x] `json` (partial)
     - [x] `log`
     - [ ] `merger`
-    - [ ] `msgpack`
+    - [x] `msgpack`
     - [x] `net.box` (partial)
     - [ ] `pickle`
     - [ ] `popen`
