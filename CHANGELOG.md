@@ -53,6 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `http.client` connection methods now resolve (the connection class was unlinked from `http.new`), and a stray character in the `http.request` signature is removed.
 * `iconv` converter instances are now callable.
 * `uri.escape` and `uri.unescape` options are now optional.
+* `uuid:isnil()` is now the documented object method (the module-level `uuid.is_nil` it replaced does not exist at runtime).
 
 ## [0.2.0] - 28.05.25
 
