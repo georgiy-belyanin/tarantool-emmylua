@@ -41,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `box.schema.role.grant()` missing a parameter.
 * `box.on_rollback()` was mistakenly declared as a second `box.on_commit()`.
 * The `box.iterator` alias is now the iterator-direction union (it was modelled as a table), so `select`/`pairs`/`count` accept directions such as `"GE"`; `after`/`fetch_pos` moved to `box.space.select_options`.
+* `box.iproto.override()` handler return type (`boolean`) and a couple of `box.iproto` doc-comment artifacts.
 
 ## [0.2.0] - 28.05.25
 
