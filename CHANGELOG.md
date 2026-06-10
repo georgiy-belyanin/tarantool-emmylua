@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Enterprise Edition `box.cfg` options: audit logging, flight recorder, authentication and password policy, `wal_ext`, and `secure_erasing`.
 * Documented `box.error.*` database error code constants.
 * Completed `box.index`: added `compact`, `drop`, `random`, `rename`, and `stat` methods.
+* Completed `box.stat`: `box.stat.memtx()`, `box.stat.vinyl()`, `box.stat.net.thread`, and the full set of request-type and network statistics fields.
 
 ### Fixed
 

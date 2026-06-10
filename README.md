@@ -267,7 +267,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
         + [x] `session`
         + [x] `slab`
         + [x] `space`
-        + [x] `stat` (partial)
+        + [x] `stat`
         + [x] `tuple`
     - [x] `buffer`
     - [x] `clock`
