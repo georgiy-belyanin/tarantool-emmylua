@@ -270,6 +270,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
         + [x] `tuple`
     - [x] `buffer`
     - [x] `clock`
+    - [x] `compat`
     - [x] `console`
     - [x] `config`
     - [x] `crypto`

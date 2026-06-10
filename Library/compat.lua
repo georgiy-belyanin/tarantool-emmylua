@@ -1,0 +1,160 @@
+---@meta
+
+---# Builtin `compat` module
+---
+---The usual way to handle compatibility problems is to introduce an option for a new behavior and leave the old one by default.
+---It is not always the perfect way.
+---
+---Sometimes developers want to keep the old behavior for existing applications and offer the new behavior by default for the new ones.
+---For example, the old behavior is known to be problematic, or less safe, or it doesn't correspond to user expectations.
+---In contrast, the user doesn't always read all the documentation and often assumes good defaults.
+---It was decided to introduce a compatibility module to provide a direct way to deprecate unwanted behavior.
+---
+---The `compat` module is basically a global table of options with additional verbose interface and helper functions.
+---There are three stages of changing behavior:
+---
+---1. Old behavior by default.
+---2. New behavior by default.
+---3. New behavior is frozen and the old behavior is removed.
+---
+---During the first two stages, a user can toggle options via the interface and change the behavior according to one's needs.
+---At the last stage, the old behavior is removed from the codebase, and the option is marked as obsolete.
+---Because `compat` is a global instance, options can be hardcoded into it or added in runtime, for example, by external module.
+---
+---Options are switched to the next stage in major releases. In this way, developers are able to adapt to the new standard behavior and test it before switching to the next release.
+---If something is broken by a new Tarantool version, a developer can still have a way to fix it by a simple config change, that is, explicitly select the old behavior.
+---
+---Consider example below:
+---
+---* The option `json_esc_slash` is introduced in the 2.11 minor release. Default is set to 'old', but a developer can utilize the new behavior or test the updated behavior by switching it manually to 'new'.
+---
+---* In release 3.0, the next major release, `json_esc_slash` default is switched to 'new'.
+---  Now, developers who don't manage to adapt to the new behavior, are able to switch the option to 'old' and fix their module in the future.
+---
+---* In release 4.0, `json_esc_slash` is marked as obsolete, and the old behavior is no longer accessible. Developers are forced to use the new behavior.
+---
+---## Basic usage
+---
+---If you want to explicitly secure every behavior in `compat`, you can do it manually, and then call `compat.dump()` to get a Lua command that sets up the `compat` with all the options selected.
+---You should place this commands at the beginning of code in your `init.lua` file. In this way, you are guaranteed to get the same behavior on any other Tarantool version.
+---See a [tutorial on using compat](doc://compat-tutorial) for more examples.
+---
+---## Configuration options
+---
+---Another way to handle compatibility issues is setting the `compat.*` [configuration options](doc://configuration_reference_compat).
+---Similarly to the `compat` Lua module options, the configuration options can have
+---values `new` and `old`. The set of configuration options matches the set of
+---options available in the `compat` module.
+---
+---Below is an example fragment of a YAML configuration file:
+---
+--- ```yaml
+--- compat:
+---   box_space_max: 'new'
+---   sql_seq_scan_default: 'old'
+---   fiber_slice_default: 'old'
+---   binary_data_decoding: 'new'
+--- ```
+---
+---Learn more in the [configuration reference](doc://configuration_reference).
+---@class compat
+---@field json_escape_forward_slash compat.option Whether the JSON encoder escapes the '/' sign.
+---@field yaml_pretty_multiline compat.option Encode multiline strings in a block style with the `lua-yaml` encoder.
+---@field fiber_channel_close_mode compat.option Channel force (old) versus graceful (new) closing for `channel:close()`.
+---@field box_cfg_replication_sync_timeout compat.option Default value for `box.cfg.replication_sync_timeout` (300 seconds for old, 0 for new).
+---@field sql_seq_scan_default compat.option Default value for the `sql_seq_scan` session setting.
+---@field fiber_slice_default compat.option Default value of the max fiber slice.
+---@field binary_data_decoding compat.option Format in which varbinary field values are returned for handling in Lua: plain strings (old) or `varbinary` objects (new).
+---@field box_info_cluster_meaning compat.option Meaning of `box.info.cluster`: a single replica set (old) or the entire cluster (new).
+---@field box_session_push_deprecation compat.option Deprecation of `box.session.push()`.
+---@overload fun(options: table<string, compat.option_value>)
+local compat = {}
+
+---@alias compat.option_value 'new' | 'old' | 'default'
+
+---A `compat` option object.
+---
+---Each option is accessed as `compat.<option_name>`. It can be assigned a
+---[`compat.option_value`](lua://compat.option_value) (`'new'`, `'old'`, or `'default'`) directly,
+---and the whole module is callable to set several options at once.
+---
+---**Example:**
+---
+--- ```lua
+--- tarantool> compat.json_escape_forward_slash
+--- ---
+--- - current: old
+---   default: new
+---   brief: <...>
+--- ...
+--- ```
+---@class compat.option
+---@field current compat.option_value The state of the option.
+---@field default compat.option_value The default state of the option.
+---@field brief string Text option description with a link to more detailed description.
+
+---Get a Lua command that sets up `compat` with the selected options.
+---
+---Use `compat.dump()` to get a specific configuration, then copy and paste it into the
+---console (or use `loadstring()`) to set all options to a specific value.
+---
+---The optional `mode` controls how option values are reported:
+---
+---* `nil` outputs obsolete unset options as `'default'`.
+---* `'current'` is the same as `nil` but with `default` set to the current values.
+---* `'new'` outputs obsolete options as `'new'`.
+---* `'old'` outputs obsolete options as `'new'`.
+---* `'default'` outputs obsolete options as `'default'`.
+---
+---**Example:**
+---
+--- ```lua
+--- tarantool> compat.dump('new')
+--- ---
+--- - require('compat')({
+---       option_2 = 'new',
+---       json_escape_forward_slash = 'new',
+---   })
+--- ...
+--- ```
+---
+---@param mode? 'current' | 'new' | 'old' | 'default'
+---@return string command Lua command that restores the dumped configuration.
+function compat.dump(mode) end
+
+---Add a new option during runtime or hot reload an existing one.
+---
+---You must provide a table with:
+---
+---* `name` (string)
+---* `default` ('new' / 'old')
+---* `brief` (explanation of the option, can be multiline string)
+---* `obsolete` ('X.Y' / nil) — tarantool version that marked option as obsolete. When nil, option is treated as non-obsolete.
+---* `action` function (argument - boolean is_new, changes the behavior accordingly)
+---* `run_action_now` (true / false / nil) if `add_option` should run action afterwards, false by default
+---
+---You can change an existing option in runtime using `add_option()`, it will update all the fields but
+---keep currently selected behavior if any. The new action will be called afterwards.
+---
+---**Example:**
+---
+--- ```tarantoolsession
+--- tarantool> compat.add_option{
+---                  name = 'option_4',
+---                  default = 'new',
+---                  brief = "<...>",
+---                  obsolete = nil,          -- you can explicitly mark the option as non-obsolete
+---                  action = function(is_new)
+---                       print(("option_4 action was called with is_new = %s!"):format(is_new))
+---                  end,
+---                  run_action_now = true
+---            }
+--- option_4 postaction was called with is_new = true!
+--- ---
+--- ...
+--- ```
+---
+---@param option { name: string, default: 'new' | 'old', brief: string, obsolete?: string, action: fun(is_new: boolean), run_action_now?: boolean }
+function compat.add_option(option) end
+
+return compat

@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Builtin `swim` module declarations.
 * Builtin `varbinary` module declarations.
 * Builtin `pickle` module declarations.
+* Builtin `compat` module declarations.
 
 ### Fixed
 
