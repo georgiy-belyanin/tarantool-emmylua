@@ -54,6 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `iconv` converter instances are now callable.
 * `uri.escape` and `uri.unescape` options are now optional.
 * `uuid:isnil()` is now the documented object method (the module-level `uuid.is_nil` it replaced does not exist at runtime).
+* `xlog.pairs()` name typo (was `xlog.paris()`) and its iterator return type.
 
 ## [0.2.0] - 28.05.25
 
