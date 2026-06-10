@@ -292,7 +292,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [x] `msgpack`
     - [x] `net.box` (partial)
     - [ ] `pickle`
-    - [ ] `popen`
+    - [x] `popen`
     - [x] `socket`
     - [x] `strict`
     - [x] `string` (Tarantool extensions)
