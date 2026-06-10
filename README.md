@@ -276,6 +276,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [x] `crypto`
     - [x] `csv`
     - [x] `datetime`
+    - [x] `debug` (Tarantool extensions)
     - [x] `decimal`
     - [x] `digest`
     - [x] `errno`
@@ -294,12 +295,14 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [x] `net.box` (partial)
     - [x] `pickle`
     - [x] `popen`
+    - [x] `os` (Tarantool extensions)
     - [x] `socket`
     - [x] `strict`
     - [x] `string` (Tarantool extensions)
+    - [x] `table` (Tarantool extensions)
     - [ ] `tarantool`
     - [x] `uri`
-    - [ ] `utf8`
+    - [x] `utf8`
     - [x] `uuid`
     - [x] `xlog`
     - [x] `yaml`
