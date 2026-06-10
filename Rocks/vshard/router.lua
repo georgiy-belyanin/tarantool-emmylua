@@ -225,7 +225,7 @@ function router.discovery_set(mode) end
 
 ---@class vshard.router.replica_info
 ---@field network_timeout number A timeout for the request. The value is updated automatically on each 10th successful request and each 2nd failed request.
----@field status status_info Status of the instance
+---@field status vshard.router.status_info Status of the instance
 ---@field uuid vshard.uuid UUID of the instance
 ---@field uri string URI of the instance
 
@@ -291,7 +291,7 @@ function router.disable() end
 ---Manual fiber wakeup can help speed up tests for master change. Another use case is performing some actions with a router in the router console.
 ---
 ---The function does nothing if master search is not configured for any replica set.
-function vshard.router.master_search_wakeup() end
+function router.master_search_wakeup() end
 
 ---Search for the bucket in the whole cluster.
 ---

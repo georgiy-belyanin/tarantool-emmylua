@@ -41,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `datetime` arithmetic operators: `datetime + interval`, `datetime - interval`, and `datetime - datetime`.
 * Completed `json`: module overview header and `__serialize` parameter documentation.
 * Completed `net.box`: remote spaces (`conn.space`), streams (`new_stream`/`begin`/`commit`/`rollback`), futures (`is_async` results), `wait_state`, `watch`, `on_schema_reload`/`on_shutdown`, and `net_box.self`.
+* Completed the `vshard.storage` API (`cfg`/`info`/`call`/`sync`, bucket pin/ref/management, introspection, `on_bucket_event`, `recovery_wakeup`) and exposed `vshard.storage` from the rock.
 
 ### Fixed
 

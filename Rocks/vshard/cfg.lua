@@ -4,7 +4,7 @@
 
 ---@alias vshard.cfg.replica {uri: string|number|table, listen: string|number|table?, name: string?, zone: string|integer?, master: boolean?}
 
----@alias vshard.cfg.replicaset {replicas: replica[], weight: table?, lock: boolean?, master: UUID?}
+---@alias vshard.cfg.replicaset {replicas: vshard.cfg.replica[], weight: number?, lock: boolean?, master: 'auto' | vshard.uuid | nil}
 
 ---@alias vshard.discovery_mode
 ---| "on" # Discovery fiber works during all the lifetime of the router. Even after all buckets are discovered, it will still come to storages and download their buckets with some big period (DISCOVERY_IDLE_INTERVAL). This is useful if the bucket topology changes often and the number of buckets is not big. The router will keep its route table up to date even when no requests are processed.

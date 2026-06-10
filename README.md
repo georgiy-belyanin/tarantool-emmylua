@@ -319,7 +319,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [ ] `luatest`
     - [ ] `metrics`
     - [ ] `queue`
-    - [x] `vshard` (partial)
+    - [x] `vshard`
 
 ## Contributing
 
