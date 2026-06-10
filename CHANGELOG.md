@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Global `tonumber64`/`dostring` and `package.searchroot`/`package.setsearchroot`.
 * Builtin `compress` module declarations with `zlib`, `zstd`, and `lz4` submodules (Enterprise Edition).
 * Builtin `box.read_view` submodule declarations (Enterprise Edition).
+* `config.storage` submodule declarations (Enterprise Edition).
 
 ### Fixed
 

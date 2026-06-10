@@ -274,7 +274,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [x] `compat`
     - [x] `compress` **(EE)**
     - [x] `console`
-    - [x] `config`
+    - [x] `config` (incl. **(EE)** `config.storage`)
     - [x] `crypto`
     - [x] `csv`
     - [x] `datetime`
