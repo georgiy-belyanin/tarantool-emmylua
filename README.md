@@ -319,6 +319,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [ ] `luatest`
     - [x] `membership`
     - [x] `metrics`
+    - [x] `mysql`
     - [ ] `queue`
     - [x] `vshard`
 
