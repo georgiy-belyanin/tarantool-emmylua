@@ -314,7 +314,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
 
 * Popular Tarantool rocks
     - [ ] `checks`
-    - [ ] `crud`
+    - [x] `crud`
     - [ ] `exprationd`
     - [ ] `luatest`
     - [x] `membership`

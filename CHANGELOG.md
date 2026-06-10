@@ -46,6 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `membership` rock declarations (SWIM-based gossip mesh) and the tunable `membership.options`.
 * `mysql` SQL connector rock declarations.
 * `pg` SQL connector rock declarations.
+* `crud` rock declarations (CRUD operations over a `vshard` cluster).
 
 ### Fixed
 
