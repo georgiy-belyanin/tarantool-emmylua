@@ -271,6 +271,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [x] `buffer`
     - [x] `clock`
     - [x] `compat`
+    - [x] `compress` **(EE)**
     - [x] `console`
     - [x] `config`
     - [x] `crypto`
