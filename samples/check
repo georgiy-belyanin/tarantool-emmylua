@@ -1,0 +1,87 @@
+#!/usr/bin/env sh
+# Type-check the samples against the repository's annotations.
+#
+# The sample files (unlike everything under Library/ and Rocks/) are NOT
+# `---@meta` definition files: they are real Tarantool usage. emmylua_check
+# does not emit diagnostics for `---@meta` files, so the only way to test the
+# annotations is to consume them from ordinary code like these samples.
+# A clean run (no warnings/errors) means the annotations are correct.
+#
+# emmylua_check resolves `workspace.library` paths as absolute only, so this
+# script generates a machine-local `.emmyrc.json` with absolute paths to the
+# repository's Library/ and Rocks/ before running the check. The generated
+# `.emmyrc.json` is git-ignored.
+#
+# Usage:
+#   samples/check                 # check all samples (reports warnings; exits 0 unless errors)
+#   samples/check --strict        # CI mode: also fail if warnings exceed the baseline below
+#   samples/check --verbose       # extra flags are forwarded to emmylua_check
+set -eu
+
+# In --strict mode (used by CI) the run fails if the warning count exceeds this
+# baseline. These warnings are the documented generic-analyzer limitations --
+# `box.tuple<T, U>` missing-fields on insert/replace/upsert and the fun map/zip
+# variadic-return cases -- which are intentionally not
+# worked around. Update this number when that set legitimately changes.
+BASELINE_WARNINGS=12
+
+STRICT=0
+if [ "${1:-}" = "--strict" ]; then
+    STRICT=1
+    shift
+fi
+
+SAMPLES_DIR=$(cd "$(dirname "$0")" && pwd)
+REPO_ROOT=$(cd "$SAMPLES_DIR/.." && pwd)
+
+cat > "$SAMPLES_DIR/.emmyrc.json" <<EOF
+{
+  "runtime": { "version": "LuaJIT" },
+  "workspace": {
+    "library": [
+      "$REPO_ROOT/Library",
+      "$REPO_ROOT/Rocks"
+    ]
+  }
+}
+EOF
+
+if ! command -v emmylua_check >/dev/null 2>&1; then
+    echo "error: emmylua_check is not on PATH." >&2
+    echo "Install it with: cargo install emmylua_check" >&2
+    exit 127
+fi
+
+# Non-strict (default): just run the checker and forward its exit code.
+if [ "$STRICT" -eq 0 ]; then
+    exec emmylua_check "$SAMPLES_DIR" "$@"
+fi
+
+# Strict mode: run, echo the report, propagate errors, and gate on the warning count.
+set +e
+output=$(emmylua_check "$SAMPLES_DIR" "$@" 2>&1)
+rc=$?
+set -e
+
+# Strip any ANSI escapes (emmylua_check omits them when not a TTY, so this is a no-op there).
+clean=$(printf '%s\n' "$output" | sed 's/\x1b\[[0-9;]*m//g')
+printf '%s\n' "$clean"
+
+# emmylua_check exits non-zero on errors -- propagate that immediately.
+if [ "$rc" -ne 0 ]; then
+    echo "FAIL: emmylua_check reported errors (exit $rc)." >&2
+    exit "$rc"
+fi
+
+# The summary line looks like "  12 warnings" (the per-file counts are bracketed,
+# e.g. "[5 warnings]", and are excluded by the end-of-line anchor).
+warnings=$(printf '%s\n' "$clean" | grep -E '^[[:space:]]*[0-9]+ warnings?$' | grep -oE '[0-9]+' | head -1 || true)
+warnings=${warnings:-0}
+
+if [ "$warnings" -gt "$BASELINE_WARNINGS" ]; then
+    echo "FAIL: $warnings warnings exceed the baseline of $BASELINE_WARNINGS." >&2
+    echo "      A new warning usually means an annotation regression; see the report above." >&2
+    exit 1
+fi
+
+echo "OK: $warnings warning(s), within the baseline of $BASELINE_WARNINGS."

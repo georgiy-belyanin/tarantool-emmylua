@@ -49,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `crud` rock declarations (CRUD operations over a `vshard` cluster).
 * `expirationd` rock declarations (TTL background tasks).
 * Builtin `checks` module declarations.
+* `samples/` usage test suite with `check` (emmylua_check) and `validate` (tarantool) harnesses, run in CI.
 
 ### Fixed
 

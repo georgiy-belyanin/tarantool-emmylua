@@ -1,0 +1,5 @@
+/samples/.emmyrc.json
+*.snap
+*.xlog
+*.vylog
+512

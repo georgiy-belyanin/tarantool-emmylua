@@ -15,3 +15,35 @@ jobs:
       uses: actions/checkout@v4
     - name: Spell Check
       uses: crate-ci/typos@master
+
+  annotations:
+    name: Annotations (emmylua_check)
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Install emmylua_check
+      uses: baptiste0928/cargo-install@v3
+      with:
+        crate: emmylua_check
+    - name: Type-check sample annotations
+      # --strict fails if the warning count exceeds the documented baseline in
+      # samples/check (the documented generic-analyzer limitations),
+      # so any NEW annotation warning fails CI.
+      run: ./samples/check --strict
+
+  samples:
+    name: Samples (tarantool)
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Install Tarantool
+      run: |
+        curl -L https://tarantool.io/release/3/installer.sh | sudo bash
+        sudo apt-get install -y tarantool
+    - name: Run samples against Tarantool
+      # Samples needing an external server/cluster (validate: skip) or an
+      # Enterprise-bundled module such as compress/metrics (validate: enterprise)
+      # are skipped on this community build; the rest must run cleanly.
+      run: ./samples/validate

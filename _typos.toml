@@ -1,2 +1,7 @@
 [default.extend-words]
 fpr = "fpr"
+
+[default.extend-identifiers]
+# `ot` is a deliberate short local name for an "order tuple" in
+# samples/tuples.lua, not a misspelling of to/of/or/not.
+ot = "ot"
