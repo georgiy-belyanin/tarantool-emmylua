@@ -272,7 +272,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [x] `clock`
     - [x] `console`
     - [x] `config`
-    - [ ] `crypto`
+    - [x] `crypto`
     - [x] `csv`
     - [x] `datetime`
     - [x] `decimal`
