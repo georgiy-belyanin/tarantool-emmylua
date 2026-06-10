@@ -254,7 +254,7 @@ For more information on using LSP refer to the [project's documentation](https:/
 Legend: `(partial)` — present but not yet covering the whole documented API; **(EE)** — [Enterprise Edition](https://www.tarantool.io/compare/) only API (marked as such in the annotations).
 
 * Builtin Tarantool modules
-    - [x] `box` (partial)
+    - [x] `box`
         + [x] `backup`
         + [x] `cfg`
         + [x] `ctl`

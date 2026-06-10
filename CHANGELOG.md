@@ -31,10 +31,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Builtin `box.read_view` submodule declarations (Enterprise Edition).
 * `config.storage` submodule declarations (Enterprise Edition).
 * `experimental.connpool` submodule declarations.
+* `box.prepare()`, `box.unprepare()`, the prepared statement object, and the `box.NULL` constant.
 
 ### Fixed
 
 * `box.schema.role.grant()` missing a parameter.
+* `box.on_rollback()` was mistakenly declared as a second `box.on_commit()`.
+* The `box.iterator` alias is now the iterator-direction union (it was modelled as a table), so `select`/`pairs`/`count` accept directions such as `"GE"`; `after`/`fetch_pos` moved to `box.space.select_options`.
 
 ## [0.2.0] - 28.05.25
 
