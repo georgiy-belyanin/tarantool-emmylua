@@ -320,6 +320,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [x] `membership`
     - [x] `metrics`
     - [x] `mysql`
+    - [x] `pg`
     - [ ] `queue`
     - [x] `vshard`
 

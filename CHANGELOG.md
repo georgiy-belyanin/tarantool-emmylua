@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `metrics` rock declarations (core collectors API) and the `metrics.plugins.graphite`/`json`/`prometheus` exporters.
 * `membership` rock declarations (SWIM-based gossip mesh) and the tunable `membership.options`.
 * `mysql` SQL connector rock declarations.
+* `pg` SQL connector rock declarations.
 
 ### Fixed
 
