@@ -313,7 +313,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [x] global functions (`tonumber64`, `dostring`, `package.searchroot`/`setsearchroot`)
 
 * Popular Tarantool rocks
-    - [ ] `checks`
+    - [x] `checks`
     - [x] `crud`
     - [x] `expirationd`
     - [ ] `luatest`
