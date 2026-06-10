@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Completed `box.stat`: `box.stat.memtx()`, `box.stat.vinyl()`, `box.stat.net.thread`, and the full set of request-type and network statistics fields.
 * `box.tuple:transform()` method.
 * `config:reload()` method.
+* `datetime` arithmetic operators: `datetime + interval`, `datetime - interval`, and `datetime - datetime`.
 
 ### Fixed
 
@@ -46,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * The `box.iterator` alias is now the iterator-direction union (it was modelled as a table), so `select`/`pairs`/`count` accept directions such as `"GE"`; `after`/`fetch_pos` moved to `box.space.select_options`.
 * `box.iproto.override()` handler return type (`boolean`) and a couple of `box.iproto` doc-comment artifacts.
 * `csv.options` fields are now optional.
+* `datetime.parse()` now has an optional `opts` argument and a `datetime` return type.
 
 ## [0.2.0] - 28.05.25
 
