@@ -31,6 +31,21 @@
 ---| 'write' # Fibers wait for their data to be written to the write-ahead log (no fsync(2)).
 ---| 'fsync' # Fibers wait for their data, fsync(2) follows each write(2).
 
+---@alias box.cfg.auth_type
+---| 'chap-sha1' # use the CHAP protocol to authenticate users with SHA-1 hashing applied to passwords.
+---| 'pap-sha256' # use PAP authentication with the SHA256 hashing algorithm.
+
+---@alias box.cfg.audit_format
+---| 'plain'
+---| 'csv'
+---| 'json'
+
+---Auxiliary information added to each write-ahead log record.
+---@class box.cfg.wal_ext
+---@field old? boolean Set to `true` to store old tuples in a write-ahead log for all spaces.
+---@field new? boolean Set to `true` to store new tuples in a write-ahead log for all spaces.
+---@field spaces? table<string, { old?: boolean, new?: boolean }> Adjust storing old and new tuples for specific spaces. The configuration for specific spaces has priority over the global configuration.
+
 ---# Builtin `box.cfg` submodule
 ---
 ---The `box.cfg` submodule is used for specifying [server configuration parameters](lua://box.cfg).
@@ -127,5 +142,35 @@
 ---@field box.cfg.wal_mode? box.cfg.wal_mode (Default: 'write') Specify fiber-WAL-disk synchronization mode as
 ---@field worker_pool_threads? integer (Default: 4) he maximum number of threads to use during execution of certain internal processes (currently socket.getaddrinfo() and coio_call())
 ---@field work_dir? string (Default: nil) path to work dir of tarantool
+---@field audit_log? string **(Enterprise Edition only.)** Enable audit logging and define the log location. Accepts a string defining the location: a file path (optionally with the `file:` prefix), a program (with the `|` or `pipe:` prefix), or a system log (with the `syslog:` prefix). (Default: nil)
+---@field audit_nonblock? boolean **(Enterprise Edition only.)** Specify the logging behavior if the system is not ready to write. If set to `true`, Tarantool does not block during logging if the system is non-writable and writes a message instead. Only has an effect if `audit_log` is set to `syslog` or `pipe`. (Default: true)
+---@field audit_format? box.cfg.audit_format **(Enterprise Edition only.)** Specify the format that is used for the audit log events -- plain text, CSV or JSON format. (Default: 'json')
+---@field audit_filter? string **(Enterprise Edition only.)** Enable logging for a specified subset of audit events. Accepts a combination of event names and event groups, comma-separated. (Default: 'compatibility')
+---@field audit_spaces? string | string[] **(Enterprise Edition only.)** *Since 3.0.0.* The array of space names for which data operation events (`space_select`, `space_insert`, `space_replace`, `space_delete`) should be logged. If set to `box.NULL`, the data operation events are logged for all spaces. (Default: box.NULL)
+---@field audit_extract_key? boolean **(Enterprise Edition only.)** *Since 3.0.0.* If set to `true`, the audit subsystem extracts and prints only the primary key instead of full tuples in DML events. (Default: false)
+---@field flightrec_enabled? boolean **(Enterprise Edition only.)** *Since 2.11.0.* Enable the flight recorder. (Default: false)
+---@field flightrec_logs_size? integer **(Enterprise Edition only.)** *Since 2.11.0.* Specify the size (in bytes) of the log storage. You can set this option to `0` to disable the log storage. (Default: 10485760)
+---@field flightrec_logs_max_msg_size? integer **(Enterprise Edition only.)** *Since 2.11.0.* Specify the maximum size (in bytes) of the log message. The log message is truncated if its size exceeds this limit. (Default: 4096, Maximum: 16384)
+---@field flightrec_logs_log_level? box.cfg.log_level **(Enterprise Edition only.)** *Since 2.11.0.* Specify the level of detail the log has. (Default: 6)
+---@field flightrec_metrics_period? integer **(Enterprise Edition only.)** *Since 2.11.0.* Specify the time period (in seconds) that defines how long metrics are stored from the moment of dump. (Default: 180)
+---@field flightrec_metrics_interval? number **(Enterprise Edition only.)** *Since 2.11.0.* Specify the time interval (in seconds) that defines the frequency of dumping metrics. This value shouldn't exceed `flightrec_metrics_period`. (Default: 1.0, Minimum: 0.001)
+---@field flightrec_requests_size? integer **(Enterprise Edition only.)** *Since 2.11.0.* Specify the size (in bytes) of storage for the request and response data. You can set this parameter to `0` to disable a storage of requests and responses. (Default: 10485760)
+---@field flightrec_requests_max_req_size? integer **(Enterprise Edition only.)** *Since 2.11.0.* Specify the maximum size (in bytes) of a request entry. A request entry is truncated if this size is exceeded. (Default: 16384)
+---@field flightrec_requests_max_res_size? integer **(Enterprise Edition only.)** *Since 2.11.0.* Specify the maximum size (in bytes) of a response entry. A response entry is truncated if this size is exceeded. (Default: 16384)
+---@field auth_delay? number **(Enterprise Edition only.)** *Since 2.11.0.* Specify a period of time (in seconds) that a specific user should wait for the next attempt after failed authentication. (Default: 0)
+---@field auth_retries? number **(Enterprise Edition only.)** *Since 3.0.0.* Specify the maximum number of authentication retries allowed before `auth_delay` is enforced. (Default: 0)
+---@field auth_type? box.cfg.auth_type **(Enterprise Edition only.)** *Since 2.11.0.* Specify an authentication protocol. (Default: 'chap-sha1')
+---@field disable_guest? boolean **(Enterprise Edition only.)** *Since 2.11.0.* If `true`, disables access over remote connections from unauthenticated or guest access users. This option affects both `net.box` and replication connections. (Default: false)
+---@field password_min_length? integer **(Enterprise Edition only.)** *Since 2.11.0.* Specify the minimum number of characters for a password. (Default: 0)
+---@field password_enforce_uppercase? boolean **(Enterprise Edition only.)** *Since 2.11.0.* If `true`, a password should contain uppercase letters (A-Z). (Default: false)
+---@field password_enforce_lowercase? boolean **(Enterprise Edition only.)** *Since 2.11.0.* If `true`, a password should contain lowercase letters (a-z). (Default: false)
+---@field password_enforce_digits? boolean **(Enterprise Edition only.)** *Since 2.11.0.* If `true`, a password should contain digits (0-9). (Default: false)
+---@field password_enforce_specialchars? boolean **(Enterprise Edition only.)** *Since 2.11.0.* If `true`, a password should contain at least one special character (such as `&|?!@$`). (Default: false)
+---@field password_lifetime_days? integer **(Enterprise Edition only.)** *Since 2.11.0.* Specify the maximum period of time (in days) a user can use the same password. The default 0 value means that a password never expires. (Default: 0)
+---@field password_history_length? integer **(Enterprise Edition only.)** *Since 2.11.0.* Specify the number of unique new user passwords before an old password can be reused. (Default: 0)
+---@field wal_ext? box.cfg.wal_ext **(Enterprise Edition only.)** *Since 2.11.0.* Allows you to add auxiliary information to each write-ahead log record. For example, you can enable storing an old and new tuple for each CRUD operation performed. (Default: nil)
+---@field secure_erasing? boolean **(Enterprise Edition only.)** *Since 3.0.0.* If `true`, forces Tarantool to overwrite a data file a few times before deletion to render recovery of a deleted file impossible. The option applies to both `.xlog` and `.snap` files as well as Vinyl data files. (Default: false)
 ---@overload fun(box_cfg: box.cfg)
 box.cfg = {}
+
+return box.cfg

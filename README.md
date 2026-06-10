@@ -256,7 +256,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
 * Builtin Tarantool modules
     - [x] `box`
         + [x] `backup`
-        + [x] `cfg`
+        + [x] `cfg` (incl. **(EE)** audit, flight recorder, authentication, `wal_ext`, `secure_erasing` options)
         + [x] `ctl`
         + [x] `error`
         + [x] `index` (partial)
