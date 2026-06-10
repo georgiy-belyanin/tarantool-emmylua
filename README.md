@@ -301,13 +301,14 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [x] `string` (Tarantool extensions)
     - [x] `table` (Tarantool extensions)
     - [x] `tap`
-    - [ ] `tarantool`
+    - [x] `tarantool`
     - [x] `ulid`
     - [x] `uri`
     - [x] `utf8`
     - [x] `uuid`
     - [x] `xlog`
     - [x] `yaml`
+    - [x] global functions (`tonumber64`, `dostring`, `package.searchroot`/`setsearchroot`)
 
 * Popular Tarantool rocks
     - [ ] `checks`
