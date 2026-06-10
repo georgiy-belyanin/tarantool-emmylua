@@ -251,7 +251,9 @@ For more information on using LSP refer to the [project's documentation](https:/
 
 ## Progress
 
-* Builtin Tarantool CE modules
+Legend: `(partial)` — present but not yet covering the whole documented API; **(EE)** — [Enterprise Edition](https://www.tarantool.io/compare/) only API (marked as such in the annotations).
+
+* Builtin Tarantool modules
     - [x] `box` (partial)
         + [x] `backup`
         + [x] `cfg`
@@ -292,7 +294,7 @@ For more information on using LSP refer to the [project's documentation](https:/
     - [ ] `popen`
     - [x] `socket`
     - [x] `strict`
-    - [x] `string`
+    - [x] `string` (Tarantool extensions)
     - [ ] `tarantool`
     - [x] `uri`
     - [ ] `utf8`
