@@ -317,6 +317,7 @@ Legend: `(partial)` — present but not yet covering the whole documented API; *
     - [ ] `crud`
     - [ ] `exprationd`
     - [ ] `luatest`
+    - [x] `membership`
     - [x] `metrics`
     - [ ] `queue`
     - [x] `vshard`
